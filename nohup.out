@@ -1,0 +1,30 @@
+=> Booting Puma
+=> Rails 4.1.6 application starting in development on http://0.0.0.0:5000
+=> Run `rails server -h` for more startup options
+=> Notice: server is listening on all interfaces (0.0.0.0). Consider using 127.0.0.1 (--binding option)
+=> Ctrl-C to shutdown server
+** [NewRelic][04/19/16 01:29:25 +0000 rehabreviews-177940 (2826)] INFO : Starting the New Relic agent in "development" environment.
+** [NewRelic][04/19/16 01:29:25 +0000 rehabreviews-177940 (2826)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+** [NewRelic][04/19/16 01:29:25 +0000 rehabreviews-177940 (2826)] INFO : Reading configuration from config/newrelic.yml (/home/nitrous/apc-directory)
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : New Relic Agent Developer Mode enabled.
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Environment: development
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Dispatcher: puma
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Application: Rehab Reviews (Development)
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Sinatra instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Net instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing deferred Rack instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Rack::Builder middleware instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Sidekiq instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Memcache instrumentation for dalli gem
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing middleware-based Excon instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing ActiveRecord 4 instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Rails 3+ middleware instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Rails 4 Error instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Rails 4 Controller instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Installing Rails 4 view instrumentation
+** [NewRelic][04/19/16 01:29:26 +0000 rehabreviews-177940 (2826)] INFO : Finished instrumentation
+** [NewRelic][04/19/16 01:29:28 +0000 rehabreviews-177940 (2826)] INFO : Reporting to: https://rpm.newrelic.com/accounts/992589/applications/8411079
+** [NewRelic][04/19/16 01:29:31 +0000 rehabreviews-177940 (2826)] INFO : Doing deferred dependency-detection before Rack startup
+A server is already running. Check /home/nitrous/apc-directory/tmp/pids/server.pid.
+Exiting
+** [NewRelic][04/19/16 01:29:31 +0000 rehabreviews-177940 (2826)] INFO : Starting Agent shutdown

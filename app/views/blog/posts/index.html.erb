@@ -1,0 +1,11 @@
+<header>  
+  <h1 class="page-title">
+    RehabReviews Blog <small><%= link_to '(New post)', :new_blog_post, class: 'text-primary' if resource_signed_in? %></small>
+  </h1><hr>
+</header>
+<section id="blog_posts">
+  <%= render @posts %>
+</section>
+<footer>
+  <%= paginate @posts %>
+</footer>

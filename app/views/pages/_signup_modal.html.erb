@@ -1,0 +1,26 @@
+<div id="PopupSignupForm">
+  <div class="mc-modal">
+    <img class="mc-close" src="http://www.rehabreviews.com/wp-content/mc-signup/close-icon.png">
+    <div class="mc-content">
+      <img id="mc-logo" src="http://www.rehabreviews.com/wp-content/mc-signup/logo.jpg">
+      <span>Sign up and receive a FREE copy of our e-book <br>"How I Got Sober"</span>
+      <div id="mc-field">
+        <div id="field">
+          <%= form_tag mailchimp_submit_path, :class=> "form", remote: true do %>
+            <%= label_tag :email, "Email Address" %>
+            <%= text_field_tag :email, nil, :id => 'mc-email', :type => "text" %>
+            <span id="mc-error">&nbsp;</span>
+            <%= submit_tag "Subscribe Now", :alt => "Absenden", class: "mc-button"%>
+          <% end %>
+        </div>
+        <div id="confirm">Please check your email to confirm sign up. Thank you!</div>
+      </div>
+      <div id="mc-ad">
+        <a id="mc-adlink" target="_blank" href="http://rehabreviews.com/benefits-check/">
+          <img  src="http://www.rehabreviews.com/wp-content/mc-signup/300x100.jpg" border="0">
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mc-modal-bg"></div>
+</div>

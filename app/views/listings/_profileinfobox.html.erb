@@ -1,0 +1,385 @@
+<div id="profile-info-box" role="tabpanel">
+  <% if !amp_renderable? %>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs nav-justified" role="tablist">
+    <li role="presentation" class="active"><a href="#listing-info-tab" aria-controls="home" role="tab" data-toggle="tab"><span><i class="fa fa-info-circle"></i> Info</span></a></li>
+    <li role="presentation"><a href="#listing-services-tab" aria-controls="home" role="tab" data-toggle="tab"><span><i class="fa fa-life-ring"></i> Services</span></a></li>
+    <li role="presentation"><a href="#location-map-tab" aria-controls="profile" role="tab" data-toggle="tab"><span><i class="fa fa-map-marker"></i> Location</span></a></li>
+  </ul>
+  <% end %>
+  
+  <!-- DFP for mobile only -->
+  <%= render 'application/dfp' if mobile_device? %>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="listing-info-tab">
+      <h2 class="listing-more-info">
+        <% if @listing.sober_living? %>
+          Contact Info —
+        <% elsif @listing.interventionist? || @listing.criminal_attorney? || @listing.health? %>
+          Contact Information for
+        <% elsif @listing.meeting? || @listing.alternative? || @listing.dentist? || @listing.methadone? || @listing.military? || @listing.sleep? %>
+          Location Information About
+        <% elsif @listing.dui_dwi_attorney? %>
+          Location Information For
+        <% else %>
+          More Information About
+        <% end %>
+
+        <%= highlight "#{@listing.full_name(title: @listing.alternative? || @listing.dentist? || @listing.methadone? || @listing.sleep?)}" %>
+
+        <% if @listing.meeting? %>
+          | <%= @listing.directory.initials %> Meetings
+        <% elsif @listing.military? %>
+          | Active Military and Veteran Healthcare Information
+        <% elsif @listing.methadone? %>
+          | Methadone, Subutex, Suboxone Support
+        <% elsif @listing.alternative? %>
+          | Alternative Medicine Information
+        <% elsif @listing.dentist? %>
+          | Dental Healthcare Information
+        <% elsif @listing.dui_dwi_attorney? %>
+          | DUI/DWI Legal Representation
+        <% elsif @listing.sleep? %>
+          | Sleep Medicine Physician Information
+        <% end %>
+      </h2>
+
+      <div class="more-info-content">
+        <% if @listing.review_url.present? %>
+          <p><%= link_to "Read our official #{@listing.full_name} review.", @listing.review_url %></p>
+        <% end %>
+
+        <% if @listing.description.present? %>
+          <%= @listing.description.html_safe %>
+
+        <% elsif @listing.therapist? %>
+          <p><%= @listing.full_name %> currently has a therapy practice <%= @listing.city_str %>, <%= @listing.city_str %>. <%= @listing.full_name %> is licensed to provide medical treatment under their counseling credentials, <%= @listing.title %>.</p>
+          <p>Anyone with questions, inquiries, or therapy needs pertaining to <%= @listing.name %> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name %> is accepting new clients, contact them directly at their office, which is local to the <%= @listing.zipcode %> area.</p>
+          <p>We encourage you to contact <%= @listing.full_name %> by the phone number listed here, before your travel to their <%= @listing.address_1 %> location.</p>
+
+        <% elsif @listing.interventionist? %>
+          <p><%= @listing.full_name %> offers intervention services in <%= @listing.city_str %>, <%= @listing.state_str %> for <%= facility(@listing) %>. <%= @listing.full_name %> holds licenses or has earned a title to provide guidance on addiction-related topics under their <%= @listing.title %> credentials.</p>
+          <p>If you have immediate questions, inquiries, or intervention needs relating directly to <%= @listing.full_name %> you may reach out to them at their <%= @listing.city_str %> location in <%= @listing.state_str %> at <%= @listing.phone %>. It is best to go through the <%= facility(@listing) %> contact information listed here, rather than approaching <%= @listing.last_name %> through personal contact information.</p>
+          <p>To find out if <%= @listing.full_name %> is a good fit for your alcohol or substance abuse intervention needs, contact them directly at their office, located near the <%= @listing.zipcode %> area.</p>
+          <p>Contacting <%= @listing.full_name %> by the phone, before your travel to their <%= @listing.address_1 %> location is generally a good idea.</p>
+
+        <% elsif @listing.sober_living? %>
+          <p><%= @listing.full_name %> provides the <%= @listing.city_str %> region with a sober living environment. <%= @listing.full_name %> is licensed as a Recovery Related Services, Sober Living Environment and accepts Private Pay Only. To discuss the specifics of your sober living needs with <%= @listing.full_name %>, you should contact them directly at their <%= @listing.city_str %> facility.</p>
+          <p>To find out if <%= @listing.full_name %> is available to provide you with a sober living environment in <%= @listing.state_str %>, you should inquire at their <%= @listing.city_str %> location.</p>
+
+        <% elsif @listing.criminal_attorney? %>
+          <p><%= @listing.full_name%> offers legal representation in <%= "#{@listing.city_str}, #{@listing.state_abbreviation_str}"%><%= " for #{@listing.areas_of_law}" if @listing.additional_data.present? %>. <%= @listing.full_name%> holds is licensed to practice law in the state of <%= @listing.state_str%> under the name <%= @listing.full_name%>.</p>
+          <p>If you have specific questions, inquiries, or legal needs relating directly to <%= @listing.full_name%> you may reach out to them at their <%= @listing.city_str%> location at <%= @listing.phone%>. It is best to go through the <%= @listing.full_name%> contact information listed here, rather than consulting <%= @listing.full_name%> through personal contact information which is sometimes found elsewhere on the web.</p>
+          <p>To find out if <%= @listing.full_name%> is a good fit for your criminal attorneys needs, contact them directly at their office, located near the <%= @listing.zipcode%> area.</p>
+          <p>Contacting <%= @listing.full_name%> by the phone, before traveling to their <%= @listing.city_str%> location is generally a good idea.</p>
+
+        <% elsif @listing.health? %>
+          <p><%= @listing.full_name %> offers health care services in <%= "#{@listing.city_str}, #{@listing.state_str}" %> as a/an <%= @listing.category_list %> professional. <%= @listing.additional_data.presence %> <%= @listing.full_name %> <%=@listing.title.present? ? "holds the title #{@listing.title} but " : "" %>may offer additional health care support, depending on their availability and your particular needs.</p>
+          <p>If you have immediate questions, inquiries, or medical needs relating directly to <%= @listing.full_name %> you may reach out to them at their <%= @listing.city_str%> location in <%= @listing.state_str %> at <%= @listing.phone %>. It is best to go through the <%= @listing.city_str%> contact information listed here, rather than approaching <%= @listing.full_name %> through personal contact information.</p>
+          <p>To find out if <%= @listing.full_name %> is a good fit for your health care needs, contact them directly at their office, located near the <%= @listing.zipcode %> area.</p>
+          <p>Contacting <%= @listing.full_name %> via telephone, before traveling to their <%= @listing.city_str%> location is generally a choice.</p>
+
+        <% elsif @listing.alternative? %>
+          <p><%= @listing.full_name(title: true)%> currently provides <%= @listing.city_state %> with alternative medicine support under their credentials <%= @listing.title %>.</p>
+          <p><%= @listing.full_name(title: true)%> can be reached via phone at <%= @listing.phone %>.</p>
+          <p>Potential patients with questions, inquiries, or specific alternative healthcare needs relating to <%= @listing.full_name(title: true)%> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name(title: true)%> is a good fit for your alternative medicine needs, you are encouraged to contact them on their office phone at <%= @listing.phone %>.</p>
+
+        <% elsif @listing.dentist? %>
+          <p><%= @listing.full_name(title: true) %> currently provides <%= @listing.city_state %> with dentist support under their credentials <%= @listing.title %>.</p>
+          <p><%= @listing.full_name(title: true) %> can be reached via phone at <%= @listing.phone %>.</p>
+          <p>Potential patients with questions, inquiries, or specific healthcare needs relating to <%= @listing.full_name(title: true) %> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name(title: true) %> is a good fit for your medical needs, you are encouraged to contact them on their office phone at <%= @listing.phone %>.</p>
+
+        <% elsif @listing.dui_dwi_attorney? %>
+          <p><%= @listing.full_name %> currently practices law in <%= @listing.city_state %>.</p>
+          <p><%= @listing.full_name %> can be reached via phone at <%= @listing.phone %>. The areas of practice that <%= @listing.full_name %> specializes in include <%= @listing.city_str %>.</p>
+          <p>Potential clients seeking legal representation with questions, inquiries, or specific needs relating to <%= @listing.full_name %> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name %> is a good fit for your particular situation, you are encouraged to contact them on their office phone at <%= @listing.phone %>.</p>
+
+        <% elsif @listing.meeting? %>
+          <p><%= @listing.full_name %> currently hosts <%= @listing.directory.name %> meetings in <%= @listing.city_state %>. The <%= @listing.full_name %> meeting meets on <%= @listing.additional_data %>.</p>
+          <p>Individuals with questions, inquiries, or specific meeting attendance needs pertaining to <%= @listing.full_name %> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name %> is a good fit for you, you are welcomed to visit their <%= @listing.directory.initials %> meeting at the time mentioned above, which is local to the <%= @listing.zipcode %> area.</p>
+
+        <% elsif @listing.methadone? %>
+          <p><%= @listing.full_name(title: true) %> currently provides <%= @listing.city_state %>.</p>
+          <p><%= @listing.full_name(title: true) %> can be reached via phone at <%= @listing.phone %>.</p>
+          <p>Potential patients with questions, inquiries, or specific Methadone, Subutex, or Suboxone needs relating to <%= @listing.full_name(title: true) %> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name(title: true) %> is a good fit for your Methadone, Subutex, or Suboxone support needs, you are encouraged to contact them on their office phone at <%= @listing.phone %>.</p>
+
+        <% elsif @listing.military? %>
+          <p><%= @listing.full_name %> currently provides active and retired military personnel with healthcare support in <%= @listing.city_state %>.</p>
+          <p><%= @listing.full_name %> can be reached via phone at <%= @listing.phone %>.</p>
+          <p>Military servicepersons with questions, inquiries, or specific healthcare needs relating to <%= @listing.full_name %> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name %> is a good fit for your particular situation, you are encouraged to contact them on their office phone at <%= @listing.phone %>.</p>
+
+        <% elsif @listing.sleep? %>
+          <p><%= @listing.full_name(title: true) %> currently provides <%= @listing.city_state %> with sleep medicine support under their credentials <%= @listing.title %>.</p>
+          <p><%= @listing.full_name(title: true) %> can be reached via phone at <%= @listing.phone %>.</p>
+          <p>Potential patients with questions, inquiries, or specific healthcare needs relating to <%= @listing.full_name(title: true) %> should contact them directly at their <%= @listing.city_str %> location in <%= @listing.state_str %>.</p>
+          <p>To find out if <%= @listing.full_name(title: true) %> is a good fit for your medical needs, you are encouraged to contact them on their office phone at <%= @listing.phone %>.</p>
+
+        <% else %>
+          <%= render 'defaultdescription'  %>
+        <% end %>
+      </div>
+
+      <h3 class="listing-review-guidelines">
+        <% if @listing.interventionist? || @listing.health? %>
+          <%= @listing.full_name %> <%= highlight 'Reviews' %>
+        <% elsif @listing.criminal_attorney? || @listing.meeting? || @listing.dui_dwi_attorney? || @listing.military? %>
+          <%= @listing.full_name %> <%= highlight 'Reviews & Feedback'%>
+        <% elsif @listing.alternative? || @listing.methadone? || @listing.sleep? %>
+          <%= @listing.full_name(title: true) %> <%= highlight 'Reviews & Feedback'%>
+        <% else %>
+          Review <%= highlight 'Guidelines' %>
+        <% end %>
+
+        <% if @listing.meeting? %>
+          | <%= @listing.directory.initials %> Meetings
+        <% elsif @listing.methadone? %>
+          | Methadone, Subutex, Suboxone Support
+        <% end %>
+      </h3>
+    
+      <% if @listing.custom_description.blank? %>
+        <% if @listing.therapist? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name %> reviews from people who have first-hand experience with their professional services. If you’re a current or past client of <%= @listing.full_name %> in <%= @listing.city_str %>, <%= @listing.state_abbreviation_str %> we encourage you to leave your review below for others who may need counseling, therapy, and related medical assistance.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t reveal personal information about <%= @listing.full_name %> or any of their current or former patients or clients.</p>
+          <p>Please don’t take content from someone else’s review and post it here. Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future patients, not filled with promotional or commercial content. </p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name %>, you may <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> to resolve disputed or factual untrue information, but please don’t write promotional content about your own facility.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a>.</p>
+  
+        <% elsif @listing.interventionist? %>
+          <p>Rehab Reviews is always looking for more real-life <%= @listing.full_name %> reviews from clients, patients, or staff who lived in or visited their sober living environment. If you’re a existing or previous patron of <%= @listing.full_name %> or are familiar with someone who stayed with them in the <%= @listing.city_str %> region, we would love it if you shared your experiences below, so others seeking care with them can make better, more informed choices.</p>
+          <p>We understand if you feel compelled to use colorful language (rough business!) but we can’t allow anyone to threaten bodily injury, write hate speech, and/or include racist words meant to denigrate or offend on the basis of belonging to a particular group, religion, ethnicity, or race.</p>
+          <p>Try to be kind.</p>
+          <p>If you can avoid it, we would prefer you not disclose personally identifiable information or data about <%= @listing.full_name %> or their recent or current clients at <%= facility(@listing) %>.
+          <p>Also, we can’t allow you to beg, borrow, or steal content from someone else’s review of <%= @listing.full_name %> and publish it here.</p>
+          <p>Rehab Reviews urges factual reviews from actual interventionist experiences.  We want this page to be useful for future clients or their family members, not jam-packed with promotional or commercial material for <%= facility(@listing) %>.</p>
+          <p>We withhold the right to remove comments or review that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name %> or <%= facility(@listing) %>, you may <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> to resolve disputed or factual untrue information, but please don’t write promotional content about your own place of business.
+          <p>If you are a client of <%= @listing.full_name %> and have information that can help improve the quality of the data or information on this page, you can <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> directly.</p>
+          <p>If you have ideas to share on how we can improve our directory pages, you may also <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a>.</p>
+  
+        <% elsif @listing.sober_living? %>
+          <p>Rehab Reviews is always looking for more real-life <%= @listing.name %> reviews from clients, patients, or staff who lived in or visited their sober living environment. If you’re a existing or previous patron of <%= @listing.name %> or are familiar with someone who stayed with them in the <%= @listing.city_str %> region, we would love it if you shared your experiences below, so others seeking care with them can make better, more informed choices.</p>
+          <p>We understand if you feel compelled to use colorful language (rough business!) but we can’t allow anyone to threaten bodily injury, write hate speech, and/or include racist words meant to denigrate or offend on the basis of belonging to a particular group, religion, ethnicity, or race.</p>
+          <p>Try to be kind.</p>
+          <p>If you can avoid it, we would prefer you not disclose personally identifiable information or data about <%= @listing.name %> or their recent or current clients.</p>
+          <p>Also, we can’t allow you to beg, borrow, or steal content from someone else’s review of <%= @listing.name %> and publish it here.</p>
+          <p>Rehab Reviews urges factual reviews from actual sober living experiences.  We want this page to be useful for future clients or their family members, not jam-packed with promotional or commercial material. </p>
+          <p>We withhold the right to remove comments or review that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name %> or <%= facility(@listing) %>, you may <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> to resolve disputed or factual untrue information, but please don’t write promotional content about your own place of business.
+          <p>If you are a client of <%= @listing.full_name %> and have information that can help improve the quality of the data or information on this page, you can <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> directly.</p>
+          <p>If you have ideas to share on how we can improve our directory pages, you may also <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a>.</p>
+  
+        <% elsif @listing.health? %>
+          <p>Rehab Reviews is always looking for more first-hand <%= @listing.full_name %> reviews from clients, patients, or staff who lived in or visited their sober living environment. If you’re a existing or previous patron of <%= @listing.full_name %> or are familiar with someone who stayed with them in the <%= @listing.city_str%> region, we would love it if you shared your experiences below, so others seeking care with them can make better, more informed choices.</p>
+          <p>We understand if you feel compelled to use colorful language (health care is a messy business!) but we can’t allow anyone to threaten bodily injury, write hate speech, and/or include racist words meant to denigrate or offend on the basis of belonging to a particular group, religion, ethnicity, or race.</p>
+          <p>Try to be kind.</p>
+          <p>If you can avoid it, we would prefer you not disclose personally identifiable information or data about <%= @listing.full_name %> or their recent or current clients.</p>
+          <p>Also, we can’t allow you to beg, borrow, or steal content from someone else’s review of <%= @listing.full_name %> and publish it here.</p>
+          <p>Rehab Reviews urges factual reviews from actual interventionist experiences.  We want this page to be useful for future clients or their family members, not jam-packed with promotional or commercial material for <%= @listing.full_name %>.</p>
+          <p>We withhold the right to remove comments or review that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name %>, you may <%= mail_to ENV['DEFAULT_ADMIN_EMAIL'], 'contact us' %> to resolve disputed or factual untrue information, but please don’t write promotional content about your own place of business.</p>
+          <p>If you are a client of <%= @listing.full_name %> and have information that can help improve the quality of the data or information on this page, you can <%= mail_to ENV['DEFAULT_ADMIN_EMAIL'], 'contact us' %> directly.</p>
+          <p>If you have ideas to share on how we can improve our directory pages, you may also <%= mail_to ENV['DEFAULT_ADMIN_EMAIL'], 'contact us' %>.</p>
+  
+        <% elsif @listing.criminal_attorney? %>
+          <p>Rehab Reviews is always looking for more first-hand <%= @listing.full_name%> reviews from clients or staff who made use of their legal expertise. If you’re an existing or previous client of <%= @listing.full_name%> we would love it if you shared your experiences below, so others seeking legal counsel with them can make better, more informed legal decisions.</p>
+          <p>We understand if you feel compelled to use colorful language (especially in this business!) but we can’t allow anyone to threaten bodily injury, write hate speech, and/or include racist words meant to denigrate or offend on the basis of belonging to a particular group, religion, ethnicity, or race.</p>
+          <p>Try to be kind.</p>
+          <p>If you can avoid it, we would prefer you not disclose personally identifiable information or data about <%= @listing.full_name%> or their recent or current clients at <%= @listing.full_name%>.</p>
+          <p>Also, we can’t allow you to beg, borrow, or steal content from someone else’s review of <%= @listing.full_name%> and publish it here.</p>
+          <p>Rehab Reviews urges factual reviews from actual legal experiences.  We want this page to be useful for future clients or their family members, not jam-packed with promotional or commercial material for <%= @listing.full_name%>.</p>
+          <p>We withhold the right to remove comments or review that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name%> or <%= @listing.full_name%>, you may <%= mail_to ENV['DEFAULT_ADMIN_EMAIL'], 'contact us' %> to resolve disputed or factual untrue information, but please don’t write promotional content about your own place of business.</p>
+          <p>If you are a client of <%= @listing.full_name%> and have information that can help improve the quality of the data or information on this page, you can <%= mail_to ENV['DEFAULT_ADMIN_EMAIL'], 'contact us' %> directly.</p>
+          <p>If you have ideas to share on how we can improve our directory pages, you may also <%= mail_to ENV['DEFAULT_ADMIN_EMAIL'], 'contact us' %>.</p>
+  
+        <% elsif @listing.alternative? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name(title: true) %> reviews from people who have first-hand experience with their alternative healthcare support.</p>
+          <p>If you’re a current or past patient of the <%= @listing.full_name(title: true) %> in <%= @listing.city_state %> we encourage you to leave your review below for other future patients who may need alternative healthcare support.</p>
+          <p>Please don’t reveal personal information about anyone at the <%= @listing.full_name(title: true) %> office or any of their current or former patients.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t take content from someone else’s review and post it here.</p>
+          <p>Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future patients, not filled with promotional or commercial content.</p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name(title: true) %> you may <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> to resolve disputed or factually untrue information, but please don’t write promotional content about your own meeting or support group.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %>.</p>
+  
+        <% elsif @listing.dentist? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name(title: true) %> reviews from people who have first-hand experience with their dentist healthcare support.</p>
+          <p>If you’re a current or past patient of the <%= @listing.full_name(title: true) %> in <%= @listing.city_state %> we encourage you to leave your review below for other future patients who may need dentist support.</p>
+          <p>Please don’t reveal personal information about anyone at the <%= @listing.full_name(title: true) %> office or any of their current or former patients.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t take content from someone else’s review and post it here.</p>
+          <p>Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future patients, not filled with promotional or commercial content.</p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name(title: true) %> you may <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> to resolve disputed or factually untrue information, but please don’t write promotional content about your own meeting or support group.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %>.</p>
+  
+        <% elsif @listing.dui_dwi_attorney? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name %> reviews from people who have first-hand experience hiring them as a DUI/DWI lawyer or utilizing their skills for general legal support. If you’re a current or past client of <%= @listing.full_name %> we encourage you to leave your review below for other individuals who may require legal support or advice.</p>
+          <p>Please don’t reveal personal information about anyone at the <%= @listing.full_name %> office or any of their current or former clients.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t take content from someone else’s review and post it here.</p>
+          <p>Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future patients, not filled with promotional or commercial content.</p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name %>, you may <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> to resolve disputed or factually untrue information, but please don’t write promotional content about your own meeting or support group.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %>.</p>
+  
+        <% elsif @listing.meeting? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name %> reviews from people who have first-hand experience with their <%= @listing.directory.name %> meeting. If you’re a current or past attendee of <%= @listing.full_name %> meeting in <%= @listing.city_state %> we encourage you to leave your review below for others who may need recovery or sobriety support from their community.</p>
+          <p>Please don’t reveal personal information about anyone at the <%= @listing.full_name %> meeting or any of their current or former leadership or attendees.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t take content from someone else’s review and post it here. Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future attendees, not filled with promotional or commercial content.</p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name %>, you may <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> to resolve disputed or factually untrue information, but please don’t write promotional content about your own meeting or support group.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %>.</p>
+  
+        <% elsif @listing.methadone? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name(title: true) %> reviews from people who have first-hand experience with their Methadone, Subutex, or Suboxone healthcare support.</p>
+          <p>If you’re a current or past patient of the <%= @listing.full_name(title: true) %> in <%= @listing.city_state %> we encourage you to leave your review below for other future patients who may need Methadone, Subutex, or Suboxone support.</p>
+          <p>Please don’t reveal personal information about anyone at the <%= @listing.full_name(title: true) %> office or any of their current or former patients.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t take content from someone else’s review and post it here.</p>
+          <p>Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future patients, not filled with promotional or commercial content.</p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name(title: true) %> you may <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> to resolve disputed or factually untrue information, but please don’t write promotional content about your own meeting or support group.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %>.</p>
+  
+        <% elsif @listing.military? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name %> reviews from people who have first-hand experience with their military personnel healthcare support. If you’re a current or past patient of the <%= @listing.full_name %> in <%= @listing.city_state %> we encourage you to leave your review below for other active or retired military service personnel who may need healthcare support.</p>
+          <p>Please don’t reveal personal information about anyone at the <%= @listing.full_name %> office or any of their current or former clients or patients.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t take content from someone else’s review and post it here.</p>
+          <p>Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future patients, not filled with promotional or commercial content.</p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name %>, you may <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> to resolve disputed or factually untrue information, but please don’t write promotional content about your own meeting or support group.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %>.</p>
+  
+        <% elsif @listing.sleep? %>
+          <p>Rehab Reviews wants to see more authentic <%= @listing.full_name(title: true) %> reviews from people who have first-hand experience with their sleep medicine healthcare support.</p>
+          <p>If you’re a current or past patient of the <%= @listing.full_name(title: true) %> in <%= @listing.city_state %> we encourage you to leave your review below for other future patients who may need sleep medicine support.</p>
+          <p>Please don’t reveal personal information about anyone at the <%= @listing.full_name(title: true) %> office or any of their current or former patients.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry.</p>
+          <p>Please don’t take content from someone else’s review and post it here.</p>
+          <p>Rehab Reviews encourages real reviews from actual experiences.  We want this listing to be useful for future patients, not filled with promotional or commercial content.</p>
+          <p>We reserve the right to take down any reviews that we suspect to be self-promotional.</p>
+          <p>If you are a representative of <%= @listing.full_name(title: true) %> you may <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> to resolve disputed or factually untrue information, but please don’t write promotional content about your own meeting or support group.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %> directly.</p>
+          <p>If you have any ideas how we can improve our directories listings, you may also <%= mail_to 'listings@cleanandsobermedia.com', 'contact us' %>.</p>
+  
+        <% else %>
+          <p>Rehab Reviews is always looking for more authentic <%= @listing.full_name %> reviews from people who have first-hand experience with their professional services.  Please leave your review here for others who may be looking for drug addiction rehab, alcohol addiction rehab, or mental treatment centers.</p>
+          <p>Colorful language is acceptable, but please refrain from threats, hate speech, and/or other displays of bigotry. Please don’t reveal personal information about <%= @listing.full_name %> or their staff, employees, clients, or patients.</p>
+          <p>Please don’t take content from someone else’s review and post it here. Rehab Reviews encourages real reviews from actual experiences.</p>
+          <p>If you are an authorized representative of <%= @listing.full_name %>, you may <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> to resolve disputed or factually untrue information, but please don’t write promotional content about your own facility.</p>
+          <p>If you are a resident of <%= @listing.state_str %> and have information that can help improve the quality of the information in our listing, you can <a href="mailto:<%= ENV['DEFAULT_ADMIN_EMAIL'] %>">contact us</a> directly.</p>
+        <% end %>
+      <% else %>
+        <%= @listing.custom_description.html_safe %>
+      <% end %>
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane" id="listing-services-tab">
+      <% if @listing.categories.any? %>
+        <h4>Services Offered</h4>
+        <div class="row">
+          <ul class="fa-ul target-list">
+            <% @listing.categories.order(:name).in_groups(3, false) do |columns| %>
+              <div class="col-sm-12 col-md-4">
+                <% columns.each do |c| %>
+                  <li><i class="fa-li fa fa-dot-circle-o"></i><%= c.name %></li>
+                <% end %>
+              </div>
+            <% end %>
+            <% if @custom_services.present? %>
+              <% @custom_services.each do |cs| %>
+                <div class="col-sm-12 col-md-4">
+                  <li><i class="fa-li fa fa-dot-circle-o"></i><%= cs %></li>
+                </div>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <% if @listing.languages.any? %>
+        <h4>Additional Languages</h4>
+        <div class="row">
+          <ul class="fa-ul target-list">
+            <% @listing.languages.order(:name).in_groups(3, false) do |columns| %>
+              <div class="col-sm-12 col-md-4">
+                <% columns.each do |c| %>
+                  <li><i class="fa-li fa fa-dot-circle-o"></i><%= c.name %></li>
+                <% end %>
+              </div>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <% if @listing.insurances.any? %>
+        <h4>Insurance Accepted</h4>
+        <div class="row">
+          <ul class="fa-ul target-list">
+            <% @listing.insurances.order(:name).in_groups(3, false) do |columns| %>
+              <div class="col-sm-12 col-md-4">
+                <% columns.each do |c| %>
+                  <li><i class="fa-li fa fa-dot-circle-o"></i><%= c.name %></li>
+                <% end %>
+              </div>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane" id="location-map-tab">
+      <div class="row">
+        <div class="col-sm-6">
+          <a class='location-map' href='#'>
+            <% if @listing.medium_map_image? %>
+              <%= image_tag @listing.medium_map_image.url, size: '400x300', class: 'img-responsive' %>
+            <% else %>
+              <%if !browser.bot?%>
+                <img src="<%= mapbox_url(@listing) %>" class="img-responsive">
+              <%end%>
+            <% end %>
+          </a>
+        </div>
+        <div class="col-sm-6">
+          <div class="location-info">
+            <h4><%= @listing.full_name %></h4>
+            <p>
+              <%= @listing.address_1 %><br>
+              <%= @listing.address_2.presence %><br>
+              <%= @listing.city_str %>, <%= @listing.state_abbreviation_str %> <%= @listing.zipcode %><br>
+              (<%= link_to "map", "https://maps.google.com?q=" + CGI.escape("#{@listing.address_1} #{@listing.city_str} #{@listing.state_abbreviation_str} #{@listing.zipcode}"), :target => "_blank" %>)
+            </p>
+            <p><%= @listing.phone %> </p>
+            <% if @listing.website.present? %>
+              <p> <%= link_to @listing.website, @listing.website, :target => "_blank" %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

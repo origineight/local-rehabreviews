@@ -1,0 +1,26 @@
+<h1>New Listing Request</h1>
+<p>Heads up, a new claim was submitted on RehabReviews.com</p>
+<p>This listing is NOT published and will not be visible or searchable until it is marked as published on the backend.</p>
+<p>The submission is not editable by the submitting user unless you approve their claim.</p>
+<p>If you'd like to approve or decline their claim, <%= link_to "click here", admin_claims_url %>. If you approve, the user will have the ability to edit their listing and set it to published.</p>
+<p>If you'd like to edit or delete this listing as an administrator, <%= link_to "click here", edit_listing_url(@claim.listing) %>.</p>
+
+
+<p><strong>Name:</strong> <%= @claim.name %></p>
+<p><strong>Email:</strong> <%= @claim.email %></p>
+<p><strong>Phone:</strong> <%= @claim.phone %></p>
+
+<p><strong>Description:</strong> <%= @claim.description %></p>
+
+<p><strong>Listing Name:</strong> <%= @claim.listing.full_name %></p>
+<p><strong>Location:</strong> <%= @claim.listing.address %></p>
+<p><strong>Description:</strong> <%= @claim.listing.description %></p>
+
+<p><%= link_to "Click to Approve/Decline Claim", admin_claims_url %></p>
+
+<p>
+  Submitted by:<br>
+  Member #<%= @claim.member.id.to_s %><br>
+  <%= @claim.member.first_name %> <%= @claim.member.last_name %><br>
+  <%= @claim.member.email %>
+</p>

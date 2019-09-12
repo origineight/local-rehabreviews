@@ -1,0 +1,174 @@
+<% if !amp_renderable? and !browser.bot? %>
+<%content_for :google_maps_js do%>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>"></script>
+  <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+<%end%>
+<% end %>
+
+<%
+meta title: "#{page_title} #{@search['directory'].name}",
+     description: "The World's Largest & Most Trusted Resource for Rehab Reviews"
+%>
+<div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad">
+  <span class='sponsored-ad'>Sponsored Ad</span>
+</div>
+<div class="ad-module main-showcase-ad">
+  <span class="diag-container ad-container">
+    <!-- /59855596/RR_Facilities-Directories_UpperShowcase_Header_728x90 -->
+    <div id='div-gpt-ad-1429128193855-2'>
+    <script type='text/javascript'>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1429128193855-2'); });
+    </script>
+    </div>
+  </span>
+</div>
+
+<h1 class="page-title"><%= page_title %> <span class="lightblue"><%= @search['directory'].name %> Directory</span></h1>
+
+<ul class="directory-tree">
+  <%@directories.each do |directory|%>
+    <li class="<%= 'active' if current_page?(search_directory_path(directory.slug)) %>"><%=link_to directory.name, search_directory_path(directory.slug)%></li>
+  <%end%>
+</ul>
+
+<div class="sort-links">
+  <button class="btn btn-primary btn-sort" id="name_asc">Name A-Z</button>
+  <button class="btn btn-primary btn-sort" id="name_desc">Name Z-A</button>
+  <button class="btn btn-primary btn-sort" id="city_asc">City A-Z</button>
+  <button class="btn btn-primary btn-sort" id="city_desc">City Z-A</button>
+</div>
+
+<section id="search-interface">
+  <div class="row">
+    <div class="col-md-3 filter-column">
+      <div id="filter">
+        <%= render 'filter' %>
+      </div>
+      <div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad">
+        <span class='sponsored-ad'>Sponsored Ad</span>
+      </div>
+      <div class="filter-rectangle-block visible-lg">
+        <!-- /59855596/RR_Facilities-Directories_MenuShowcase_RightCoumn_300x250 -->
+        <div id='div-gpt-ad-1429128193855-0'>
+        <script type='text/javascript'>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1429128193855-0'); });
+        </script>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 results-column">
+      <%# render 'filtercollapse' %>
+      <div id="search-results">
+        <table class="table table-striped">
+          <tbody id="the_listings">
+            <% if @search['listings'].present? %>
+              <%= render partial: 'listing', collection: @search['listings'] %>
+            <% else %>
+              <tr><td>No listings were found that match your query. Please try again.</td></tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @search['listings'].present? %>
+        <div id="pagination" class="pull-right">
+          <%= paginate @search['listings'], :remote => true %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad">
+  <span class='sponsored-ad'>Sponsored Ad</span>
+</div>
+<div class="ad-module ad-single-centered">
+  <span class="diag-container ad-container">
+    <!-- /59855596/RR_Facilities-Directories_LowerShowcase_Footer_728x90 -->
+    <div id='div-gpt-ad-1429128193855-1'>
+    <script type='text/javascript'>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1429128193855-1'); });
+    </script>
+    </div>
+  </span>
+</div>
+
+<script type="text/javascript">
+
+  $('#search_by_name_button, #search_by_zip_button').on("click", function() {
+    $('.filter #sort').val("");
+    $('.filter #order').val("");
+    $(this).closest('form').submit();
+  });
+  $('.filter_checkbox').on("change", function() {
+    $(this).closest('form').submit();
+  });
+  $('.btn-reset').on("click", function() {
+    $(this).closest('.filter-group').find('.filter_checkbox').attr('checked', false);
+    $(this).closest('form').submit();
+  });
+  $('.btn-sort').on("click", function() {
+    sorting = $(this).attr('id');
+    sort = sorting.split("_");
+    $('.filter #sort').val(sort[0]);
+    $('.filter #order').val(sort[1]);
+    $('form#formBoxes').submit();
+  });
+
+  <%if !browser.bot? %>
+    var locations = [
+          <% if @search['listings'] %>
+            <% @search['listings'].each_with_index do |loc, index| %>
+              <% if loc.geocoded? %>
+                ["<%= loc.sort_name %>",
+                 <%= loc.latitude %>,
+                 <%= loc.longitude %>,
+                 "<%= loc.address_1 %>",
+                 "<%= loc.city_str %>",
+                 "<%= loc.state_abbreviation_str %>",
+                 "<%= loc.zipcode %>",
+                 "<%= seo_listing_path(loc) %>"]<%= "#{',' unless index == @search['listings'].size - 1}" %>
+              <% end %>
+            <% end %>
+          <% end %>
+          ]
+    L.mapbox.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
+    var map = L.mapbox.map('map-header', 'mapbox.streets').setView([locations[0][1], locations[0][2]], 5);
+    for(i=0; i<20; i++){
+      if (locations[i]!==undefined){
+        var lat = locations[i][1];
+        var long = locations[i][2];
+        var name = '<strong>'+locations[i][0]+'</strong>';
+        var desc = locations[i][3]+'<br/>'+locations[i][4]+', '+locations[i][5]+' '+locations[i][6]+'<br/><a class="btn btn-readmore btn-readmore-on-new-map" style="margin-top: 4px; color: #fff;">Read More</a><div class="hidden">'+locations[i][7]+'</div>';
+        if (lat && long) {
+          L.mapbox.featureLayer({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                long,
+                lat
+              ]
+            },
+            properties: {
+              title: name,
+              description: desc,
+              'marker-size': 'large',
+              'marker-color': '#BE9A6B',
+              'marker-symbol': 'hospital'
+            }
+          }).addTo(map);
+        }
+      }
+    }
+    map.featureLayer.on('click', function(e) {
+      console.log(e)
+      map.panTo(e.layer.getLatLng());
+    });
+  <% end %>
+  $(window).load(function(){
+    $(document).on('click', 'a.btn-readmore-on-new-map', function(){
+      window.location.href = $(this).next().text()
+    })
+  })
+</script>

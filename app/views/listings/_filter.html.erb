@@ -1,0 +1,68 @@
+<%if @search['directory'].slug == 'buprenorphine' or @search['directory'].slug == 'interventionists'%>
+  <%content_for :stylesheets do%>
+    <style type="text/css">
+      .underlined {
+        text-decoration: underline;
+      }
+    </style>
+  <%end%>
+<%end%>
+<%if @search['directory'].slug == 'buprenorphine'%>
+  <%=link_to 'Read Our Addictionologist Reviews', 'https://rehabreviews.com/category/addictionologist-reviews/', class: 'underlined'%>
+<%end%>
+<%if @search['directory'].slug == 'interventionists'%>
+  <%=link_to 'Read Our Interventionist Reviews', 'https://rehabreviews.com/category/interventionist-reviews/', class: 'underlined'%>
+<%end%>
+<div class="filter hidden-xs hidden-sm">
+
+  <%= form_tag search_directory_path(@search['directory'].slug), method: 'get' do %>
+    <div class="form-inline text-searches">
+      <div class="form-group zip-search">
+        <%= text_field_tag :z, params[:z], placeholder: "Search by Zip", class: "form-control" %>
+        <button id="search_by_zip_button" class="btn btn-dkblue">Search</button>
+      </div>
+      <div class="form-group name-search">
+        <%= text_field_tag :q, params[:q], placeholder: "Search by Name", class: "form-control" %>
+        <button id="search_by_name_button" class="btn btn-dkblue">Search</button>
+      </div>
+      <% if params[:state] %>
+        <p class="more-state-info">More information on <%= link_to state_info(params[:state])["full_state"] + " rehab, treatment, and recovery", "http://rehabreviews.com/" + state_info(params[:state])["full_state"].parameterize %></p>
+      <% end %>
+    </div>
+    <% if params[:state] %>
+      <%= hidden_field_tag :state, params[:state] %>
+    <% end %>
+  <% end %>
+    <%= form_tag search_directory_path(@search['directory'].slug), method: 'get', remote: true, id: 'formBoxes' do %>
+      <% if @search['categories'].present? %>
+        <h4 class="filter-header">Filter your Result</h4>
+        <div class="filter-group">
+          <button class="btn btn-grey btn-reset pull-right">Reset</button>
+          <h5>Categories:</h5>
+          <% @search['categories'].each do |cat| %>
+            <div class="checkbox">
+              <%= check_box_tag "categories[]", cat.id, cat.slug == params[:category_id], id: "categories_" + cat.id.to_s, class: "filter_checkbox"  %>
+              <%= label_tag "categories_" + cat.id.to_s, cat.name %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <% if params[:state] %>
+        <%= hidden_field_tag :state, params[:state] %>
+      <% end %>
+      <% if params[:city] %>
+        <%= hidden_field_tag :city, params[:city] %>
+      <% end %>
+      <% if params[:z] %>
+        <%= hidden_field_tag :z, params[:z] %>
+      <% end %>
+      <% if params[:q] %>
+        <%= hidden_field_tag :q, params[:q] %>
+      <% end %>
+      <% if params[:alpha] %>
+        <%= hidden_field_tag :alpha, params[:alpha] %>
+      <% end %>
+      <%= hidden_field_tag :sort, params[:sort] %>
+      <%= hidden_field_tag :order, params[:order] %>
+    <% end %>
+</div>

@@ -1,0 +1,226 @@
+<% unless amp_renderable? %>
+  <style>
+    #directory-type{width: 158px;}
+  </style>
+<% end %>
+<% meta_tags @listing %>
+<% content_for :head do %>
+  <% unless amp_renderable? %>
+    <%= tag 'meta', 'http-equiv' => 'last-modified', content: @listing.last_modification %>
+  <% end %>
+<% end %>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "<%= @listing.new_city %>",
+        "addressRegion": "<%= @listing.new_state_abbreviation %>",
+        "streetAddress": "<%= @listing.address_1 %>, <%= @listing.address_2 unless @address_2.nil? %>"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "<%= @listing.latitude %>",
+        "longitude": "<%= @listing.longitude %>"
+      },
+      "description": "<%= @listing.description %>",
+      "name": "<%= @listing.meta_name %>",
+      "telephone": "<%= @listing.phone %>"
+  }
+</script>
+
+<%= render 'profilebreadcrumbs' %>
+<%= render 'profileheader' %>
+<%= render 'profilemeta' %>
+
+<div class="row">
+  <div class="col-lg-8 col-md-8 content-column">
+    <%= render 'profileimages' %>
+    <%= render 'profileinfobox' %>
+
+    <% unless @listing.is_boosted? || @listing.featured? || @listing.custom? || @decorator['nearbys'].blank? %>
+      <div class="row nearbys">
+        <div class="col-lg-12"><h3>Nearby <span class="lightblue"><%= @listing.directory.name %></span></h3></div>
+        <div class="col-sm-6">
+          <% @decorator['nearbys'].each_with_index do |nby,i| %>
+            <table class="table mini-listing">
+              <tbody>
+                <tr>
+                  <td class="mini-listing-image">
+                    <% if nby.uploads.any? %>
+                      <%= image_tag nby.uploads.last.image(:mini), class: 'listing-image' %>
+                    <% else %>
+                      <%= link_to seo_listing_path(nby) do %>
+                        <% if nby.small_map_image? %>
+                          <%= image_tag nby.small_map_image.url(:tiny), size: '100x70', class: 'listing-image' %>
+                        <% else %>
+                          <%if !browser.bot?%>
+                            <img src="<%= gmaps_url(nby, size: '100x70') %>" width="100" height="70" class="listing-image">
+                          <%end%>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <td>
+                <h5><%= link_to nby.full_name.truncate(30, separator: ' ', omission: ''), seo_listing_path(nby) %></h5>
+                <%= link_to "Read More", seo_listing_path(nby), class: 'btn btn-readmore pull-right' %>
+                    <%= star_rating(nby) %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <% if i == 2 %>
+              </div><div class="col-sm-6">
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    
+    <div id="reviews">
+      <%= link_to "+ Add Review", new_listing_rating_path(@listing), :remote => true, :class => 'btn btn-orange pull-right', :id => 'add_review' %>
+      <h3>Reviews</h3>
+      <% if @decorator['ratings'].present? %>
+        <div id="new_review"></div>
+        <%= render :partial => 'ratings/rating', :collection => @decorator['ratings'] %>
+      <% else %>
+        <div id="new_review">
+          <p>This listing has not yet been reviewed. <%= link_to "Click here", new_listing_rating_path(@listing), :remote => true %> to add a review.
+        </div>
+      <% end %>
+    </div>
+    
+    <% if @decorator.present? && @decorator['reviews'].present? && mobile_device? %>
+      <div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad m-t-15p">
+        <span class='sponsored-ad'>Sponsored Ad</span>
+      </div>
+      <h3>Featured <span class="lightblue">Reviews</span></h3>
+      <div class="featured-reviews">
+        <% @decorator['reviews'].each_with_index do |r,i| %>
+          <div class="featured-review">
+            <table class="table mini-listing">
+              <tbody>
+                <tr>
+                  <td class="mini-listing-image">
+                    <%= link_to r.permalink_url, target: "_blank" do %>
+                      <% if r.photo_url.present? %>
+                        <% if amp_renderable? %>
+                          <%= image_tag r.photo_url, width: 100, height: '47', class: 'listing-image' %>
+                        <% else %>
+                          <%= image_tag r.photo_url, width: 100, height: 'auto', class: 'listing-image' %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <td>
+                    <%= render 'application/featured_info_icon' %>
+                    <h5><%= link_to r.name, r.permalink_url, target: "_blank" %></h5>
+                    <p class='fs-12px'><%= r.body %></p>
+                    <p class="text-right"><%= link_to "Read More", r.permalink_url, target: "_blank", class: 'btn btn-readmore btn-readmore-custom'%></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <aside class="col-lg-4 col-md-4 sidebar-column visible-lg visible-md">
+    <% unless @listing.is_boosted? || @listing.featured? || @listing.custom? || @decorator['featured'].blank? %>
+      <div class="sidebar-module sidebar-featured-module">
+        <h3>Featured <span class="lightblue">Listings</span></h3>
+        <% @decorator['featured'].each_with_index do |f,i| %>
+          <table class="table mini-listing">
+            <tbody>
+              <tr>
+                <td class="mini-listing-image">
+                  <%= link_to seo_listing_path(f) do %>
+                    <% if f.uploads.present? %>
+                      <%= image_tag f.uploads.last.image(:mini), class: 'listing-image' %>
+                    <% else %>
+                      <% if f.small_map_image? %>
+                        <%= image_tag f.small_map_image.url(:tiny), size: '100x70', class: 'listing-image' %>
+                      <% else %>
+                        <%if !browser.bot?%>
+                          <img src="<%= gmaps_url(f, size:'100x70') %>" width="100" height="70" class="listing-image">
+                        <%end%>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= render 'application/featured_info_icon' %>
+                  <h5><%= link_to f.full_name.truncate(30, separator: ' ', omission: ''), seo_listing_path(f) %></h5>
+                  <%= link_to "Read More", seo_listing_path(f), class: 'btn btn-readmore pull-right' %>
+                  <p class="rating"><p class="rating"><%= star_rating(f) %></p></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if !@listing.paid_advertiser && !amp_renderable? %>
+      <!--<div class="sidebar-module sidebar-benefits-check">
+        <h3 class="title-image" align="center">Free Insurance Benefits Check</h3>
+        <%#= image_tag "StartHere2.gif", :size => '180x68' %><br><br>
+        <%#= render 'benefits_check_leads/form' %>
+      </div>-->
+    <%end%>
+
+    <div class="sidebar-module sidebar-search-module">
+      <h3>Find Addiction Help <span class="lightblue">Near You</span></h3>
+      <div class="diag-container">
+        <form class="form-inline" action="/directories/rehabs" id="sidebar-search" target='_top'>
+          <div class="form-group">
+            <input name="z" id="z" type="text" placeholder="Enter Zip Code" class="form-control" />
+          </div>
+          <div class="form-group">
+            <select id="directory-type" class="form-control chosen-select" data-placeholder="Select Directory Type">
+              <option></option>
+              <option value="rehabs">Rehabs</option>
+              <option value="mental-health">Mental Health</option>
+              <option value="buprenorphine">Buprenorphine</option>
+              <option value="pain-management">Pain Management</option>
+              <option value="therapists">Therapists</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-dkblue btn-block">Search Addiction Help</button>
+        </form>
+        <% unless amp_renderable? %>
+        <script type="text/javascript">
+        document.getElementById('directory-type').onchange = function(){
+            document.getElementById('sidebar-search').action = '/directories/' + this.value;
+        }
+        </script>
+        <% end %>
+      </div>
+    </div>
+  </aside>
+</div>
+<%if mobile_device? && @listing.paid_advertiser == false && !amp_renderable? %>
+  <%content_for :mobile_popup do %>
+    <script>
+      $(document).ready(function(){
+        $(".floating-backdrop").click(function(){
+          $(".floating-backdrop").toggleClass("show");
+          $("#menu").toggle("slide");
+          $('body').toggleClass("scrollable");
+         });
+      });
+    </script>
+    <div class="floating-backdrop">
+    </div>
+    <div id="floating" style="position:fixed;bottom:0px;right:0; height:74%;z-index:1000">
+      <div id="menu" style="float: right; display: none; background-color: white; width:80%;padding:10px 25px;text-align:center;height:100%;overflow:auto;">
+        <h3 class="title-image" align="center">Free Insurance Benefits Check</h3>
+        <%= image_tag "StartHere2.gif", :size => '180x68' %><br><br>
+        <%= render 'benefits_check_leads/form' %>
+      </div>
+    </div>
+  <%end%>
+<%end%>

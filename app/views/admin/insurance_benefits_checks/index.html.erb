@@ -1,0 +1,47 @@
+<% meta title: "Insurance Benefits Checks" %>
+
+<%= render 'members/adminheader' %>
+<%= render 'members/adminnav' %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading" id="admin_bloggers_head">
+        <h2 class="panel-title">Insurance Benefits Checks | <span><%= link_to 'Manage notifications', :admin_benefits_check_notifications %></span></span></h2>
+      </div>
+      <div id="admin_bloggers" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="admin_bloggers_head">
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Seeking help for</th>
+                <th>From popup?</th>
+                <th>Submitted on</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @ibcs.each do |ibc| %>
+                <tr>
+                  <td><%= link_to ibc.name, admin_insurance_benefits_check_path(ibc) %></td>
+                  <td><%= ibc.seeking_help_for.capitalize %></td>
+                  <td><%= ibc.popup ? 'Yes' : 'No' %></td>
+                  <td><%= ibc.created_at %></td>
+                  <td>
+                    <%= link_to "View", admin_insurance_benefits_check_path(ibc), class: 'btn btn-primary btn-mini' %>
+                    <%= link_to "Delete", admin_insurance_benefits_check_path(ibc), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger btn-mini' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @ibcs %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <%= render 'members/membersidebar' %>
+  </div>
+</div>

@@ -1,0 +1,170 @@
+<% unless amp_renderable? %>
+<style>
+  .insurance-benefits-check-embedded {
+      font-size: 15px;
+      font-family: 'Droid Sans', sans-serif;
+  }
+  .insurance-benefits-check-embedded button,
+  .insurance-benefits-check-embedded input,
+  .insurance-benefits-check-embedded optgroup,
+  .insurance-benefits-check-embedded select,
+  .insurance-benefits-check-embedded textarea {
+      color: inherit;
+      font: inherit;
+      margin: 0;
+  }
+  .insurance-benefits-check-embedded button,
+  .insurance-benefits-check-embedded select {
+      text-transform: none;
+  }
+  .insurance-benefits-check-embedded input,
+  .insurance-benefits-check-embedded textarea,
+  .insurance-benefits-check-embedded select {
+      max-width: 100%;
+      width: auto;
+  }
+  .insurance-benefits-check-embedded input[type="radio"],
+  .insurance-benefits-check-embedded input[type="checkbox"] {
+      margin: 4px 0 0;
+      margin-top: 1px \9;
+      line-height: normal;
+  }
+  .insurance-benefits-check-embedded .radio input[type="radio"],
+  .insurance-benefits-check-embedded .radio-inline input[type="radio"],
+  .insurance-benefits-check-embedded .checkbox input[type="checkbox"],
+  .insurance-benefits-check-embedded .checkbox-inline input[type="checkbox"] {
+      position: absolute;
+      margin-left: 0;
+      margin-top: 0;
+      margin-top: 4px \9;
+  }
+  .insurance-benefits-check-embedded .radio label,
+  .insurance-benefits-check-embedded .checkbox label {
+      min-height: 21px;
+      padding-left: 20px;
+      margin-bottom: 0;
+      font-weight: normal;
+      cursor: pointer;
+  }
+  .insurance-benefits-check-embedded label {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 5px;
+      font-weight: bold;
+  }
+  .insurance-benefits-check-embedded label span.form-required {
+      color: #f00;
+  }
+  .insurance-benefits-check-embedded .form-item.webform-component {
+      padding-bottom: 1em;
+  }
+  .insurance-benefits-check-embedded .form-item.webform-component .form-email,
+  .insurance-benefits-check-embedded .form-control {
+      display: block;
+      width: 100%;
+      height: 35px;
+      padding: 6px 12px;
+      font-size: 15px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 0;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  }
+  .insurance-benefits-check-embedded .btn {
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: normal;
+      text-align: center;
+      vertical-align: middle;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 6px 12px;
+      font-size: 15px;
+      line-height: 1.42857143;
+      border-radius: 4px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  }
+  .insurance-benefits-check-embedded .btn-primary {
+      color: #fff;
+      background-color: #565656;
+      border-color: #494949;
+  }
+  /* First / last name styles */
+  .insurance-benefits-check-embedded .name-container div {
+      float: left;
+      width: 48%;
+  }
+  .insurance-benefits-check-embedded .webform-component--first-name {
+      margin-right: 4%;
+  }
+  /* Balloon styles */
+  .insurance-benefits-check-embedded .balloon {
+      display: block; font-size: 12px; font-weight: normal; color: #333333;
+  }
+  .insurance-benefits-check-embedded .balloon .info-icon { position: relative; display: inline-block; vertical-align: top;
+      cursor: default; }
+  .insurance-benefits-check-embedded .balloon .info-icon:hover:after,
+  .insurance-benefits-check-embedded .balloon .info-icon.open:after { top: 0; left: 50%;
+      border: solid transparent; content: " "; height: 0; width: 0;
+      position: absolute; pointer-events: none; margin-top: -8px; margin-left: -10px;
+      border-top-color: #CCCCCC; border-width: 10px; }
+  .insurance-benefits-check-embedded .balloon .info-icon .info-text-help { display: none; }
+  .insurance-benefits-check-embedded .balloon .info-icon:hover .info-text-help,
+  .insurance-benefits-check-embedded .balloon .info-icon.open .info-text-help { display: inline-block; vertical-align: top;
+      position: absolute; bottom: 25px; left: -180%; width: 220px; padding: 10px;
+      z-index: 10;
+      background-color: #FFFFFF; border: 1px solid #CCCCCC; color: #000; }
+  .insurance-benefits-check-embedded .balloon.top .info-icon { font-size: 12px; font-weight: bold; }
+  .insurance-benefits-check-embedded .balloon.top .info-icon:hover .info-text-help,
+  .insurance-benefits-check-embedded .balloon.top .info-icon.open .info-text-help { top: 100%; bottom: auto; right: auto; left: -20px;
+      width: 220px; font-weight: normal; }
+  .insurance-benefits-check-embedded .balloon.top .info-icon:hover:after,
+  .insurance-benefits-check-embedded .balloon.top .info-icon.open:after{ top: 100%; margin-top: -20px;
+      border-bottom-color: #CCCCCC; border-top-color: transparent; }
+  #ins-benefits-check-icon {
+    background-color: #59946b;
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    padding: 0 2px;
+    line-height: 14px;
+    vertical-align: baseline;
+  }
+</style>
+<% end %>
+
+<div id='any-question-section' class='col-md-12 col-lg-12 insurance-benefits-check-embedded'>
+  <p class="balloon top margin-bottom-10p" id="ins-benefits-check-balloon">
+    <span class="info-icon" id="ins-benefits-check-icon">Ad<span class="info-text-help">
+      Legal Stuff - This is an advertisement for Service Industries, Inc., part of a network of commonly owned substance abuse treatment service providers. Responding to this ad will connect you to one of Service Industries, Inc.’s representatives to discuss your insurance benefits and options for obtaining treatment at one of its affiliated facilities only. Service Industries, Inc. Service Industries, Inc. is unable to discuss the insurance benefits or options that may be available at any unaffiliated treatment center or business. If this advertisement appears on the same web page as a review of any particular treatment center or business, the contact information (including phone number) for that particular treatment center or business may be found at the bottom of the review.
+    </span></span>
+  </p>
+  <p><strong>Any Questions?</strong> Call Now To Speak to a Rehab Specialist</p>
+  <p class='number'>
+    <span>(800) 691-8638</span>
+  </p>
+  <br/>
+  <p id='call-email-wrapper'>
+    <a href='tel:800-691-8638' class='btn btn-primary btn-danger btn-call'>
+      <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;CALL NOW
+    </a>
+    <a href='mailto:admissions@serviceindustriesinc.com' class='btn btn-primary btn-default btn-email'>
+      <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;EMAIL NOW
+    </a>
+  </p>
+</div>

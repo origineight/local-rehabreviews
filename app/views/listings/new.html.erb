@@ -1,0 +1,19 @@
+<h1 class="page-title">Add a Listing</h1>
+
+<% if @listing.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@listing.errors.count, "error") %> prohibited
+      this listing from being saved:</h2>
+    <ul>
+    <% @listing.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-8">
+    <%= render 'form' %>
+  </div>
+</div>

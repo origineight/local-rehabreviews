@@ -1,0 +1,13 @@
+<% if @listing.categories.any? %>
+  <p><%= @listing.full_name %> is located in <%= @listing.city_str %>, <%= @listing.state_str %> and offers <%= @listing.categories.map{|c| c.name}.join(", ") %>.  <%= @listing.full_name %> is currently listed as a <%= @listing.directory.name %> services provider but may offer additional clinical support.</p>
+<% else %>
+  <p><%= @listing.full_name %> is located in <%= @listing.city_str %>, <%= @listing.state_str %>. More information about the insurance they accept and/or the services they offer can be found by contacting them directly.
+<% end %>
+
+<p>If you have a specific question about medical services or treatment, you are encouraged to contact them directly at their <%= @listing.city_str %> location.</p>
+
+<% if @listing.languages.present? %>
+  <p>They offer services in English and <%= @listing.languages.map{|c| c.name}.join(", ") %>.</p>
+<% else %>
+  <p>They offer services in English and may also offer bi-lingual or ASL support. Please inquire with them, on the phone or in person.</p>
+<% end %>

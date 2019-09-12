@@ -1,0 +1,22 @@
+<% if @categories.present? %>
+  <% @categories.order(:name).each do |cat| %>
+    <%= hidden_field_tag "listing[category_ids][]", nil %>
+    <div class="checkbox">
+      <%= check_box_tag "listing[category_ids][]", cat.id, @listing.category_ids.include?(cat.id), id: dom_id(cat) %>
+      <%= label_tag dom_id(cat), cat.name %>
+      <% if current_member.is_administrator? %>
+        <% if cat.boostable? %>
+          <span style="margin-left: 10px;">
+            <% if @listing.boosted?(cat.id) %>
+              <%= link_to "Unboost", "/unboost/#{@listing.id}/#{cat.id}?directory_id=#{@directory.id}", :remote => true, class: 'btn btn-mini btn-danger boost-link' %>
+            <% else %>
+              <%= link_to "Boost", "/boost/#{@listing.id}/#{cat.id}?directory_id=#{@directory.id}", :remote => true, class: 'btn btn-mini btn-orange boost-link' %>
+            <% end %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  No categories for this listing type.
+<% end %>

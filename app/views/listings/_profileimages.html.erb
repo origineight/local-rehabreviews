@@ -1,0 +1,40 @@
+<% if @listing.uploads.any? %>
+  <% if amp_renderable? %>
+    <div id="profile-slider">
+      <%= image_tag @listing.uploads.order('created_at DESC').first.image(:profile), layout: 'responsive' %>
+    </div>
+  <% else %>
+    <div id="profile-slider" class="flexslider">
+      <ul class="slides">
+      <% @listing.uploads.order('created_at DESC').each do |upload| %>
+        <li class="profile-slide">
+          <%= image_tag upload.image(:profile) %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if @listing.uploads.size > 1 && !amp_renderable? %>
+    <div id="profile-thumb-slider" class="flexslider">
+      <ul class="slides">
+      <% @listing.uploads.order('created_at DESC').each_with_index do |upload,i| %>
+        <li class="profile-thumb-slide">
+          <%= image_tag upload.image(:mini) %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% elsif @listing.geocoded? && !amp_renderable? %>
+  <div class="profile-image-container">
+    <div class="profile-image">
+      <% if @listing.map_image? %>
+        <%= image_tag @listing.map_image.url, size: '640x360', class: 'img-responsive', alt: "#{@listing.full_name} location" %>
+      <% else %>
+        <%if !browser.bot?%>
+          <%= image_tag(gmaps_url(@listing), height:360, width: 640, class: 'img-responsive', alt: "#{@listing.full_name} location") %>
+        <%end%>
+      <% end %>
+    </div>
+  </div>
+<% end %>

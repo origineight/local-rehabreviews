@@ -1,0 +1,15 @@
+<% meta title: "Member Dashboard" %>
+
+  <h1 class="page-title">Member Dashboard</h1>
+  <p>
+    Welcome <%= current_member.first_name %>! This is your member dashboard. 
+  </p>
+  <div class="row">
+    <div class="col-md-9">
+      <%= render 'members/memberlistings' %>
+      <%= render 'members/memberclaims' %>
+    </div>
+    <div class="col-md-3">
+      <%= render 'members/membersidebar' %>
+    </div>
+  </div>

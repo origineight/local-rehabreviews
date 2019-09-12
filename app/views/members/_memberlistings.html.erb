@@ -1,0 +1,35 @@
+  <div class="panel panel-default">
+    <div class="panel-heading" id="member-listings-head">
+      <h2 class="panel-title"><a data-toggle="collapse" href="#member-listings" aria-expanded="true" aria-controls="member-listings">Your Listings</a></h2>
+    </div>
+    <div id="member-listings" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="member-listings-head">
+      <div class="panel-body">
+        <% if @listings.present? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Listing Name</th>
+                <th>Location</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @listings.each do |listing| %>
+                <tr>
+                  <td><%= link_to truncate(listing.full_name), seo_listing_path(listing) %></td>
+                  <td><%= listing.city_str %>, <%= listing.state_abbreviation_str %></td>
+                  <td>
+                    <%= link_to "Edit", edit_listing_path(listing), class: 'btn btn-orange btn-mini', id: "edit-listing-#{listing.id}" %>
+                    <%= link_to "View", seo_listing_path(listing), class: 'btn btn-primary btn-mini' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @listings %>
+        <% else %>
+          You have no listings. Claim an <%= link_to "existing listing", :search %> or <%= link_to "add a new listing", :new_listing %>
+        <% end %>
+      </div>
+    </div>
+  </div>

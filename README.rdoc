@@ -1,0 +1,228 @@
+= Overview
+
+Directory and Search Engine for After Party Chat.
+
+* Ruby 2.0.0
+* Rails 4.1.6
+
+= Development
+
+== Getting Rails set up
+
+First, clone the repo:
+
+    git clone git@github.com:afterpartychat/apc-directory.git
+    cd apc-directory
+    bundle
+
+If nokogiri gem complains during the bundle, use the following:
+
+    bundle config build.nokogiri --use-system-libraries
+    bundle install
+
+If that doesn't resolve the issue, try with:
+
+    sudo gem install nokogiri -v '1.6.6.2' -- --use-system-libraries --with-xml2-include=/usr/include/libxml2 --with-xml2-lib=/usr/lib
+
+== ENV variables
+
+Create an ".env" file on the root of the repo with following ENV vars and change if necessary:
+
+    APP_DOMAIN="localhost:3000"
+    DEFAULT_ADMIN_EMAIL="admin@email.com"
+    AKISMET_API_KEY=""
+
+    MAILCHIMP_API_KEY=""
+    MAILCHIMP_LIST_ID=""
+
+    GOOGLE_MAPS_API_KEY=""
+    GOOGLE_MAPS_WORK_KEY=""
+    GOOGLE_MAPS_WORK_CLIENT=""
+
+    S3_BUCKET_NAME="rehab-reviews"
+    AWS_ACCESS_KEY_ID=""
+    AWS_SECRET_ACCESS_KEY=""
+
+    FOG_DIRECTORY="rehab-reviews"
+    FOG_PROVIDER="AWS"
+
+    BLAZER_DATABASE_URL=""
+
+== Install Elasticsearch (ES)
+
+On OSX:
+
+    brew install elasticsearch
+
+Homebrew may ask you to install Java 1.7 before installing ES, in which case:
+
+    brew install Caskroom/cask/java
+
+On Linux:
+
+First run these shell commands to update your package manager and install elasticsearch:
+
+    wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
+    echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' | sudo tee /etc/apt/sources.list.d/elasticsearch.list
+    sudo apt-get update
+    sudo apt-get -y install elasticsearch=1.4.4
+
+Now, edit the elasticsearch.yml file:
+
+    sudo vi /etc/elasticsearch/elasticsearch.yml
+
+Uncomment the the network.host key, so it looks like this:
+
+    network.host: localhost
+
+Save and exit elasticsearch.yml. Now you can run the elasticsearch server:
+
+    sudo /etc/init.d/elasticsearch start
+
+NOTE: You will need to have Java installed in order to use elasticsearch
+
+== Database creation
+
+First, you'll have to create a db snapshot from the production app to download. From the app's directory:
+
+    heroku pg:backups capture
+
+You'll get an identifier for the snapshot being created in the form of bXXX. You can monitor the status of the backup using
+
+    heroku pg:backups info bXXX
+
+Once it's ready, you can get a public link to download it using:
+
+    heroku pg:backups public-url bXXX
+
+Start ProgreSQL server and create the db.
+
+    rake db:create
+
+You'll need to use the pg_restore utility to load the custom dump format file you just downloaded.
+
+    pg_restore -d rehab_reviews_directory_development dumpfile
+
+== Running the app
+
+Start ProgreSQL server.
+
+Launch ES
+
+    elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+
+If it's the first time running the app, you'll need to create indices before you can start querying. To do so, run:
+
+    curl -XPUT 'http://localhost:9200/listings/' -d '
+    index :
+        number_of_shards : 1
+        number_of_replicas : 0
+    '
+Note: Above settings (shards and replicas) have the recommended values for development environments.
+
+Another option to create indices is to define the 'action.auto_create_index' to true in the ES config yml.
+
+Finally, start the rails server
+
+    rails s
+
+== Git Workflow
+
+In order to submit changes use feature branches which are branched off of **staging**. Name the prefix of your branch using one of these options:
+
+- feature
+- docs
+- bugfix
+
+For example, a fix for a bug might be named "bugfix/correct-sort-order", some new documentation be named "docs/git-workflow", or a new feature on the site be named "feature/make-customer-happy".
+
+When new changes are ready, submit a pull request to **staging** from your new feature branch. Never self-merge pull requests; ping a team member to review and merge changes.
+
+Once the PR is merged, pushed and fully tested on staging, feel free to open a pull request to **master** from staging (unless there is a team member designated to do that)
+
+=== Steps
+
+- Create feature branch from +staging+
+- Commit changes to +prefix/feature-branch-name+
+- Submit PR into +staging+
+  - Rebase changes from +staging+ if needed
+- Team review of PR
+- Merge into +staging+
+- Push and test on staging environment
+- Submit PR into +master+ from +staging+
+- Merge into +master+
+
+This workflow is a slightly modified version of the "Github Flow". You can learn more about it at https://guides.github.com/introduction/flow/
+
+= Deployment
+
+Install the {Heroku Toolbelt}[https://toolbelt.heroku.com] ({More info}[https://devcenter.heroku.com/categories/command-line])
+
+If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key.
+
+    heroku login
+
+Add heroku's remote
+
+    heroku git:remote -a rehabreviews
+
+Deploy them to Heroku using Git.
+
+    git push heroku master
+
+= Importing Data
+
+The +Importable+ module holds some mappings that define how the data is assigned to certain categories and directories.
+
++CATEGORY_MAP+ is used for categories with similar labels that are under the same concept, to avoid duplication.
++DIRECTORY_MAP+ is used to assign directory based on the category.
+
+== Implementation
+=== import:execute
+The straight-forward all-in-one implementation is through the following
+
+    rake import:execute[import_task,source_url,target_file:optional]
+
+Currently available import tasks for specific data catalogs are: +criminal_attorneys+, +npi+, +meetings+ and +dui+. The last param +target_file+ is optional and will be inferred from +source_url+ if not specified.
+
+Internally, this rake task is just a wrapper of two rake tasks: <tt>import:download_csv</tt> and the task defined by +import_task+.
+
+=== import:download_csv
+
+It's used to fetch the source file from an external url and store it to disk (app's +tmp/+ folder). Parameter +target_file+ is optional and inferred from +source_url+ if not specified.
+
+    rake import:download_csv[source_url, target_file:optional]
+
+=== Data-specific tasks
+
+These tasks mentioned earlier contain the specific mappings and rules to parse source's custom schema into app's schema. They implement the main import method +csv_import+ which assumes the source file is on disk and receives 3 arguments.
+
+    Listing.csv_import(source_path, directory_name, options)
+
+If +directory_name+ is false or empty, the +DIRECTORY_MAP+ will be used to determine the record's directory based on category. If no matches are found, the record won't be imported (Directory is mandatory).
+
+The +options+ argument is an object with following keys:
+* +mapping+: An object to indicate which columns in the source object will correspond to models's attributes e.g. { 'column_name' => 'attribute', ... } When 2 columns share the same name in the source, you can use '@N' suffix to distinctively select one by its position. First column, N=0. There's also a +COLUMN_MAP+ for common/shared column mappings.
+
+* +custom_atts+: An object for overriding values for all records in the source, e.g. { 'field_name' => 'value', ... }
+
+The +listing_type+ attribute is calculated automatically based on source's presence of +name+ or +first_name+ \+ +last_name+ attributes.
+
+example:
+
+    Listing.csv_import('path/to/source.csv', 'Criminal Attorney',
+        mapping: {
+            'Address@1'=>'address_1', # Using column index
+            'Title'=>'name',
+             # Use of 'category' to indicate associated Category model name
+            'Type of service'=>'category'
+        },
+        # Force all records to be 'facility' type
+        custom_atts: {'listing_type' => 'facility'}
+    )
+
+= Generating Sitemap
+
+Run <tt>rake sitemap:refresh:no_ping</tt> to generate the sitemaps, which will be automatically uploaded to the S3 bucket defined by ENV. The sitemaps will be available at <tt>http://rehab-reviews.s3.amazonaws.com/sitemap/</tt>.
+
+The sitemap index is called +sitemap.xml.gz+ while the rest of them are named after <tt>sitemap{N}.xml.gz</tt> where <tt>{N}</tt> is a sequential integer.

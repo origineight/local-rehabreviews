@@ -1,0 +1,8 @@
+User-agent: *
+Sitemap: https://local-rehabreviews-com.s3.amazonaws.com/sitemaps/sitemap.xml
+Disallow: /*assets
+Disallow: /*wp-login$
+Disallow: /therapists/wp-login.php
+Disallow: /blog/index.php
+Disallow: /admin
+Disallow: /*.php$

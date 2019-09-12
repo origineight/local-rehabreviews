@@ -1,0 +1,14 @@
+<h3>Insurance Benefits Check Received</h3>
+
+<p class="lead">Your request has been received. One of our insurance specialists will provide a response within 24 hours.</p>
+
+<p>You will be redirected back in 5 seconds...</p>
+
+<% content_for :javascript do %>
+  <script>
+    window.setTimeout(function(){
+      window.location.href = '/directories/rehabs/ca';
+    }, 5000);
+  </script>
+<% end %>
+

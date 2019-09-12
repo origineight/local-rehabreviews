@@ -1,0 +1,12 @@
+<div id="mobile-header-search-bar" class="visible-xs">
+  <%= form_tag search_directory_path(@directory.slug), method: :get do %>
+    <div class="form-group">
+      <div class="input-group">
+        <%= text_field_tag :q, params[:q], placeholder: "SEARCH #{@search['directory'].name.upcase} DIRECTORY", class: 'form-control' %>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-blue-grad" style="width: auto;"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </div>
+  <% end %>
+</div>

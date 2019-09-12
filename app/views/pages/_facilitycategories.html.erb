@@ -1,0 +1,12 @@
+<ul class="icon-list heart-list">
+  <div class="row">
+    <div class="col-sm-4">
+      <% @categories.each_with_index do |cat,i| %>
+        <li><a href="/category/<%= cat.slug %>"><i class="fa fa-heart"></i> <%= cat.name %></a></li>
+        <% if (i+1) % ((@categories.size/3).to_i + 1) == 0 && (i+1) != @categories.size %>
+          </div><div class="col-sm-4">
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</ul>

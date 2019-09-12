@@ -1,0 +1,16 @@
+<h1>New Rating</h1>
+<p>Heads up, a new rating has been submitted on RehabReviews.com</p>
+
+<p><strong>Listing:</strong> <%= @rating.listing.full_name %></p>
+<hr>
+<p><strong>Rating:</strong> <%= pluralize(@rating.score, 'star') %>
+<p><strong>Title:</strong> <%= @rating.title %></p>
+<p><strong>Review:</strong> <%= @rating.body %></p>
+<hr>
+<p><strong>Initials:</strong> <%= @rating.initials %></p>
+<p><strong>Attended:</strong> <%= "True" if @rating.attended %></p>
+
+<p>
+  <%#= link_to "Click to Approve/Decline Rating", admin_ratings_url %>
+  <%= link_to "Click to Review Rating", listing_url(@rating.listing) %>
+</p>

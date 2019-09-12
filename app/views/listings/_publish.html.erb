@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title"><a id="listing_publish_expand" data-toggle="collapse" data-target="#listing_publish" href="#">Publish Status</a></h4>
+    <script>
+      $('#listing_publish_expand').on('click', function(e) {
+        e.preventDefault();
+      });
+    </script>
+  </div>
+  <div id="listing_publish" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <p><strong>Publish Status: </strong>
+        <% if @listing.published? %>
+          Published <% if @listing.id %>(<%= link_to "View Listing Profile", seo_listing_path(@listing) %>)<% end %>
+        <% else %>
+          Not Published <% if @listing.id %>(<%= link_to "View Listing Preview", seo_listing_path(@listing) %>)<% end %>
+        <% end %>
+      </p>
+      <div class="form-group">
+        <%= select_tag "publish_status", options_for_select([['Published', true], ['Not Published', false]], @listing.published?), {class: 'form-control'} %>
+      </div>
+      <script>
+        $('#publish_status').on("change", function() {
+          value = $(this).val();
+          $('#listing_published').val(value);
+        });
+      </script>
+      <%= link_to "Delete Listing", listing_path(@listing), method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>

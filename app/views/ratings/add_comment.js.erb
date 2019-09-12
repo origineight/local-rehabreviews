@@ -1,0 +1,3 @@
+$("#<%= @comment.rating_id %>").html("<%= j (render 'comments') %>");
+$("#<%= @comment.rating_id %>").next().addClass('hidden');
+$("#<%= @comment.rating_id %>").next().find('form').trigger('reset');

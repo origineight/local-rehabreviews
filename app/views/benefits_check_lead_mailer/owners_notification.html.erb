@@ -1,0 +1,12 @@
+<h1>Insurance Benefits Check Details</h1>
+
+<p><b>Name:</b> <%= @benefits_check.name %></p>
+<p><b>Email:</b> <%= @benefits_check.email %></p>
+<p><b>Phone:</b> <%= @benefits_check.phone %></p>
+
+<p><b>Insurance type:</b> <%= @benefits_check.insurance_type %></p>
+<p><b>Seeking help for:</b> <%= @benefits_check.seeking_help_for.capitalize %></p>
+
+<p><b>Submitted from popup:</b> <%= @benefits_check.popup ? 'Yes' : 'No' %></p>
+<p><b>Submitted on:</b> <%= @benefits_check.created_at %></p>
+<p><b>Source URL:</b> <%= link_to @benefits_check.referer, @benefits_check.referer %></p>

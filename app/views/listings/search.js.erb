@@ -1,0 +1,61 @@
+<% if @search['listings'].present? and !browser.bot? %>
+  $('#cats').html("<%= params[:categories] %>");
+  $('#the_listings').html("<%= j (render @search['listings']) %>");
+  $('#pagination').html('<%= j (paginate(@search['listings'], :remote => true).to_s) %>');
+  // $('#filter').html("<%= j (render 'filter') %>");
+
+  var locations = [
+  <% if @search['listings'] %>
+    <% @search['listings'].each_with_index do |loc, index| %>
+      ["<%= loc.name %>", <%= loc.latitude %>, <%= loc.longitude %>, "<%= loc.address_1 %>", "<%= loc.city_str %>", "<%= loc.state_abbreviation_str %>", "<%= loc.zipcode %>", "<%= seo_listing_path(loc) %>"]<%= "#{',' unless index == @search['listings'].size - 1}" %>
+    <% end %>
+  <% end %>
+  ]
+
+  L.mapbox.accessToken = '<%= ENV['MAPBOX_API_KEY'] %>';
+  var map = L.mapbox.map('map-header', 'mapbox.streets').setView([locations[0][1], locations[0][2]], 15);
+  for(i=0; i<locations.length; i++){
+    if (locations[i]!==undefined){
+        var lat = locations[i][1];
+        var long = locations[i][2];
+        var name = '<strong>'+locations[i][0]+'</strong>';
+        var desc = locations[i][3]+'<br/>'+locations[i][4]+', '+locations[i][5]+' '+locations[i][6]+'<br/><a class="btn btn-readmore btn-readmore-on-new-map" style="margin-top: 4px; color: #fff;">Read More</a><div class="hidden">'+locations[i][7]+'</div>';
+        if (lat && long) {
+          L.mapbox.featureLayer({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                long,
+                lat
+              ]
+            },
+            properties: {
+              title: name,
+              description: desc,
+              'marker-size': 'large',
+              'marker-color': '#BE9A6B',
+              'marker-symbol': 'hospital'
+            }
+          }).addTo(map);
+        }
+      }
+  }
+<% else %>
+  $('#cats').html("<%= params[:categories] %>");
+  $('#the_listings').html("<%= j ('Sorry, no listings were found that match your query. Please try again.') %>");
+  $('#pagination').html('');
+  var myOptions = {
+     scrollwheel: false,
+     zoom: 4,
+     mapTypeId: google.maps.MapTypeId.ROADMAP,
+     mapTypeControl: false
+  };
+  var map = new google.maps.Map(document.getElementById("map-header"), myOptions);
+
+  map.setCenter(new google.maps.LatLng(37.6, -95.665));
+<% end %>
+
+<% if Rails.env == "development" %>
+  $('#params').html('<%= params %>');
+<% end %>

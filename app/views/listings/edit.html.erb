@@ -1,0 +1,27 @@
+<h1 class="page-title">Edit Listing</h1>
+
+<% if @listing.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@listing.errors.count, "error") %> prohibited
+      this review from being saved:</h2>
+    <ul>
+    <% @listing.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-8">
+    <%= render 'listings/editform' %>
+  </div>
+  <div class="col-sm-4">
+    <% if current_member.is_administrator? %>
+      <div id="publish">
+        <%= render 'listings/publish' %>
+      </div>
+    <% end %>
+    <%= render 'listings/upload' %>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag 'bootstrap-timepicker' %>
+    <%= stylesheet_link_tag 'summernote' %>
+
+    <style>
+      .note-toolbar i, span.caret, .note-current-fontname, .note-current-fontsize  {
+        color: black;
+        text-shadow: none;
+      }
+      #benefits_check_notification_insurance_types {
+        height: 180px;
+      }
+    </style>
+<% end %>
+
+<% if @ibcn.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@ibcn.errors.count, "error") %> prohibited
+      this ibcn from being saved:</h2>
+    <ul>
+    <% @ibcn.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for [:admin, @ibcn] do |f| %>
+  <div class="form-group required">
+    <%= f.label :subject, class: 'control-label' %>
+    <%= f.text_field :subject, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :content, class: 'control-label' %>
+    <%= f.text_area :content, required: true, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :insurance_types, class: 'control-label' %> <i>(Blank for all insurance types)</i>
+    <%= f.select :insurance_types, options_for_select(BenefitsCheckLead.insurance_types.keys, @ibcn.insurance_types), {}, class: 'form-control', multiple: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :submitted_from, class: 'control-label' %> <i>(Blank for any time)</i>
+    <%= f.text_field :submitted_from, class: 'form-control timepicker' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :submitted_to, class: 'control-label' %> <i>(Blank for any time)</i>
+    <%= f.text_field :submitted_to, class: 'form-control timepicker' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <a class="btn btn-orange" href="javascript:history.back()">Cancel</a>
+  </div>
+<% end %>
+
+<% content_for :javascript do %>
+    <%= javascript_include_tag 'bootstrap-timepicker' %>
+    <%= javascript_include_tag 'summernote' %>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.timepicker').timepicker({
+            minuteStep: 1,
+            showSeconds: false,
+            showMeridian: false,
+            defaultTime: false
+        });
+        $('#benefits_check_notification_content').summernote({
+          height: 300, 
+          toolbar: [
+            ['style', ['style']],
+            ['para', ['ul', 'ol']],
+            ['height', ['height']],
+            ['insert', ['link', 'hr']],
+            ['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+          ]
+        });
+      });
+    </script>
+<% end %>

@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+ - "2.0.0"
+services:
+  - postgresql
+  - elasticsearch
+  - redis-server
+before_script:
+  - cp .env.travis .env
+  - psql -c 'create database apc_directory_test;' -U postgres
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 10
+

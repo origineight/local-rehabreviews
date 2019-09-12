@@ -1,0 +1,23 @@
+<span class="claim_this meta-item margin-r-0p">
+  <% if can? :update, @listing %>
+    <span class="meta-icon">
+      <i class="fa fa-cog"></i>
+    </span>
+    <span class="text-left">
+      <%= link_to "Edit Listing", edit_listing_path(@listing) %>
+    </span>
+  <% elsif @listing.claims.approved.empty? %>
+    <span class="meta-icon">
+      <i class="fa fa-cog"></i>
+    </span>
+
+    <span class="text-left">
+      <% if @listing.claims.where(:member_id => current_member).any? %>
+        Claim Pending Approval
+      <% else %>
+        Are you the owner?<br>
+        <%= link_to "Apply to edit this entry", new_listing_claim_path(@listing) %>
+      <% end %>
+    </span>
+  <% end %>
+</span>

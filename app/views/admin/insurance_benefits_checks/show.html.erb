@@ -1,0 +1,19 @@
+<% meta title: "Insurance Benefits Checks" %>
+
+<h1 class="page-title">Insurance Benefits Check submmited by <b><%= @ibc.name %></b></h1>
+
+<hr>
+
+<ul class="list-unstyled">
+  <li><b>Email:</b> <%= @ibc.email %></li>
+  <li><b>Phone:</b> <%= @ibc.phone %></li>
+  <li><b>Insurance type:</b> <%= @ibc.insurance_type %></li>
+  <li><b>Seeking help for:</b> <%= @ibc.seeking_help_for.capitalize %></li>
+  <li><b>Submitted from popup:</b> <%= @ibc.popup ? 'Yes' : 'No' %></li>
+  <li><b>Submitted on:</b> <%= @ibc.created_at %></li>
+  <li><b>Source URL:</b> <%= link_to @ibc.referer, @ibc.referer %></li>
+</ul>
+
+<hr>
+
+<%= link_to 'Back', :admin_insurance_benefits_checks %>

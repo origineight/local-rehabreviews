@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+  <div class="panel-heading" id="admin_ratings_head">
+    <h2 class="panel-title"><a data-toggle="collapse" href="#admin_ratings" aria-expanded="true" aria-controls="admin_ratings">Pending Ratings</a></h2>
+  </div>
+  <div id="admin_ratings" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="admin_ratings_head">
+    <div class="panel-body">
+      <% if @ratings.present? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Initials</th>
+              <th>Listing</th>
+              <th>Details</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @ratings.each do |rating| %>
+              <tr>
+                <td>
+                  <%= rating.initials %>
+                </td>
+                <td>
+                  <%= link_to rating.listing.full_name, seo_listing_path(rating.listing) %>
+                </td>
+                <td>
+                  <% if rating.score.present? %>
+                    <%= pluralize(rating.score, 'star') %>
+                  <% end %>
+                  <% if rating.body.present? %>
+                    &nbsp;<a  tabindex="0" data-toggle="popover" data-placement="bottom" data-content="<%= rating.body %>"><i class="fa fa-file-text-o"></i></a>
+                  <% end %>
+                  <script>
+                  $(function () {
+                    $('[data-toggle="popover"]').popover();
+                    $('body').on('click', function (e) {
+                      //did not click a popover toggle, or icon in popover toggle, or popover
+                      if ($(e.target).data('toggle') !== 'popover'
+                        && $(e.target).parents('[data-toggle="popover"]').length === 0
+                        && $(e.target).parents('.popover.in').length === 0) { 
+                        $('[data-toggle="popover"]').popover('hide');
+                      }
+                    });
+                  })
+                  </script>
+                </td>
+                <td>
+                  <% if rating.approval == 'no' %>
+                    Declined
+                  <% elsif rating.approval == 'yes' %>
+                    Approved
+                  <% else %>
+                    Pending Approval
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to "Approve", approve_rating_path(rating), class: 'btn btn-mini btn-success' %>
+                  <%= link_to "Decline", decline_rating_path(rating), class: 'btn btn-mini btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= paginate @ratings %>
+      <% else %>
+        <span>There are no pending ratings.</span>
+      <% end %>
+    </div>
+  </div>
+</div>

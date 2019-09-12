@@ -1,0 +1,38 @@
+<h1 class="page-title">Apply to Manage This Profile</h1>
+
+<% if @claim.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@claim.errors.count, "error") %> prohibited
+      this review from being saved:</h2>
+    <ul>
+    <% @claim.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<p><strong>Listing:</strong> <%= link_to @listing.full_name, seo_listing_path(@listing) %></p>
+
+<%= form_for @claim do |f| %>
+  <div class="form-group required">
+    <%= f.label :name, 'Name', class: 'control-label' %>
+    <%= f.text_field :name, :value => current_member.full_name, :required => true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :email, 'Email', class: 'control-label' %>
+    <%= f.text_field :email, :value => current_member.email, :required => true, :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}', :oninvalid => "setCustomValidity('Not a valid email address.')", class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :phone, 'Phone', class: 'control-label' %>
+    <%= f.text_field :phone, :required => true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, "Please explain your affiliation with this listing", class: 'control-label' %>
+    <%= f.text_area :description, class: 'form-control' %>
+    <%= f.hidden_field :member_id, :value => current_member.id %>
+    <%= f.hidden_field :listing_id, :value => @listing.id %>
+  </div>
+  <p class="required-message strong"><span class="red">*</span> Denotes a required field.</p>
+  <%= f.submit "Submit", class: 'btn btn-primary' %>
+<% end %>

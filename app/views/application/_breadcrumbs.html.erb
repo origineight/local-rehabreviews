@@ -1,0 +1,26 @@
+<% if params[:controller] == "listings" && params[:action] == "show" && @listing.present? %>
+  <ol class="breadcrumb">
+    <li><%= link_to @listing.directory.name, search_directory_path(@listing.directory.slug) %></li>
+    <li><%= link_to @listing.state_str.downcase, search_directory_state_path(@listing.directory.slug, @listing.state_abbreviation_str.downcase)%></li>
+    <li><%= link_to @listing.city_str.downcase, search_directory_state_city_path(@listing.directory.slug, @listing.state_abbreviation_str.downcase, CGI.escape(@listing.city_str)) %></li>
+    <li class="active"><%= @listing.full_name.truncate(16) %></li>
+  </ol>
+<% elsif params[:controller] == "listings" && params[:action] == "search" %>
+  <ol class="breadcrumb">
+    <% unless params[:category_id] || params[:directory] %>
+      <li><%= link_to @search['directory'].name, search_directory_path(@search['directory'].slug) %></li>
+    <% end %>
+    <% if params[:z] %>
+      <li class="active"><%= params[:z] %></li>
+    <% elsif params[:alpha] %>
+      <li class="active"><%= params[:alpha].upcase %></li>
+    <% elsif params[:state] && params[:city] %>
+      <li><%= link_to state_info(params[:state])['full_state'], search_directory_state_path(@search['directory'].slug, params[:state]) %></li>
+      <li class="active"><%= params[:city].gsub('+', ' ') %></li>
+    <% elsif params[:state] %>
+      <li class="active"><%= state_info(params[:state])["full_state"] %></li>
+    <% else %>
+      <li class="active"><%= @search['directory'].name %></li>
+    <% end %>
+  </ol>
+<% end %>

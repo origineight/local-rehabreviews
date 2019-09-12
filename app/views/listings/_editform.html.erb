@@ -1,0 +1,388 @@
+<% if current_member.is_administrator? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title"><a id="listing_types_expand" data-toggle="collapse" data-target="#listing_types" href="#">Listing Types</a></h4>
+      <script>
+        $('#listing_types_expand').on('click', function(e) {
+          e.preventDefault();
+        });
+      </script>
+    </div>
+    <div id="listing_types" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <%= form_tag("/edit_fields_update", method: "get", remote: true, id: 'edit_fields', :class => "form-horizontal") do %>
+          <div class="form-group">
+            <%= label_tag 'change_listing_type', 'Type', class: 'control-label col-sm-2' %>
+            <div class="col-sm-10">
+              <select id="change_listing_type" name="change_listing_type" class="form-control">
+                <option value="facility"<%= " selected='selected'" if @listing.listing_type == 'facility' %>>Facility</option>
+                <option value="person"<%= " selected='selected'" if @listing.listing_type == 'person' %>>Person</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= label_tag 'change_directory_type', 'Directory', class: 'control-label col-sm-2' %>
+            <div class="col-sm-10">
+              <%= select_tag "change_directory_type", options_from_collection_for_select(Directory.all.order(:name).reverse, "id", "name", @listing.directory_id), class: 'form-control' %>
+            </div>
+          </div>
+            <%= hidden_field_tag 'listing_slug', @listing.slug %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<%= form_for @listing, :html => {:class => "form-horizontal"} do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title"><a id="listing_info_expand" data-toggle="collapse" data-target="#listing_info" href="#">Listing Information</a></h4>
+      <script>
+        $('#listing_info_expand').on('click', function(e) {
+          e.preventDefault();
+        });
+      </script>
+    </div>
+    <div id="listing_info" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div id="field-types">
+          <% if @listing.listing_type == 'person' %>
+            <%= render 'personfields' %>
+          <% else %>
+            <%= render 'facilityfields' %>
+          <% end %>
+        </div>
+        <div class="form-group required">
+          <%= f.label :address_1, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :address_1, :required => true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :address_2, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :address_2, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :country, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.country_select :country, { :required => true } , { class: 'form-control' } %>
+          </div>
+          <div class='non-us-notification col-sm-12' style='display:none;'>
+            For non US country, just append city and province/state to address fields above.
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :state, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.collection_select(:state, @states, :id, :name, {selected: @listing.state_id_selected}, {class: 'form-control'}) %>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :city_id, 'City',class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.collection_select(:city_id, @cities, :id, :name, {}, {class: 'form-control'}) %>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :old_state, 'Old State',class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%=f.select(:old_state, options_for_select(@old_states, @listing.old_state), {},class: 'form-control')%>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :old_city, 'Old City', class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :old_city, :required => true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :zipcode, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :zipcode, :required => true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :phone, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :phone, :required => true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :fax, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :fax, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :website, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :website, :pattern => 'https?://.+', :oninvalid => "setCustomValidity('Please use http://')", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :twitter, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :twitter, :pattern => 'https?://.+', :oninvalid => "setCustomValidity('Please use http://')", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :facebook, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :facebook, :pattern => 'https?://.+', :oninvalid => "setCustomValidity('Please use http://')", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :instagram, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :instagram, :pattern => 'https?://.+', :oninvalid => "setCustomValidity('Please use http://')", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :review_url, class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_field :review_url, :pattern => 'https?://.+', :oninvalid => "setCustomValidity('Please use http://')", class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group required">
+          <%= f.label :description, "Description", class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.cktext_area :description, :required => true, :minlength => 325, :maxlength => 10000, :rows => 10, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :custom_description, "Custom Description", class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.cktext_area :custom_description, :required => false, :minlength => 325, :maxlength => 10000, :rows => 10, class: 'form-control' %>
+          </div>
+        </div>
+        <% if current_member.is_administrator? %>
+          <div class="form-group">
+            <%= f.label :meta_description, "Meta Description", class: 'control-label col-sm-2' %>
+            <div class="col-sm-10">
+              <%= f.text_area :meta_description, :rows => 5, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :featured, "Featured", class: 'control-label col-sm-2' %>
+            <div class="col-sm-10 checkbox">
+              <%= f.check_box :featured %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :custom, "Custom", class: 'control-label col-sm-2' %>
+            <div class="col-sm-10 checkbox">
+              <%= f.check_box :custom %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :state_boost, "Boost by State", class: 'control-label col-sm-2' %>
+            <div class="col-sm-10 checkbox">
+              <%= f.check_box :state_boost %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :paid_advertiser, "Paid Advertiser", class: 'control-label col-sm-2' %>
+            <div class="col-sm-10 checkbox">
+              <%= f.check_box :paid_advertiser %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :mark_for_deletion, "Mark for Deletion", class: 'control-label col-sm-2' %>
+            <div class="col-sm-10 checkbox">
+              <%= f.check_box :mark_for_deletion %>
+            </div>
+          </div>
+        <% end %>
+        <p class="required-message strong text-right"><span class="red">*</span> Denotes a required field.</p>
+      </div>
+    </div>
+  </div>
+<% if current_member.is_administrator? %>
+  <div class="panel panel-default" id="categoriespanel">
+    <div class="panel-heading">
+      <h4 class="panel-title"><a id="categoriesexpand" data-toggle="collapse" data-target="#categories" href="#">Categories</a></h4>
+      <script>
+        $('#categoriesexpand').on('click', function(e) {
+          e.preventDefault();
+        });
+      </script>
+    </div>
+    <div id="categories" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <div id="form-categories">
+              <% if @categories.present? %>
+                <% @categories.order(:name).each do |cat| %>
+                  <%= hidden_field_tag "listing[category_ids][]", nil %>
+                  <div class="checkbox">
+                    <%= check_box_tag "listing[category_ids][]", cat.id, @listing.category_ids.include?(cat.id), id: dom_id(cat) %>
+                    <%= label_tag dom_id(cat), cat.name %>
+                    <% if cat.boostable? %>
+                      <span style="margin-left: 10px;">
+                        <% if @listing.boosted?(cat.id) %>
+                          <%= link_to "Unboost", "/unboost/#{@listing.id}/#{cat.id}", :remote => true, class: 'btn btn-mini btn-danger boost-link' %>
+                        <% else %>
+                          <%= link_to "Boost", "/boost/#{@listing.id}/#{cat.id}", :remote => true, class: 'btn btn-mini btn-orange boost-link' %>
+                        <% end %>
+                      </span>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% else %>
+                No categories for this listing type.
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class='form-group'>
+          <%= f.label :custom_service, 'Services', class: 'control-label col-sm-2' %>
+          <div class="col-sm-10">
+            <%= f.text_area :custom_service, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+  <div class="panel panel-default" id="languagespanel">
+    <div class="panel-heading">
+      <h4 class="panel-title"><a id="languagesexpand" data-toggle="collapse" data-target="#languages" href="#" class="collapsed">Additional Languages</a></h4>
+      <script>
+        $('#languagesexpand').on('click', function(e) {
+          e.preventDefault();
+        });
+      </script>
+    </div>
+    <div id="languages" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <div id="form-languages">
+              <% @languages.order(:name).each do |lang| %>
+                <%= hidden_field_tag "listing[language_ids][]", nil %>
+                <div class="checkbox">
+                  <%= check_box_tag "listing[language_ids][]", lang.id, @listing.language_ids.include?(lang.id), id: dom_id(lang) %>
+                  <%= label_tag dom_id(lang), lang.name %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default" id="insurancespanel">
+    <div class="panel-heading">
+      <h4 class="panel-title"><a id="insurancesexpand" data-toggle="collapse" data-target="#insurances" href="#" class="collapsed">Insurance Accepted</a></h4>
+      <script>
+        $('#insurancesexpand').on('click', function(e) {
+          e.preventDefault();
+        });
+      </script>
+    </div>
+    <div id="insurances" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <div id="form-insurances">
+              <% @insurances.order(:name).each do |ins| %>
+                <%= hidden_field_tag "listing[insurance_ids][]", nil %>
+                <div class="checkbox">
+                  <%= check_box_tag "listing[insurance_ids][]", ins.id, @listing.insurance_ids.include?(ins.id), id: dom_id(ins) %>
+                  <%= label_tag dom_id(ins), ins.name %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if current_member.is_administrator? %>
+    <%= f.hidden_field :published %>
+  <% end %>
+    <%= f.hidden_field :directory_id %>
+    <%= f.hidden_field :listing_type %>
+    <%= f.submit "Update Listing", :class => 'btn btn-primary pull-right', :id => 'update-listing-btn' %>
+<% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="desc-warning-modal" tabindex="-1" role="dialog" aria-labelledby="descWarningModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>We recommend a minimum of 300 words, are you sure you want to continue?</p>
+        <br/>
+        <button class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>
+        <button class='btn btn-primary' id='continue-submit'>Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $('#update-listing-btn').on('click', function(e){
+    e.preventDefault()
+    var _the_form = $(this).parents('form')
+    if(CKEDITOR.instances.listing_description.getData().length<300){
+      $('#desc-warning-modal').modal('show')
+      $('#continue-submit').click(function(){
+        _the_form.submit();
+      })
+    } else {
+      _the_form.submit();
+    }
+  })
+  $('#change_listing_type').on("change", function() {
+    $('form#edit_fields').submit();
+    $('#listing_listing_type').val($(this).val());
+  });
+  $('#change_directory_type').on("change", function() {
+    $('form#edit_fields').submit();
+    var did = $(this).val();
+    $('#listing_directory_id').val(did);
+    $("a.boost-link").each(function() {
+       var _href = $(this).attr("href");
+       $(this).attr("href", _href + '&directory_id=' + did);
+    });
+  });
+  $(document).on('change', '#listing_state', function() {
+    var sel = $("#listing_state option:selected").val();
+
+    var url = '<%= Rails.env == 'development' ? 'http' : 'https'%>'+'://<%= ENV['APP_DOMAIN']%>' + '/listings/cities_of_state/'+sel;
+
+    $.get(url, function( data ) {
+      $("#listing_city_id").html(data);
+    });
+  });
+  $(document).on('change', '#listing_country', function() {
+    if($(this).val()!='US') {
+      $('#listing_state').parents('.form-group').hide();
+      $('#listing_city_id').parents('.form-group').hide();
+      $('#listing_old_state').parents('.form-group').hide();
+      $('#listing_old_city').parents('.form-group').hide();
+      $(this).parents('.form-group').find('.non-us-notification').show();
+    } else {
+      $('#listing_state').parents('.form-group').show();
+      $('#listing_city_id').parents('.form-group').show();
+      $('#listing_old_state').parents('.form-group').show();
+      $('#listing_old_city').parents('.form-group').show();
+      $(this).parents('.form-group').find('.non-us-notification').hide();
+    }
+  });
+  $(document).ready(function() {
+    if($('#listing_country').val()!='US') {
+      $('#listing_state').parents('.form-group').hide();
+      $('#listing_city_id').parents('.form-group').hide();
+      $('#listing_old_state').parents('.form-group').hide();
+      $('#listing_old_city').parents('.form-group').hide();
+      $('#listing_country').parents('.form-group').find('.non-us-notification').show();
+    }
+  });
+  
+</script>

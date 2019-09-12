@@ -1,0 +1,19 @@
+<h1>New Claim</h1>
+<p>Heads up, a new claim was submitted on RehabReviews.com</p>
+
+<p><strong>Name:</strong> <%= @claim.name %></p>
+<p><strong>Email:</strong> <%= @claim.email %></p>
+<p><strong>Phone:</strong> <%= @claim.phone %></p>
+
+<p><strong>Listing Name:</strong> <%= @claim.listing.full_name %></p>
+
+<p><strong>Description:</strong> <%= @claim.description %></p>
+
+<p><%= link_to "Click to Approve/Decline Claim", admin_claims_url %></p>
+
+<p>
+  Submitted by:<br>
+  Member #<%= @claim.member.id.to_s %><br>
+  <%= @claim.member.first_name %> <%= @claim.member.last_name %><br>
+  <%= @claim.member.email %>
+</p>

@@ -1,0 +1,94 @@
+<div class="review">
+  <br/>
+  <h4>"<%= rating.initials %>" (Reviewer)</h4>
+  <% if rating.score %>
+    <div><span class="review-rating-text">Rating:</span> <%= render_stars(rating.score) %></div>
+  <% end %>
+  <% if rating.body.present? %>
+    <div class="review-body">
+      <div class="row">
+        <div class="col-xs-2 review-avatar">
+          <% if amp_renderable? %>
+            <amp-img src="https://rehab-reviews.s3.amazonaws.com/assets/default_avatar_200.png" layout="responsive" width="200" height="200">
+          <% else %>
+            <img src="https://rehab-reviews.s3.amazonaws.com/assets/default_avatar_200.png" class="img-responsive">
+          <% end %>
+        </div>
+        <div class="col-xs-10 review-text">
+          <% if rating.title.present? %>
+            <h5><%= rating.title %></h5>
+          <% else %>
+            <h5>Review of <%= rating.listing.full_name %></h5>
+          <% end %>
+          <%= simple_format(Sanitize.fragment(rating.body, Sanitize::Config::BASIC)) %>
+        </div>
+        <div class='col-xs-10 col-xs-offset-2'>
+          <div class='col-xs-6 text-left'>
+            <% if amp_renderable? %>
+              <a class="btn btn-orange pull-left add_comment" href="<%= rails_amp_canonical_url %>">+ Reply</a>
+            <% else %>
+              <a class="btn btn-orange pull-left add_comment" href="javascript:void(0);">+ Reply</a>
+            <% end %>
+          </div>
+          <div class="col-xs-6 review-timestamp text-right">
+            <i class="fa fa-clock-o"></i> <%= rating.created_at.in_time_zone.strftime('%-m-%d-%y | %I:%M %p') %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='comments' id='<%= rating.id %>'>
+      <% rating.comments.each do |comment| %>
+        <div class='review-body col-xs-10 col-xs-offset-2'>
+          <div class='row'>
+            <div class="col-xs-2 review-avatar">
+              <% if amp_renderable? %>
+                <amp-img src="https://rehab-reviews.s3.amazonaws.com/assets/default_avatar_200.png" layout="responsive" width="200" height="200">
+              <% else %>
+                <img src="https://rehab-reviews.s3.amazonaws.com/assets/default_avatar_200.png" class="img-responsive">
+              <% end %>
+            </div>
+            <div class="col-xs-10 review-text">
+              <h4><%= comment.initial rescue 'Anonymous'%></h4>
+              <%= simple_format(Sanitize.fragment(comment.body, Sanitize::Config::BASIC)) %>
+            </div>
+            <div class="col-xs-12 review-timestamp text-right">
+              <i class="fa fa-clock-o"></i> <%= comment.created_at.in_time_zone.strftime('%-m-%d-%y | %I:%M %p') %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <% unless amp_renderable? %>
+      <div class='comment-form hidden'>
+        <%= form_tag(add_comment_path, method: 'post', remote: true) do %>
+          <%= hidden_field_tag('comment[rating_id]', rating.id) %>
+            <div class='review-body col-xs-10 col-xs-offset-2'>
+              <div class="row">
+                <div class="col-xs-2 review-avatar">
+                  <% if amp_renderable? %>
+                    <amp-img src="https://rehab-reviews.s3.amazonaws.com/assets/default_avatar_200.png" layout="responsive" width="200" height="200">
+                  <% else %>
+                    <img src="https://rehab-reviews.s3.amazonaws.com/assets/default_avatar_200.png" class="img-responsive">
+                  <% end %>
+                </div>
+                <div class="col-xs-10 review-text">
+                  <div class="form-group">
+                    <%= text_field_tag 'comment[initial]', nil, class: 'form-control', placeholder: 'Your Initial' %>
+                  </div>
+                  <div class="form-group">
+                    <%= text_area_tag 'comment[body]', nil, class: 'form-control', placeholder: 'Your Comment' %>
+                  </div>
+                  <div class='form-group'>
+                    <%= recaptcha_tags %>
+                  </div>
+                  <div class="form-group">
+                    <%= submit_tag 'Add comment', class: 'btn btn-orange-grad' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

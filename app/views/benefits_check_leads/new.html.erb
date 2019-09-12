@@ -1,0 +1,16 @@
+<!-- Display errors -->
+<% if @lead.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@lead.errors.count, "error") %> prohibited
+      this form from being submitted:</h2>
+    <ul>
+    <% @lead.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h3>Free Insurance Benefits Check </h3>
+
+<%= render 'form' %>

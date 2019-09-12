@@ -1,0 +1,99 @@
+<%
+meta description: "The World's Largest & Most Trusted Resource for Rehab Reviews"
+%>
+<div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad">
+  <span class='sponsored-ad'>Sponsored Ad</span>
+</div>
+<div class="ad-module main-showcase-ad">
+  <span class="diag-container ad-container">
+    <!-- /59855596/RR_UpperShowcase_Location_MainDirectory_728x90 -->
+    <div id='div-gpt-ad-1429128193855-5'>
+    <script type='text/javascript'>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1429128193855-5'); });
+    </script>
+    </div>
+  </span>
+</div>
+
+<div id="findhelp">
+  <div id="find-rehab">
+    <% if @featured.present? %>
+      <section id="featured-listings">
+        <div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad">
+          <span class='sponsored-ad'>Sponsored Ad</span>
+        </div>
+        <h3>Featured <span class="lightblue">Listings</span></h3>
+        <div class="row">
+          <% @featured.each do |f| %>
+            <div class="col-md-6">
+              <table class="table mini-listing">
+                <tbody>
+                  <tr>
+                    <td class="mini-listing-image" style="width:200px;">
+                      <%= link_to seo_listing_path(f) do %>
+                        <% if f.uploads.present? %>
+                          <%= image_tag f.uploads.last.image(:featured_thumb), class: 'listing-image' %>
+                        <% else %>
+                          <% if f.geocoded? %>
+                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= f.latitude %>,<%= f.longitude %>&amp;maptype=satellite&amp;zoom=17&amp;size=380x280&amp;key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>" width="190" height="140" class="listing-image">
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <%= render 'application/featured_info_icon' %>
+                      <h5><%= link_to f.full_name.truncate(30, separator: ' ', omission: ''), seo_listing_path(f) %></h5>
+                      <p class="address hidden-xs"><i class="fa fa-map-marker"></i> <%= f.address_1 %><%= ", #{f.address_2}" if f.address_2.present? %>, <%= f.city_str %>, <%= f.state_abbreviation_str.upcase %> <%= f.zipcode %></p>
+                      <%= link_to "Read More", seo_listing_path(f), class: 'btn btn-readmore pull-right' %>
+                      <%= star_rating(f) %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+    <%if @recent_blogs.present?%>
+      <section id="blog-posts">
+        <h3><span class="lightblue">From the Blog</span></h3>
+        <%@recent_blogs.each do |b| %>
+          <article>
+            <header>
+              <h4><%= link_to b.title, blog_post_page_path(b)%></h4>
+            </header>
+            <p><%=b.description.truncate(255).html_safe %></p>
+          </article>
+        <%end%>
+      </section>
+    <%end%>
+    <section id="facility-by-state" class="usbg">
+      <h3>Find Rehabs <span class="lightblue">By State</span></h3>
+      <p class="text-center">You can use this tool to search for rehab and recovery services in your area. You can also look into facilities and service providers in areas you might be interested in admitting.</p>
+      <%= render 'facilitystates' %>
+    </section>
+    <section id="facility-by-name">
+      <h3>Find Rehabs <span class="lightblue">By Category</span></h3>
+      <p class="text-center">You can use this tool to search for a specific kind of medical care at a rehab</p>
+      <%= render 'facilitycategories' %>
+    </section>
+  </div>
+</div>
+
+
+<div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad">
+  <span class='sponsored-ad'>Sponsored Ad</span>
+</div>
+<div class="ad-module ad-single-centered">
+  <span class="diag-container ad-container">
+    <!-- /59855596/RR_Main-Directory_LowerShowcase_Footer_728x90 -->
+    <div id='div-gpt-ad-1429128193855-3'>
+    <script type='text/javascript'>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1429128193855-3'); });
+    </script>
+    </div>
+  </span>
+</div>
+
+<%= render 'findbyname' %>

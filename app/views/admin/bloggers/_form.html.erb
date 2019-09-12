@@ -1,0 +1,35 @@
+<% if @blogger.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@blogger.errors.count, "error") %> prohibited
+      this blogger from being saved:</h2>
+    <ul>
+    <% @blogger.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for [:admin, @blogger] do |f| %>
+  <div class="form-group required">
+    <%= f.label :full_name, 'Full name', class: 'control-label' %>
+    <%= f.text_field :full_name, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :email, class: 'control-label' %>
+    <%= f.text_field :email, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :password, class: 'control-label' %>
+    <%= f.password_field :password, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :password_confirmation, class: 'control-label' %>
+    <%= f.password_field :password_confirmation, required: true, class: 'form-control' %>
+  </div>
+  <p class="required-message strong text-right"><span class="red">*</span> Denotes a required field.</p>
+  <div class="actions">
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <a class="btn btn-orange" href="javascript:history.back()">Cancel</a>
+  </div>
+<% end %>

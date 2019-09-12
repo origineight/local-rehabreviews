@@ -1,0 +1,222 @@
+<style>
+  .insurance-benefits-check-embedded {
+      font-size: 15px;
+      font-family: 'Droid Sans', sans-serif;
+  }
+  .insurance-benefits-check-embedded button,
+  .insurance-benefits-check-embedded input,
+  .insurance-benefits-check-embedded optgroup,
+  .insurance-benefits-check-embedded select,
+  .insurance-benefits-check-embedded textarea {
+      color: inherit;
+      font: inherit;
+      margin: 0;
+  }
+  .insurance-benefits-check-embedded button,
+  .insurance-benefits-check-embedded select {
+      text-transform: none;
+  }
+  .insurance-benefits-check-embedded input,
+  .insurance-benefits-check-embedded textarea,
+  .insurance-benefits-check-embedded select {
+      max-width: 100%;
+      width: auto;
+  }
+  .insurance-benefits-check-embedded input[type="radio"],
+  .insurance-benefits-check-embedded input[type="checkbox"] {
+      margin: 4px 0 0;
+      margin-top: 1px \9;
+      line-height: normal;
+  }
+  .insurance-benefits-check-embedded .radio input[type="radio"],
+  .insurance-benefits-check-embedded .radio-inline input[type="radio"],
+  .insurance-benefits-check-embedded .checkbox input[type="checkbox"],
+  .insurance-benefits-check-embedded .checkbox-inline input[type="checkbox"] {
+       position: absolute;
+       margin-left: 0;
+       margin-top: 0;
+       margin-top: 4px \9;
+  }
+  .insurance-benefits-check-embedded .radio label,
+  .insurance-benefits-check-embedded .checkbox label {
+       min-height: 21px;
+       padding-left: 20px;
+       margin-bottom: 0;
+       font-weight: normal;
+       cursor: pointer;
+  }
+  .insurance-benefits-check-embedded label {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 5px;
+      font-weight: bold;
+  }
+  .insurance-benefits-check-embedded label span.form-required {
+      color: #f00;
+  }
+  .insurance-benefits-check-embedded .form-item.webform-component {
+      padding-bottom: 1em;
+  }
+  .insurance-benefits-check-embedded .form-item.webform-component .form-email,
+  .insurance-benefits-check-embedded .form-control {
+      display: block;
+      width: 100%;
+      height: 35px;
+      padding: 6px 12px;
+      font-size: 15px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 0;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+      -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  }
+  .insurance-benefits-check-embedded .btn {
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: normal;
+      text-align: center;
+      vertical-align: middle;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 6px 12px;
+      font-size: 15px;
+      line-height: 1.42857143;
+      border-radius: 4px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  }
+  .insurance-benefits-check-embedded .btn-primary {
+      color: #fff;
+      background-color: #565656;
+      border-color: #494949;
+  }
+  /* First / last name styles */
+  .insurance-benefits-check-embedded .name-container div {
+      float: left;
+      width: 48%;
+  }
+  .insurance-benefits-check-embedded .webform-component--first-name {
+      margin-right: 4%;
+  }
+  /* Balloon styles */
+  .insurance-benefits-check-embedded .balloon {
+      display: block; font-size: 12px; font-weight: normal; color: #333333;
+  }
+  .insurance-benefits-check-embedded .balloon .info-icon { position: relative; display: inline-block; vertical-align: top;
+      cursor: default; }
+  .insurance-benefits-check-embedded .balloon .info-icon:hover:after,
+  .insurance-benefits-check-embedded .balloon .info-icon.open:after { top: 0; left: 50%;
+      border: solid transparent; content: " "; height: 0; width: 0;
+      position: absolute; pointer-events: none; margin-top: -8px; margin-left: -10px;
+      border-top-color: #CCCCCC; border-width: 10px; }
+  .insurance-benefits-check-embedded .balloon .info-icon .info-text-help { display: none; }
+  .insurance-benefits-check-embedded .balloon .info-icon:hover .info-text-help,
+  .insurance-benefits-check-embedded .balloon .info-icon.open .info-text-help { display: inline-block; vertical-align: top;
+      position: absolute; bottom: 25px; left: -180%; width: 220px; padding: 10px;
+      z-index: 10;
+      background-color: #FFFFFF; border: 1px solid #CCCCCC; color: #000; }
+  .insurance-benefits-check-embedded .balloon.top .info-icon { font-size: 12px; font-weight: bold; }
+  .insurance-benefits-check-embedded .balloon.top .info-icon:hover .info-text-help,
+  .insurance-benefits-check-embedded .balloon.top .info-icon.open .info-text-help { top: 100%; bottom: auto; right: auto; left: -20px;
+      width: 220px; font-weight: normal; }
+  .insurance-benefits-check-embedded .balloon.top .info-icon:hover:after,
+  .insurance-benefits-check-embedded .balloon.top .info-icon.open:after{ top: 100%; margin-top: -20px;
+      border-bottom-color: #CCCCCC; border-top-color: transparent; }
+  #ins-benefits-check-icon {
+    background-color: #59946b;
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    padding: 0 2px;
+    line-height: 14px;
+    vertical-align: baseline;
+  }
+</style>
+
+<form class="insurance-benefits-check-embedded" enctype="multipart/form-data" action="https://app.maropost.com/accounts/614/forms/2656/subscribe/6a0ef8fdaf5ba3693f2eb03d4efc5ab1047c7cd1?bc=mp" method="post" accept-charset="UTF-8">
+  <div>
+      <p class="balloon top" id="ins-benefits-check-balloon">
+        <span class="info-icon" id="ins-benefits-check-icon">Ad<span class="info-text-help">This is an advertisement for Service Industries, Inc., part of a network of commonly owned substance abuse treatment service providers. Responding to this ad will connect you to one of Service Industries, Inc.’s representatives to discuss your insurance benefits and options for obtaining treatment at one of its affiliated facilities only. Service Industries, Inc. Service Industries, Inc. is unable to discuss the insurance benefits or options that may be available at any unaffiliated treatment center or business. If this advertisement appears on the same web page as a review of any particular treatment center or business, the contact information (including phone number) for that particular treatment center or business may be found at the bottom of the review.</span></span>
+      </p>
+      <div class="form-item webform-component webform-component-radios webform-component--seeking-help-for">
+          <label for="edit-submitted-seeking-help-for--3">Seeking Help For <span class="form-required" title="This field is required.">*</span></label>
+          <div id="edit-submitted-seeking-help-for--3" class="form-radios"><div class="form-type-radio form-item-submitted-seeking-help-for form-item radio">
+              <input type="radio" id="edit-submitted-seeking-help-for--3-1" name="custom_fields[seeking_help_for]" value="self" class="form-radio">  <label for="edit-submitted-seeking-help-for--3-1">self </label>
+
+          </div>
+              <div class="form-type-radio form-item-submitted-seeking-help-for form-item radio">
+                  <input type="radio" id="edit-submitted-seeking-help-for--3-2" name="custom_fields[seeking_help_for]" value="loved_one" class="form-radio">  <label for="edit-submitted-seeking-help-for--3-2">loved one </label>
+              </div>
+          </div>
+      </div>
+      <div class="form-item webform-component webform-component-select webform-component--insurance-type">
+          <label for="edit-submitted-insurance-type">Insurance type <span class="form-required" title="This field is required.">*</span></label>
+          <select class="form-control form-select required" id="edit-submitted-insurance-type" name="custom_fields[insurance_type]"><option value="" selected="selected">- Select -</option><option value="Medicare">Medicare</option><option value="Medi-Cal">Medi-Cal</option><option value="HMO">HMO</option><option value="PPO">PPO</option><option value="TRICARE">TRICARE</option><option value="OTHER">OTHER</option><option value="I Don't Have Insurance">I Don't Have Insurance</option></select>
+      </div>
+      <div class="name-container">
+          <div class="form-item webform-component webform-component-textfield webform-component--first-name">
+              <label for="edit-submitted-first-name">First Name <span class="form-required" title="This field is required.">*</span></label>
+              <input class="form-control form-text required" type="text" id="edit-submitted-first-name" name="contact_fields[first_name]" value="" size="60" maxlength="128">
+          </div>
+          <div class="form-item webform-component webform-component-textfield webform-component--last-name">
+              <label for="edit-submitted-last-name">Last Name <span class="form-required" title="This field is required.">*</span></label>
+              <input class="form-control form-text required" type="text" id="edit-submitted-last-name" name="contact_fields[last_name]" value="" size="60" maxlength="128">
+          </div>
+      </div>
+      <div class="form-item webform-component webform-component-email webform-component--your-email">
+          <label for="edit-submitted-your-email">Your Email <span class="form-required" title="This field is required.">*</span></label>
+          <input class="email form-text form-email required" type="email" id="edit-submitted-your-email" name="contact_fields[email]" size="60">
+      </div>
+      <div class="form-item webform-component webform-component-textfield webform-component--your-number">
+          <label for="edit-submitted-your-number">Your Phone Number <span class="form-required" title="This field is required.">*</span></label>
+          <input placeholder="555-555-5555" class="form-control form-text required" type="text" id="edit-submitted-your-number" name="contact_fields[phone]" value="" size="60" maxlength="128">
+      </div>
+      <input type="hidden" name="custom_fields[submitted_url]">
+      <button class="webform-submit button-primary btn btn-primary form-submit" name="commit" value="Submit Information" type="submit">Submit Information</button>
+
+  </div>
+</form>
+
+
+<script type="text/javascript">
+  // Fill out the current URL so we know which page submitted this form
+  var nameElements = document.getElementsByName("custom_fields[submitted_url]");
+  var i;
+  for (i = 0; i < nameElements.length; i++) {
+      if (nameElements[i].type == "hidden") {
+          nameElements[i].value = window.location;
+      }
+  }
+  // Make the "sponsored" info text available via tap action
+  var balloon = document.getElementById("ins-benefits-check-balloon");
+  var info = document.getElementById('ins-benefits-check-icon');
+  balloon.addEventListener("touchend", handlerFunction, false);
+  balloon.addEventListener("mouseup", handlerFunction, false);
+  info.addEventListener("touchend", handlerFunction, false);
+  info.addEventListener("mouseup", handlerFunction, false);
+  function handlerFunction(event) {
+      var info = document.getElementById('ins-benefits-check-icon');
+      toggleClass(info, 'open');
+      event.preventDefault();
+      return false;
+  }
+  function toggleClass(element, className) {
+      var classes = element.className.match(/\S+/g) || [],
+              index = classes.indexOf(className);
+      index >= 0 ? classes.splice(index, 1) : classes.push(className);
+      element.className = classes.join(' ');
+  }
+</script>

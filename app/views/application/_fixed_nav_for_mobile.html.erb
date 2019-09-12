@@ -1,0 +1,99 @@
+<nav class="navbar navbar-fixed-top" role="navigation">
+  <div class='fixed-top-ad-slot-with-sponsored-ad'>
+    <span class='sponsored-ad-fixed_nav_for_mobile'>Sponsored Ad</span>
+  </div>
+  <div class='ad-slot-with-sponsored-ad'>
+    <% if !amp_renderable? %>
+      <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+      <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+      </script>
+      <script>
+        googletag.cmd.push(function() {
+          googletag.defineSlot('/59855596/mobile_sticky_header_300x100', [300, 100], 'div-gpt-ad-1508181973991-0').addService(googletag.pubads());
+          googletag.pubads().enableSingleRequest();
+          googletag.enableServices();
+        });
+      </script>
+      <!-- /59855596/mobile_sticky_header_300x100 -->
+      <div id='div-gpt-ad-1508181973991-0'>
+      <script>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1508181973991-0'); });
+      </script>
+      </div>
+    <% end %>
+  </div>
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand display-block-100p" href="http://rehabreviews.com/">
+        <% if amp_renderable? %>
+          <amp-img src="https://rehab-reviews.s3.amazonaws.com/assets/rehab-reviews-logo.png" width="300" height="48" alt="RehabReviews.com" />
+        <% else %>
+          <img src="https://rehab-reviews.s3.amazonaws.com/assets/rehab-reviews-logo.png" width="300" height="48" alt="RehabReviews.com" />
+        <% end %>
+      </a>
+      <div class="header-buttons hidden-sm hidden-xs">
+        <a class="btn btn-xs btn-primary" href="http://www.rehabreviews.com/about">About</a>
+        <!--<a class="btn btn-xs btn-primary" href="http://www.rehabreviews.com/benefits-check">Get Help Now</a>-->
+       <!--<a class='btn btn-xs call-now-btn' href="tel:800-691-8638" id='call-now-header'>
+          <p>Call Now For</p>
+          <p>Rehab Help 800-691-8638</p>
+        </a>
+        <div class='insurance-benefits-check-embedded' id='insurance-benefits-check-embedded-header'>
+          <p class="balloon top margin-bottom-10p" id="ins-benefits-check-balloon">
+            <span class="info-icon" id="ins-benefits-check-icon">Ad<span class="info-text-help">
+              Legal Stuff - This is an advertisement for Service Industries, Inc., part of a network of commonly owned substance abuse treatment service providers. Responding to this ad will connect you to one of Service Industries, Inc.’s representatives to discuss your insurance benefits and options for obtaining treatment at one of its affiliated facilities only. Service Industries, Inc. Service Industries, Inc. is unable to discuss the insurance benefits or options that may be available at any unaffiliated treatment center or business. If this advertisement appears on the same web page as a review of any particular treatment center or business, the contact information (including phone number) for that particular treatment center or business may be found at the bottom of the review.
+            </span></span>
+          </p>
+        </div>-->
+      </div>
+    </div>
+    <% unless amp_renderable? %>
+      <div class="dropdown pull-right">
+      <button class="btn btn-primary btn-main-menu" type="button" id="mainMenu" data-toggle="dropdown" aria-expanded="true">
+        <i class="fa fa-bars"></i>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/rehabs">Rehabs</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/mental-health">Mental Health</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/buprenorphine">Buprenorphine</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/pain-management">Pain Management</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/therapists">Therapists</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/interventionists">Interventionists</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/sober-livings">Sober Livings</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/directories/eating-disorder-sober-companion">Eating Disorder Sober Companion</a></li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://rehabreviews.com/">Rehab Reviews</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="/">Rehab Reviews Directory</a></li>
+        <li role="presentation" class="hidden-md hidden-lg"><a role="menuitem" tabindex="-1" href="http://rehabreviews.com/about/">About</a></li>
+        <!--<li role="presentation" class="hidden-md hidden-lg"><a role="menuitem" tabindex="-1" href="http://rehabreviews.com/benefits-check/">Get Help Now</a></li>-->
+        <li role="presentation" class="divider"></li>
+        <% if resource_signed_in? %>
+          <li role="presentation" class="dropdown-header">Logged in as: <%= current_auth_resource.full_name %></li>
+          <% if member_signed_in? %>
+            <li role="presentation"><%= link_to 'Dashboard', :dashboard, role: 'menuitem', tabindex: -1 %></li>
+            <li role="presentation"><%= link_to 'Profile', :profile, role: 'menuitem', tabindex: -1 %></li>
+            <li role="presentation"><%= link_to "Logout", :destroy_member_session, method: :delete, role: 'menuitem', tabindex: -1 %></li>
+          <% else %>
+            <li role="presentation"><%= link_to "Logout", :destroy_blogger_session, method: :delete, role: 'menuitem', tabindex: -1 %></li>
+          <% end %>
+        <% else %>
+          <li role="presentation"><%= link_to 'Login', :login, role: 'menuitem', tabindex: -1 %></li>
+          <li role="presentation"><%= link_to 'Register', :register, role: 'menuitem', tabindex: -1 %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  </div>
+  <!--<div id='mobile-header-call' class='insurance-benefits-check-embedded'>
+    <p class='margin-bottom-0p'>Rehab Questions? Call Us!</p>
+    <p class='margin-bottom-0p'><a href='tel:800-691-8638'><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;800-691-8638</a></p>
+    <p class="balloon top margin-bottom-10p" id="ins-benefits-check-balloon">
+    <span class="info-icon pull-right" id="ins-benefits-check-icon">Ad<span class="info-text-help">
+              Legal Stuff - This is an advertisement for Service Industries, Inc., part of a network of commonly owned substance abuse treatment service providers. Responding to this ad will connect you to one of Service Industries, Inc.’s representatives to discuss your insurance benefits and options for obtaining treatment at one of its affiliated facilities only. Service Industries, Inc. Service Industries, Inc. is unable to discuss the insurance benefits or options that may be available at any unaffiliated treatment center or business. If this advertisement appears on the same web page as a review of any particular treatment center or business, the contact information (including phone number) for that particular treatment center or business may be found at the bottom of the review.
+            </span>
+    </span>
+    </p>
+  </div>-->
+</nav>

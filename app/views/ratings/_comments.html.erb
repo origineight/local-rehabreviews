@@ -1,0 +1,16 @@
+<% @comments.each do |comment| %>
+  <div class='review-body col-xs-10 col-xs-offset-2'>
+    <div class='row'>
+      <div class="col-xs-2 review-avatar">
+        <img src="https://rehab-reviews.s3.amazonaws.com/assets/default_avatar_200.png" class="img-responsive">
+      </div>
+      <div class="col-xs-10 review-text">
+        <h4><%= comment.initial rescue 'Anonymous'%></h4>
+        <%= simple_format(Sanitize.fragment(comment.body, Sanitize::Config::BASIC)) %>
+      </div>
+      <div class="col-xs-12 review-timestamp text-right">
+        <i class="fa fa-clock-o"></i> <%= comment.created_at.in_time_zone.strftime('%-m-%d-%y | %I:%M %p') %>
+      </div>
+    </div>
+  </div>
+<% end %>

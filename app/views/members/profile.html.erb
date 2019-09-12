@@ -1,0 +1,99 @@
+<h1 class="page-title">Member Profile for <%= @member.full_name %></h1>
+
+<p><strong>Email:</strong> <%= @member.email %></p>
+<p><strong>Member Since:</strong> <%= @member.created_at.strftime('%Y-%m-%d') %></p>
+<p><strong>Last Login:</strong> <%= @member.last_sign_in_at.strftime('%Y-%m-%d') %></p>
+<p><strong>Login Count:</strong> <%= @member.sign_in_count %></p>
+<p><strong>IP Address:</strong> <%= @member.last_sign_in_ip.to_s %></p>
+
+<h3 style="margin-bottom: 0;margin-top:30px;">Member Listings</h3>
+<% if @member.listings.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date Added</th>
+        <th>Listing Name</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @member.listings.each do |listing| %>
+        <tr>
+          <td><%= listing.created_at.strftime('%Y-%m-%d') %></td>
+          <td><%= link_to truncate(listing.full_name), seo_listing_path(listing) %></td>
+          <td><%= listing.city_str %>, <%= listing.state_abbreviation_str %></td>
+          <td>
+            <% if listing.published %>
+              Published
+            <% else %>
+              Not Published
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "Unapprove Claim", decline_claim_path(Claim.where(:member_id => @member.id, :listing_id => listing.id).first.id), data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+    <span>This user has no listings.</span>
+  <% end %>
+
+<h3 style="margin-bottom: 0;margin-top:30px;">Member Claims</h3>
+<% if @member.claims.pending.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Listing</th>
+        <th>Details</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @member.claims.pending.each do |claim| %>
+        <tr>
+          <td>
+            <% if claim.listing %>
+              <%= link_to claim.listing.full_name, seo_listing_path(claim.listing) %>
+            <% elsif claim.therapist %>
+              <%= link_to claim.therapist.full_name, therapist_path(claim.therapist) %>
+            <% end %>
+          </td>
+          <td>
+            <a  tabindex="0" data-toggle="popover" data-placement="bottom" data-content="<%= claim.description %>"><i class="fa fa-info-circle"></i></a>
+            <script>
+            $(function () {
+              $('[data-toggle="popover"]').popover();
+              $('body').on('click', function (e) {
+                //did not click a popover toggle, or icon in popover toggle, or popover
+                if ($(e.target).data('toggle') !== 'popover'
+                  && $(e.target).parents('[data-toggle="popover"]').length === 0
+                  && $(e.target).parents('.popover.in').length === 0) {
+                  $('[data-toggle="popover"]').popover('hide');
+                }
+              });
+            })
+            </script>
+          </td>
+          <td>
+            <% if claim.approved == 'no' %>
+              Declined
+            <% else %>
+              Pending Approval
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "Approve", approve_claim_path(claim), class: 'btn btn-mini btn-success' %>
+            <%= link_to "Decline", decline_claim_path(claim), class: 'btn btn-mini btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <span>This user has no pending claims.</span>
+<% end %>

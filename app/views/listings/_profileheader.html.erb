@@ -1,0 +1,25 @@
+<div id="page-header" class="row">
+  <div class="col-sm-7">
+    <h1 class="page-title margin-b-5p">
+      <%= @listing.full_name %>
+      <%= link_to icon('facebook-square'), "https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}", :class => 'social-sharer', :target => '_blank' %>
+      <%= link_to icon('twitter-square'), "https://twitter.com/home?status=#{URI.encode(@listing.full_name)}%20on%20RehabReviews:%20#{request.original_url}", :class => 'social-sharer', :target => '_blank' %>
+    </h1>
+    <% if @listing.facility_name.present? %>
+      <h3 class="facility-header"><%= @listing.facility_name %></h3>
+    <% end %>
+    <%= star_rating(@listing) %>
+  </div>
+  <div class="col-sm-5">
+    <%= link_to "Write a Review", "#reviews", class: "btn btn-dkblue btn-header pull-right #{'btn-block mg-b-10 clearfix' if mobile_device?}" %></span>
+    <%#= link_to "http://rehabreviews.com/benefits-check/", :target => "_blank", class: "btn btn-primary btn-header pull-right check_insurance #{'btn-block mg-b-10 clearfix' if mobile_device?}" do %>
+      <!--Check Insurance-->
+      <%#unless mobile_device?%>
+        <!--<span class="sponsored">Sponsored</span>-->
+      <%#end%>
+    <%#end%>
+    <%#if mobile_device?%>
+      <!--<p class="sponsored text-center">Sponsored</p>-->
+    <%#end%>
+  </div>
+</div>

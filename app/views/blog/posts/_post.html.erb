@@ -1,0 +1,14 @@
+<article>
+  <header>
+    <h4><%= link_to post.title, blog_post_page_path(post) %></h4>
+  </header>
+  <p><%= post.description %></p>
+  <% if resource_signed_in? %>
+    <footer>
+      <ul class="list-inline">
+        <li><b><%= link_to 'Edit', edit_blog_post_path(post), class: 'text-primary' %></b></li>
+        <li><b><%= link_to 'Remove', blog_post_path(post), class: 'text-primary', method: :delete %></b></li>
+      </ul>
+    </footer>
+  <% end %>
+</article><hr>

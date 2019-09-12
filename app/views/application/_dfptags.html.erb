@@ -1,0 +1,42 @@
+<script type='text/javascript'>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  (function() {
+    var gads = document.createElement('script');
+    gads.async = true;
+    gads.type = 'text/javascript';
+    var useSSL = 'https:' == document.location.protocol;
+    gads.src = (useSSL ? 'https:' : 'http:') +
+      '//www.googletagservices.com/tag/js/gpt.js';
+    var node = document.getElementsByTagName('script')[0];
+    node.parentNode.insertBefore(gads, node);
+  })();
+
+  googletag.cmd.push(function() {
+    var mapLeader = googletag.sizeMapping().
+      addSize([0, 0], [[320, 50], [300, 100]]).
+      addSize([768, 200], [468, 60]).
+      addSize([992, 200], [728, 90]).
+      build();
+    var mapMRec = googletag.sizeMapping().
+        addSize([0, 0], []).
+        addSize([1200, 200], [300, 250]).
+        build();
+
+    window.searchMRec = googletag.defineSlot('/59855596/RR_Facilities-Directories_MenuShowcase_RightCoumn_300x250', [300, 250], 'div-gpt-ad-1429128193855-0').defineSizeMapping(mapMRec).addService(googletag.pubads());
+    window.searchBottomLeader = googletag.defineSlot('/59855596/RR_Facilities-Directories_LowerShowcase_Footer_728x90', [728, 90], 'div-gpt-ad-1429128193855-1').defineSizeMapping(mapLeader).addService(googletag.pubads());
+    window.searchTopLeader = googletag.defineSlot('/59855596/RR_Facilities-Directories_UpperShowcase_Header_728x90', [728, 90], 'div-gpt-ad-1429128193855-2').defineSizeMapping(mapLeader).addService(googletag.pubads());
+    window.homeBottomLeader = googletag.defineSlot('/59855596/RR_Main-Directory_LowerShowcase_Footer_728x90', [728, 90], 'div-gpt-ad-1429128193855-3').defineSizeMapping(mapLeader).addService(googletag.pubads());
+    window.navLeader = googletag.defineSlot('/59855596/RR_Facilities-Directories_TopHeader_728x90', [728, 90], 'div-gpt-ad-1429128193855-4').defineSizeMapping(mapLeader).addService(googletag.pubads());
+    window.homeTopLeader = googletag.defineSlot('/59855596/RR_UpperShowcase_Location_MainDirectory_728x90', [728, 90], 'div-gpt-ad-1429128193855-5').defineSizeMapping(mapLeader).addService(googletag.pubads());
+    window.listingTopLeader = googletag.defineSlot('/59855596/top728_listing', [728, 90], 'div-gpt-ad-1441574868289-0').defineSizeMapping(mapLeader).addService(googletag.pubads());
+
+
+    googletag.defineSlot('/59855596/RR_IndividualFacilities_LeftColumn_MenuShowcase_300x250', [300, 250], 'div-gpt-ad-1429128193855-6').addService(googletag.pubads());
+    googletag.defineSlot('/59855596/RR_IndividualFacilities_LowerShowcase_Footer_728x90', [728, 90], 'div-gpt-ad-1429128193855-7').addService(googletag.pubads());
+    googletag.defineSlot('/59855596/RR_IndividualFacilities_BelowMap_Upper_BelowMap_728x90', [728, 90], 'div-gpt-ad-1429128193855-8').addService(googletag.pubads());
+    googletag.enableServices();
+  });
+
+  var resizeTimer; function resizer() {   googletag.pubads().refresh([window.navLeader, window.homeTopLeader, window.homeBottomLeader, window.searchTopLeader, window.searchBottomLeader, window.searchMRec]); } window.addEventListener("resize", function(){    clearTimeout(resizeTimer);  resizeTimer = setTimeout(resizer, 250); });
+</script>

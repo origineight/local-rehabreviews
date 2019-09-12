@@ -1,0 +1,52 @@
+<div class="panel panel-default">
+  <div class="panel-heading" id="admin_listings_head">
+    <h2 class="panel-title"><a data-toggle="collapse" href="#admin_listings" aria-expanded="true" aria-controls="admin_listings">Listings</a></h2>
+  </div>
+  <div id="admin_listings" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="admin_listings_head">
+    <div class="panel-body">
+      <%= form_tag(admin_listings_search_path, :method => "get", id: "search-form") do %>
+        <div class="form-inline text-right">
+          <%= text_field_tag :q, params[:q], class: "form-control", placeholder: "Search Listings" %>
+          <!-- In order to have the "search" icon int the button, we need to use plain HTML instead
+               of using a Rails form helper -->
+          <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+      <% end %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date Added</th>
+            <th>Listing Name</th>
+            <th>Location</th>
+            <th>Directory</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @listings.any? %>
+            <% @listings.each do |listing| %>
+              <tr>
+                <td><%= listing.created_at.strftime('%Y-%m-%d') %></td>
+                <td><%= link_to truncate(listing.full_name), seo_listing_path(listing) %></td>
+                <td><%= listing.city_str %>, <%= listing.state_abbreviation_str %></td>
+                <td><%= listing.directory.name %></td>
+                <td><%= listing.published? ? 'P' : 'U' %></td>
+                <td>
+                  <%= link_to "Edit", edit_listing_path(listing), class: 'btn btn-orange btn-mini', id: "edit-listing-#{listing.id}" %>
+                  <%= link_to "View", seo_listing_path(listing), class: 'btn btn-primary btn-mini' %>
+                  <%= link_to "Delete", listing_path(listing), method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: 'btn btn-danger btn-mini', id: "delete-listing-#{listing.id}" %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5">No Listings Found. Back to <%= link_to "All Listings", admin_listings_path %>.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @listings %>
+    </div>
+  </div>
+</div>

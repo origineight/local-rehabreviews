@@ -1,0 +1,42 @@
+<% if listing.boosted?(params[:categories]) || listing.boosted_by_state?(params[:state]) %>
+  <tr class="featured">
+<% else %>
+  <tr>
+<% end %>
+  <td class="image-result">
+    <%= link_to seo_listing_path(listing) do %>
+      <% if listing.uploads.present? %>
+        <%= image_tag listing.uploads.last.image(:thumb), class: 'listing-image' %>
+      <% else %>
+        <% if listing.longitude %>
+          <% if listing.small_map_image? %>
+            <%= image_tag listing.small_map_image.url, size: '168x140', class: 'listing-image' %>
+          <% else %>
+            <%if !browser.bot?%>
+              <img src="<%= gmaps_url(listing, size: '168x140') %>" width="168" height="140" class="listing-image">
+            <%end%>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
+  <td>
+    <h5>
+      <%= link_to seo_listing_path(listing) do %>
+        <%= listing.full_name.truncate(55, separator: ' ', omission: '') %>
+        <% if listing.facility_name.present? %>
+          - <%= listing.facility_name %>
+        <% end %>
+      <% end %>
+    </h5>
+    <p class="address"><i class="fa fa-map-marker"></i> <%= listing.address_1 %><%= ", #{listing.address_2}" if listing.address_2.present? %>, <%= listing.city_str %>, <%= listing.state_abbreviation_str %> <%= listing.zipcode %></p>
+    <p class="description"><%= listing.meta_description %></p>
+    <%= link_to "Read More", seo_listing_path(listing), class: 'btn btn-readmore pull-right' %>
+    <% if member_signed_in? %>
+      <% if current_member.is_administrator? %>
+        <%= link_to "Edit Listing", edit_listing_path(listing), class: 'btn btn-warning btn-edit pull-right'  %>
+      <% end %>
+    <% end %>
+    <%= star_rating(listing) %>
+  </td>
+</tr>

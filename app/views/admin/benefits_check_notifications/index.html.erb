@@ -1,0 +1,43 @@
+<% meta title: "Insurance Benefits Checks Notifications" %>
+
+<%= render 'members/adminheader' %>
+<%= render 'members/adminnav' %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading" id="admin_bloggers_head">
+        <h2 class="panel-title">Insurance Benefits Checks Notifications | <span><%= link_to 'Create Notification', :new_admin_benefits_check_notification %></span></span></h2>
+      </div>
+      <div id="admin_bloggers" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="admin_bloggers_head">
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Created on</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @ibcns.each do |ibcn| %>
+                <tr>
+                  <td><%= ibcn.subject %></td>
+                  <td><%= ibcn.created_at %></td>
+                  <td>
+                    <%= link_to "edit", edit_admin_benefits_check_notification_path(ibcn), class: 'btn btn-primary btn-mini' %>
+                    <%= link_to "Delete", admin_benefits_check_notification_path(ibcn), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger btn-mini' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @ibcns %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <%= render 'members/membersidebar' %>
+  </div>
+</div>

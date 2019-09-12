@@ -1,0 +1,27 @@
+<% @claims.each do |claim| %>
+  <tr>
+    <td>
+      <% if claim.facility %>
+        <%= link_to claim.facility.name, facility_path(claim.facility) %>
+      <% elsif claim.therapist %>
+        <%= link_to claim.therapist.full_name, therapist_path(claim.therapist) %>
+      <% end %>
+    </td>
+    <td>
+      <%= claim.created_at %>
+    </td>
+    <td>
+      <% if claim.approved == 'no' %>
+        Declined
+      <% else %>
+        Pending Approval
+      <% end %>
+    </td>
+    <td>
+      <% if current_member.is_administrator? %>
+        <%= link_to "Approve", approve_claim_path(claim), class: 'btn btn-mini btn-success' %>
+        <%= link_to "Decline", decline_claim_path(claim), class: 'btn btn-mini btn-danger' %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

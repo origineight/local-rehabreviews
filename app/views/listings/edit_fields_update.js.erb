@@ -1,0 +1,6 @@
+<% if params[:change_listing_type] == 'person' %>
+  $('#field-types').html('<%= j render "personfields" %>');
+<% else %>
+  $('#field-types').html('<%= j render "facilityfields" %>');
+<% end %>
+$('#form-categories').html('<%= j render "formcategories" %>');

@@ -1,0 +1,164 @@
+<% if params[:action] == "search" && params[:controller] != "admin/cities"%>
+<div id="header-container">
+  <div class="container">
+    <div id="header-search-bar" class="hidden-xs">
+      <%= link_to "+ Add Your Listing", :new_listing, class: 'btn btn-primary' %>
+      <%= form_tag search_directory_path(@search['directory'].slug), method: :get, class: 'form-inline' do %>
+        <div class="form-group">
+          <div class="input-group">
+            <%= text_field_tag :q, params[:q], placeholder: "SEARCH #{@search['directory'].name.upcase} DIRECTORY", class: 'form-control' %>
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary" style="width: auto;"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <header id="map-header">
+
+  </header>
+</div>
+<% elsif params[:controller] == "pages" && params[:action] == "index" %>
+  <header id="site-header" class="home-header">
+    <div class="container">
+      <div class="row">
+        <div class="search-here-container col-lg-8 col-md-10 col-md-offset-1 col-lg-offset-2 col-sm-6 col-sm-offset-3">
+          <h1 class="text-center no-top-margin">
+            <img src="https://rehab-reviews.s3.amazonaws.com/assets/getstarted.png" id="get-started-img" width="540" height="38" alt="Get Started on Your Path" />
+          </h1>
+          <div class="search-here"><img src="https://rehab-reviews.s3.amazonaws.com/assets/search-here-arrow.png" /> Search Here</div>
+          <div id="header-search">
+            <div id="header-search-box" role="tabpanel">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs nav-justified" role="tablist" id="home-header-tabs">
+                <li role="presentation" class="active"><a href="#header-tab-rehab" aria-controls="home" role="tab" data-toggle="tab" class="text-left" style="<%= 'line-height: 20px;' if mobile_device? %>">Find a Rehab Center</a></li>
+                <!--<li role="presentation">
+                  <a href="tel:800-691-8638" aria-controls="profile" role="tab" style="font-size: 16px;<%= 'line-height: 20px;' if mobile_device? %>">
+                    Call Now For Rehab Help 800-691-8638
+                  </a>
+                </li>-->
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="header-tab-rehab">
+                  <p>
+                    We’re committed to providing you with the most comprehensive guide to rehabilitation and recovery services in the US. You can use this directory to search for rehabs in your state or in other states.
+                  </p>
+                  <div class="row">
+                    <form action="/directories/rehabs" id="home-search" class="navbar-form" role="search">
+                      <div class="form-group">
+                        <input name="q" id="q" type="text" class="form-control" placeholder="Search by Name">
+                        <span class="or">or</span>
+                        <input name="z" id="z" type="text" class="form-control" placeholder="Enter Zip Code">
+                      </div>
+                      <div class="form-group select-group">
+                        <select id="directory-type" class="form-control chosen-select" data-placeholder="Choose Directory Type">
+                          <option></option>
+                          <% @directories.each do |dir| %>
+                            <%= content_tag :option, dir.name, value: dir.slug %>
+                          <% end %>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-shadow">Search</button>
+                      </div>
+                    </form>
+                    <script type="text/javascript">
+                      document.getElementById('directory-type').onchange = function(){
+                          document.getElementById('home-search').action = '/directories/' + this.value;
+                      }
+                    </script>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="header-tab-insurance">
+                  <p>
+                    Use this tool to determine if your stay at rehab can be covered all or in part by your current insurance plan. Your information will be kept private and transmitted securely to our professional insurance verifiers.
+                  </p>
+                  <div class="row">
+                    <form action="https://rehabreviews.com/benefits-check/confirm/" id="home-ibc" class="navbar-form">
+                      <div class="form-group">
+                        <input name="zip" id="zip" type="text" class="form-control" placeholder="Zip Code">
+                      </div>
+                      <div class="form-group select-group">
+                        <select name="location" id="state" class="form-control chosen-select" data-placeholder="Ideal Treatment Location">
+                          <option></option>
+                          <% all_states.first(51).each do |k,v| %>
+                            <option value="<%= v["full_state"] %>"><%= v["full_state"] %></option>
+                          <% end %>
+                          <option value='Armed Forces Americas'>Armed Forces Americas</option>
+                          <option value='Armed Forces Europe'>Armed Forces Europe</option>
+                          <option value='Armed Forces Pacific'>Armed Forces Pacific</option>
+                        </select>
+                      </div>
+                      <div class="form-group select-group">
+                        <select name="type" id="insurance" class="form-control chosen-select" data-placeholder="Select Your Insurance">
+                          <option></option>
+                          <option value='PPO'>PPO</option>
+                          <option value='HMO'>HMO</option>
+                          <option value='Medicare'>Medicare</option>
+                          <option value='Medi-Cal'>Medi-Cal</option>
+                          <option value='Obamacare'>Obamacare</option>
+                          <option value='State Insurance'>State Insurance</option>
+                          <option value='TRICARE'>TRICARE</option>
+                          <option value='Other'>Other</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-shadow" style="padding: 7px 10px 7px 9px;"><i class="fa fa-search"></i></button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<% elsif listing_page? %>
+  <header id="site-header" class="listing-header">
+    <div class="container">
+      <% if @decorator.present? && @decorator['reviews'].present? && !mobile_device? %>
+        <div class="ad-module main-showcase-ad ad-slot-with-sponsored-ad m-t-15p">
+          <span class='sponsored-ad'>Sponsored Ad</span>
+        </div>
+        <h3>Featured <span class="lightblue">Reviews</span></h3>
+        <div class="featured-reviews">
+        <% @decorator['reviews'].each_with_index do |r,i| %>
+          <div class="featured-review">
+            <table class="table mini-listing">
+              <tbody>
+                <tr>
+                  <td class="mini-listing-image">
+                    <%= link_to r.permalink_url, target: "_blank" do %>
+                      <% if r.photo_url.present? %>
+                        <% if amp_renderable? %>
+                          <%= image_tag r.photo_url, width: 100, height: '47', class: 'listing-image' %>
+                        <% else %>
+                          <%= image_tag r.photo_url, width: 100, height: 'auto', class: 'listing-image' %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <td>
+                    <%= render 'application/featured_info_icon' %>
+                    <h5><%= link_to r.name, r.permalink_url, target: "_blank" %></h5>
+                    <p class='fs-12px'><%= r.body %></p>
+                    <p class="text-right"><%= link_to "Read More", r.permalink_url, target: "_blank", class: 'btn btn-readmore btn-readmore-custom' %></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </header>
+<% else %>
+  <header id="site-header">
+    <div class="container">
+    </div>
+  </header>
+<% end %>

@@ -1,0 +1,11 @@
+  <div class="admin-nav">
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+      <a class="btn btn-primary<%= " active" if params[:action] == "admin" %>" href="/admin/dashboard">Dashboard</a>
+      <a class="btn btn-primary<%= " active" if params[:action] == "listings" %>" href="/admin/listings">Listings</a>
+      <a class="btn btn-primary<%= " active" if params[:action] == "claims" %>" href="/admin/claims">Claims</a>
+      <a class="btn btn-primary<%= " active" if params[:action] == "ratings" %>" href="/admin/ratings">Ratings</a>
+      <a class="btn btn-primary<%= " active" if params[:action] == "members" %>" href="/admin/members">Members</a>
+      <%= link_to 'Bloggers', :admin_bloggers, class: "btn btn-primary #{'active' if(params[:action] == 'index' && params[:controller] == 'admin/bloggers')}" %>
+      <%= link_to 'Cities', :admin_cities, class: "btn btn-primary #{'active' if(params[:action] == 'index' && params[:controller] == 'admin/cities')}" %>
+    </div>
+  </div>

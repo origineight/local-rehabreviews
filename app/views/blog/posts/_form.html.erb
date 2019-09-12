@@ -1,0 +1,82 @@
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag 'summernote' %>
+    <style>
+      .note-toolbar i, span.caret, .note-current-fontname, .note-current-fontsize  {
+        color: black;
+        text-shadow: none;
+      }
+    </style>
+<% end %>
+
+<% if @post.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited
+      this post from being saved:</h2>
+    <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for [:blog, @post] do |f| %>
+  <div class="form-group">
+    <%= f.label :image, 'Header image', class: 'control-label' %>
+    <i>(recommended size in pixels is: 1078 x 450>)</i>
+    <%= f.file_field :image %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :title, class: 'control-label' %>
+    <%= f.text_field :title, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :description, class: 'control-label' %>
+    <%= f.text_area :description, placeholder: 'Short description for social networks', required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :meta_description, class: 'control-label' %>
+    <%= f.text_area :meta_description, placeholder: 'Short meta description', required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :published, class: 'control-label' %>
+    <%= f.check_box :published, class: 'form-control' %>
+  </div>
+  <div class="form-group required">
+    <%= f.label :content, class: 'control-label' %>
+    <%= f.text_area :content, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :author, class: 'control-label' %>
+    <%= f.text_field :author, class: 'form-control' %>
+  </div>
+  <p class="required-message strong text-right"><span class="red">*</span> Denotes a required field.</p>
+  <div class="actions">
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <a class="btn btn-orange" href="javascript:history.back()">Back</a>
+  </div>
+<% end %>
+
+<% content_for :javascript do %>
+    <%= javascript_include_tag 'summernote' %>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#post_content').summernote({
+          height: 300,
+          toolbar: [
+            ['style', ['style']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'hr']],
+            ['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+          ]
+        });
+      });
+    </script>
+<% end %>

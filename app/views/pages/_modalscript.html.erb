@@ -1,0 +1,30 @@
+<script>
+  $(document).ready(function() {
+    if (!hasModalCookie()) {
+      // Append modal
+      // $('body').append('<%#= j(render "pages/benefits_check_modal") %>');
+
+      // Show modal
+      if(screen.width>768) {
+        $("[name='benefits_check_lead[popup]']").val('true');
+        $('button.benefits-check').popover();
+        $('#benefits-check-modal').modal('show');
+      }
+
+      // Disable modal shown for 2 weeks
+      setModalCookie();
+    }
+  });
+
+  function setModalCookie() {
+    var a = new Date((new Date).getTime() + 12096E5); // 14 days
+    document.cookie = "MCEvilPopupClosed\x3dyes;expires\x3d" + a.toGMTString() + ";path\x3d/"
+  }
+
+  function hasModalCookie() {
+    var a = document.cookie.split(";");
+    for (i = 0; i < a.length; i++)
+    if (parts = a[i].split("\x3d"), -1 != parts[0].indexOf("MCEvilPopupClosed")) return !0;
+    return !1
+  }
+</script>

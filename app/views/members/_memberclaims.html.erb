@@ -1,0 +1,43 @@
+      <div id="pending-claims" class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Your Pending Claims</h2>
+        </div>
+        <div class="panel-body">
+          <% if @claims.present? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Listing Name</th>
+                <th>Submitted</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @claims.each do |claim| %>
+                <tr>
+                  <td>
+                      <% if claim.approved == 'yes' %>
+                        <%= link_to claim.listing.full_name, seo_listing_path(claim.listing) %>
+                      <% else %>
+                        <%= claim.listing.full_name %> (Pending Approval)
+                      <% end %>
+                  </td>
+                  <td>
+                    <%= claim.created_at %>
+                  </td>
+                  <td>
+                    <% if claim.approved == 'no' %>
+                      Declined
+                    <% else %>
+                      Pending Approval
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <% else %>
+            You have no pending claims.
+          <% end %>
+        </div>
+      </div>

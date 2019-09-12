@@ -1,0 +1,45 @@
+<% meta title: "Bloggers" %>
+
+<%= render 'members/adminheader' %>
+<%= render 'members/adminnav' %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading" id="admin_bloggers_head">
+        <h2 class="panel-title">Bloggers | <span><%= link_to 'Create blogger', :new_admin_blogger %></span></h2>
+      </div>
+      <div id="admin_bloggers" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="admin_bloggers_head">
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Blogger Since</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @bloggers.each do |blogger| %>
+                <tr>
+                  <td><%= blogger.full_name %></td>
+                  <td><%= blogger.email %></td>
+                  <td><%= blogger.created_at %></td>
+                  <td>
+                    <%= link_to "Edit", edit_admin_blogger_path(blogger), class: 'btn btn-orange btn-mini', id: "edit-blogger-#{blogger.id}" %>
+                    <%= link_to "Delete", admin_blogger_path(blogger), method: :delete, data: { confirm: "Are you sure? This will delete the blogger's account" }, class: 'btn btn-danger btn-mini', id: "delete-blogger-#{blogger.id}" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @bloggers %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <%= render 'members/membersidebar' %>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+  <div class="panel-heading" id="admin_claims_head">
+    <h2 class="panel-title"><a data-toggle="collapse" href="#admin_claims" aria-expanded="true" aria-controls="admin_claims">Pending Claims</a></h2>
+  </div>
+  <div id="admin_claims" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="admin_claims_head">
+    <div class="panel-body">
+      <% if @claims.present? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Member</th>
+              <th>Listing</th>
+              <th>Details</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @claims.each do |claim| %>
+              <tr>
+                <td>
+                  <%= claim.member.full_name %>
+                </td>
+                <td>
+                  <%= link_to claim.listing.full_name, seo_listing_path(claim.listing) %>
+                </td>
+                <td>
+                  <a  tabindex="0" data-toggle="popover" data-placement="bottom" data-content="<%= claim.description %>"><i class="fa fa-info-circle"></i></a>
+                  <script>
+                  $(function () {
+                    $('[data-toggle="popover"]').popover();
+                    $('body').on('click', function (e) {
+                      //did not click a popover toggle, or icon in popover toggle, or popover
+                      if ($(e.target).data('toggle') !== 'popover'
+                        && $(e.target).parents('[data-toggle="popover"]').length === 0
+                        && $(e.target).parents('.popover.in').length === 0) {
+                        $('[data-toggle="popover"]').popover('hide');
+                      }
+                    });
+                  })
+                  </script>
+                </td>
+                <td>
+                  <% if claim.approved == 'no' %>
+                    Declined
+                  <% else %>
+                    Pending Approval
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to "Approve", approve_claim_path(claim), class: 'btn btn-mini btn-success' %>
+                  <%= link_to "Decline", decline_claim_path(claim), class: 'btn btn-mini btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= paginate @claims %>
+      <% else %>
+        <span>There are no pending claims.</span>
+      <% end %>
+    </div>
+  </div>
+</div>

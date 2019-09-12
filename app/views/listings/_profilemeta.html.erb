@@ -1,0 +1,78 @@
+<div class="listing-meta">
+  <div class="meta-left">
+    <span class="address meta-item">
+      <span class="meta-icon">
+        <i class="fa fa-map-marker"></i>
+      </span>
+      <span class="address-span">
+        <%= @listing.address %>
+      </span>
+    </span>
+
+    <% if @listing.phone.present? %>
+      <span class="phone meta-item">
+        <span class="meta-icon">
+          <i class="fa fa-mobile"></i>
+        </span>
+        <span>
+          <%= phony(@listing) %>
+        </span>
+      </span>
+    <% end %>
+
+    <% if @listing.fax.present? %>
+      <span class="fax meta-item">
+        <span class="meta-icon">
+          <i class="fa fa-fax"></i>
+        </span>
+        <span>
+          <%= phony(@listing, 'fax') %>
+        </span>
+      </span>
+    <% end %>
+
+    <% if @listing.website.present? %>
+      <span class="website meta-item">
+        <span class="meta-icon">
+          <i class="fa fa-external-link"></i>
+        </span>
+        <span>
+          <%= link_to url_domain(@listing.website), @listing.website, :target => "_blank" %>
+        </span>
+      </span>
+    <% end %>
+    
+    <% if @listing.twitter.present? %>
+      <%= link_to @listing.twitter, target: '_blank' do %>
+      <span class="meta-item-social-link">
+        <span class="meta-icon">
+          <i class="fa fa-twitter"></i>
+        </span>
+      </span>
+      <% end %>
+    <% end %>
+    
+    <% if @listing.facebook.present? %>
+      <%= link_to @listing.facebook, target: '_blank' do %>
+      <span class="meta-item-social-link">
+        <span class="meta-icon">
+          <i class="fa fa-facebook"></i>
+        </span>
+      </span>
+      <% end %>
+    <% end %>
+    
+    <% if @listing.instagram.present? %>
+      <%= link_to @listing.instagram, target: '_blank' do %>
+      <span class="meta-item-social-link">
+        <span class="meta-icon">
+          <i class="fa fa-instagram"></i>
+        </span>
+      </span>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="meta-right text-right">
+    <%= render 'editlink' %>
+  </div>
+</div>

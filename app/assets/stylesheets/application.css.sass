@@ -1,0 +1,1944 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require chosen
+ *= require_tree .
+ *= require_self
+ */
+
+$brand-primary: #53c3be
+$apc-dkblue: #19232d
+$apc-orange: #ff583e
+$apc-orange: #ff5a00
+$apc-green: #28a359
+$sans: Arial, Helvetica, sans-serif
+$border-grey: #9f9f9f
+$apc-lightblue: #1f7fd0
+$apc-purple: #851eab
+
+
+@import "bootstrap-sprockets"
+@import "bootstrap"
+@import "font-awesome-sprockets"
+@import "font-awesome"
+@import "compass"
+@import "flexslider"
+@import "modal"
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic')
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600')
+
+body
+  font-family: "Lato", sans-serif
+  background-color: #eee
+
+a
+  color: $apc-orange
+  &:hover
+    color: $apc-orange
+
+h3
+  font-weight: bold
+  font-size: 21px
+  text-transform: uppercase
+  color: lighten($apc-dkblue, 25%)
+  padding-bottom: 10px
+  margin-bottom: 40px
+  border-bottom: 1px solid $border-grey
+
+  &.title-image
+    background: image-url('title2.gif') no-repeat scroll center 0
+    background-size: contain
+    text-indent: -9999px
+
+h4
+  font-weight: bold
+  font-size: 15.5px
+  text-transform: uppercase
+
+h5
+  font-size: 13px
+  text-transform: uppercase
+  font-weight: bold
+  color: $brand-primary
+  a
+    color: $apc-dkblue
+    &:hover
+      color: lighten($apc-dkblue, 25%)
+
+.red
+  color: $apc-orange
+
+.strong
+  font-weight: bold
+
+nav.navbar
+  background: #fff
+  border-style: solid
+  border-color: $brand-primary
+  border-width: 4px 0 0 0
+  border-radius: 0
+  margin-bottom: 0
+  button#mainMenu
+    border: 0px
+    padding: 6px
+    font-size: 18px
+    margin-top: 40px
+    text-shadow: none
+  .navbar-header
+    .navbar-brand
+      height: auto
+      padding: 15px
+      &.navbar-brand-tall
+        margin: 14px -15px
+    .btn
+      padding: 3px 7px
+      font-size: 12px
+      text-transform: none
+      border: 0
+      margin-bottom: 16px
+  .navbar-buttons
+    float: right
+    padding: 6px 7px
+    border-radius: 4px
+    background-color: $brand-primary
+    margin: 14px 0
+    .btn:first-child
+      margin-right: 4px
+
+textarea
+  resize: vertical
+
+.panel-heading a
+  &:after
+    font-family: 'Glyphicons Halflings'
+    content: "\e114"
+    float: right
+    color: grey
+.panel-heading a.collapsed
+  &:after
+    content: "\e080"
+
+.form-group
+  &.required
+    .control-label
+      &:after
+        content: ' *'
+        color: $apc-orange
+
+.btn
+  text-transform: uppercase
+  font-size: 12px
+  padding: 7px 30px
+  line-height: 18px
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5)
+  outline: none
+  color: white
+  letter-spacing: 0.04em
+  &:hover, &:focus, &:active
+    color: white
+
+.btn-dkblue
+  background-color: $apc-dkblue
+  &:hover
+    background-color: lighten($apc-dkblue, 25%)
+
+.btn-shadow
+  -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.5)
+  -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.5)
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.5)
+
+.btn-orange
+  background-color: $apc-orange
+  &:hover, &:focus, &:active
+    background-color: darken($apc-orange, 5%)
+
+.btn-blue-grad
+  background-color: #4c92dd
+  @include filter-gradient(#4c92dd, #215a88, vertical)
+  @include background-image(linear-gradient(top,  #4c92dd 0%,#215a88 100%))
+  border: 0
+  padding: 8px 31px
+  &:hover
+    background-color: darken(#4c92dd, 5%)
+    @include filter-gradient(darken(#4c92dd, 5%), darken(#215a88, 5%), vertical)
+    @include background-image(linear-gradient(top,  darken(#4c92dd, 5%) 0%, darken(#215a88, 5%) 100%))
+
+.btn-header
+  font-size: 15px
+  text-transform: none
+  text-shadow: none
+  padding: 12px 34px
+  margin-left: 14px
+
+.btn-emboss
+  box-shadow: inset 1px 1px rgba(255,255,255,0.3), inset -1px -1px rgba(255,255,255,0.15), 2px 2px 2px rgba(0,0,0,0.5)
+
+.btn-readmore
+  background-color: $brand-primary
+  text-shadow: none
+  padding: 3px 9px
+  font-size: 10.5px
+  &:hover
+    background-color: darken($brand-primary, 15%)
+
+.btn-edit
+  text-shadow: none
+  padding: 3px 9px
+  font-size: 10.5px
+  margin-right: 5px
+  background: $apc-orange
+  border: 1px solid darken($apc-orange, 10%)
+  &:hover
+    background: darken($apc-orange, 10%)
+
+.btn-sort
+  padding: 2px 5px
+
+.btn-login
+  border: 1px solid white
+  text-shadow: none
+  &:hover
+    background: rgba(255,255,255,0.2)
+    color: #fff
+
+.btn-mini
+  font-size: 10px
+  padding: 2px 7px
+
+.btn-file
+  position: relative
+  overflow: hidden
+  input[type=file]
+    position: absolute
+    top: 0
+    right: 0
+    min-width: 100%
+    min-height: 100%
+    font-size: 100px
+    text-align: right
+    filter: alpha(opacity=0)
+    opacity: 0
+    outline: none
+    background: white
+    cursor: inherit
+    display: block
+
+.breadcrumb
+  padding: 5px 15px
+  background-color: #fff
+  text-transform: uppercase
+  border: 1px solid #c9c9c9
+  display: inline-block
+  > li + li:before
+    content: ">\00a0"
+    color: #777777
+  a
+    color: #777777
+  .active
+    color: $brand-primary
+
+.pagination
+  font-size: 12px
+  .page
+    display: inline-block
+    padding: 6px
+    line-height: 1
+    &.current
+      background: #8b8b8b
+      border-radius: 3px
+      color: white
+    a, .gap
+      color: #8b8b8b
+  .first, .last, .next, .prev
+    text-transform: uppercase
+    display: inline-block
+    line-height: 1
+    padding: 6px
+    background-color: $brand-primary
+    a
+      color: white
+  .last
+    padding-right: 10px
+    border-radius: 0 10px 10px 0
+  .first
+    padding-left: 10px
+    border-radius: 10px 0 0 10px
+
+.more-state-info
+  margin: 14px 2px 0
+  background: #ddd
+  padding: 9px 14px
+  font-weight: bold
+  font-size: 16px
+  a
+    color: $apc-orange
+    &:hover
+      color: darken($apc-orange, 10%)
+
+a.social-sharer
+  font-size: 20px
+  vertical-align: 2px
+  margin-left: 5px
+  &:hover, &:focus
+    color: darken($apc-orange, 10%)
+
+#uploads
+  .thumbnail
+    position: relative
+    .delete-button
+      position: absolute
+      bottom: 0
+      right: -12px
+      font-size: 18px
+      text-shadow: none
+      visibility: hidden
+      opacity: 0
+      transition: opacity 250ms
+    &:hover
+      .delete-button
+        opacity: 1
+        visibility: visible
+
+.no-top-margin
+  margin-top: 0
+.no-bottom-margin
+  margin-bottom: 0
+.no-left-margin
+  margin-left: 0
+.no-right-margin
+  margin-right: 0
+
+.lightblue
+  color: $apc-dkblue
+
+.chosen-container
+  .chosen-single
+    background: white
+    font-family: $sans
+    font-size: 12px
+    height: 34px
+    padding-top: 4px
+    div
+      top: 7px
+      right: 7px
+      width: 19px
+      height: 19px
+      border-radius: 3px
+      background-color: $brand-primary
+      &:after
+        content: '\f0d7'
+        position: absolute
+        font-family: FontAwesome
+        top: -1px
+        left: 7px
+        font-size: 10px
+        color: #fff
+      &:hover
+        background-color: darken($brand-primary, 5%)
+      b
+        background: none
+        display: none
+  .chosen-choices
+    background: transparent
+    height: 34px
+    padding: 3px 5px
+    border-radius: 5px
+    border: 1px solid #ccc
+    background: white
+    width: 100%
+    position: relative
+    margin-bottom: 1px
+    &:after
+      display: block
+      top: 7px
+      right: 7px
+      height: 19px
+      width: 19px
+      border-radius: 3px
+      content: '\f0d7'
+      position: absolute
+      font-family: FontAwesome
+      font-size: 10px
+      color: #fff
+      background-color: $apc-orange
+      cursor: pointer
+      text-align: center
+      line-height: 22px
+      &:hover
+        background-color: darken($apc-orange, 5%)
+    li.search-field
+      input[type="text"]
+        width: 100%!important
+        font-family: $sans
+        font-size: 12px
+        margin: 0
+  &.chosen-container-active.chosen-with-drop
+    .chosen-single
+      background: #fff
+      div
+        background-color: $brand-primary
+        &:after
+          content: '\f0d8'
+          top: -2px
+    .chosen-drop
+      border-top: 1px solid #ddd
+    .chosen-results
+      margin: 0 7px 0 0
+      padding: 7px 0 0 7px
+      li
+        margin-bottom: 7px
+        font-size: 12px
+        font-family: $sans
+        background: #f2f2f2
+        color: #a0a0a0
+        &.highlighted
+          background: $apc-orange
+          color: white
+
+div#error_explanation
+  border: 3px solid $apc-orange
+  padding: 8px 16px
+  background-color: lighten($apc-orange, 40%)
+  margin-bottom: 20px
+  h2
+    font-size: 20px
+    margin-top: 8px
+    text-transform: uppercase
+    color: $apc-orange
+    font-weight: bold
+
+label.required
+  &:after
+    content: " *"
+    color: $apc-orange
+
+.checkbox input[type="checkbox"]
+  margin-left: 0
+
+.alert.alert-alert
+  background-color: lighten($apc-orange, 40%)
+  border: 1px solid $apc-orange
+
+.field_with_errors
+  .form-control
+    background-color: lighten($apc-orange, 40%)
+    border: 1px solid $apc-orange
+
+.mg-b-10
+  margin-bottom: 10px
+
+h5.form-list-header
+  font-size: 15px
+  margin: 15px 0
+  position: relative
+  a
+    &:after
+      content: " ▼"
+      font-size: 12px
+      position: absolute
+      right: 0px
+    &.collapsed
+      &:after
+        content: " ▶"
+
+
+div#header-search
+  position: relative
+  #header-search-box
+    background-color: #fefefe
+    @include filter-gradient(#fefefe, #d6d6d6, vertical)
+    @include background-image(linear-gradient(top,  #fefefe 0%,#d6d6d6 100%))
+    .tab-pane
+      padding: 12px
+      p
+        font-size: 12px
+        margin-bottom: 0
+    li
+      a
+        border: 0
+        border-radius: 0
+        font-family: "Open Sans", Helvetica, Arial, sans-serif
+        color: #fff
+        background-color: $apc-dkblue
+        font-size: 21px
+        line-height: 48px
+        padding: 0 12px
+        padding-top: 5px
+        position: relative
+        top: -5px
+        &:hover
+          background-color: lighten($apc-dkblue, 10%)
+        &.text-left
+          text-align: left
+      &.active
+        border-top: 5px solid $brand-primary
+        a
+          background: transparent
+          color: darken($brand-primary, 25%)
+          margin-top: 0
+    .form-group
+      padding: 6px 7px
+      background-color: #aaa
+      border-radius: 2px
+      color: white
+      margin-right: 6px
+      &:last-child
+        margin-right: 0
+      span.or
+        text-transform: uppercase
+        font-size: 10px
+        margin: 0 2px
+      input[type="text"]
+        font-family: Arial, Helvetica, sans-serif
+        font-size: 12px
+        width: 145px
+
+ul#home-find-tabs
+  border-bottom: 1px solid $border-grey
+  padding-bottom: 1px
+  margin-bottom: 40px
+  li
+    a
+      font-weight: bold
+      text-transform: uppercase
+      color: white!important
+      font-size: 15px
+      letter-spacing: 0.07em
+      border: 0!important
+      background-color: #4c92dd
+      @include filter-gradient(#4c92dd, #215a88, vertical)
+      @include background-image(linear-gradient(top,  #4c92dd 0%,#215a88 100%))
+      margin-right: 4px
+      -webkit-box-shadow: inset 2px 2px 1px rgba(255,255,255,0.3), inset -1px -1px rgba(0,0,0,0.1), 1px 1px 2px rgba(0,0,0,0.5)
+      -moz-box-shadow: inset 2px 2px 1px rgba(255,255,255,0.3), inset -1px -1px rgba(0,0,0,0.1), 1px 1px 2px rgba(0,0,0,0.5)
+      box-shadow: inset 2px 2px 1px rgba(255,255,255,0.3), inset -1px -1px rgba(0,0,0,0.1), 1px 1px 2px rgba(0,0,0,0.5)
+      padding: 10px 35px
+      cursor: pointer
+    &.active
+      a
+        background-color: #215a88
+        @include filter-gradient(#215a88, #4c92dd, vertical)
+        @include background-image(linear-gradient(top,  #215a88 0%,#4c92dd 100%))
+
+#site-header
+  height: 172px
+  background-color: $brand-primary
+  background-image: url('https://rehab-reviews.s3.amazonaws.com/assets/masthead-bg.jpg')
+  background-position: 50% 50%
+  background-size: cover
+  &.home-header
+    height: 368px
+    background-position: 50% 12%
+    padding-top: 42px
+    padding-bottom: 26px
+    .search-here
+      position: relative
+      left: 36px
+      margin-top: -3px
+      text-transform: uppercase
+      color: #fff
+      text-shadow: -1px 1px 1px rgba(0,0,0,0.5)
+      img
+        position: relative
+        top: 8px
+        margin-right: 3px
+  &.listing-header
+    background-image: none
+    background-color: transparent
+    height: auto
+    h3
+      margin-bottom: 8px
+    .featured-reviews
+
+
+#map-header
+  height: 300px
+
+#header-container
+  .container
+    position: relative
+
+#header-search-bar
+  position: absolute
+  right: 0
+  top: 0
+  margin-right: 15px
+  z-index: 10
+  background-color: #fff
+  padding: 5px 8px
+  .btn-primary
+    background-color: $brand-primary
+    border-color: darken($brand-primary, 7%)
+  .form-inline
+    display: inline-block
+  input[type="text"]
+    width: 300px
+    font-size: 12px
+  .input-group-btn
+    .btn
+      padding: 7px
+      font-size: 15px
+
+.diag-container
+  background-image: url('https://rehab-reviews.s3.amazonaws.com/assets/diagbg.png')
+  display: inline-block
+  padding: 8px
+
+#content
+  background-color: #fff
+  padding: 30px 0
+  position: relative
+  color: #4e4e4e
+  h1.page-title, h2.main-title
+    font-size: 25px
+    text-transform: uppercase
+    font-weight: bold
+    margin-top: 0
+    color: lighten($apc-dkblue, 25%)
+  h3.facility-header
+    padding: 0
+    margin: 0
+    border: 0
+    font-size: 18px
+  .ad-module
+    text-align: center
+    &.leaderboard
+      margin-bottom: 30px
+    &.squares
+      margin: 30px auto
+      .ad-container
+        margin: 8px
+
+.filter-rectangle-block
+  background: #eee
+  padding: 10px
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15
+  position: relative
+  min-height: 1px
+  padding-right: 10px
+  padding-left: 10px
+
+.col-xs-15
+  width: 20%
+  float: left
+
+ul.icon-list
+  list-style-type: none
+  padding-left: 0
+  li
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+    a
+      padding: 6px 16px 6px 6px
+      min-height: 32px
+      line-height: 32px
+      color: #0f497b
+      text-transform: uppercase
+      transition: all 200ms
+      .fa
+        transition: color 200ms
+        color: $brand-primary
+        width: 16px
+        text-align: center
+        margin-right: 4px
+        vertical-align: middle
+      &:hover, &:active, &:focus
+        text-decoration: none
+        background-color: lighten($apc-dkblue, 25%)
+        color: white
+        .fa
+          color: white
+  &.map-list
+    li
+      a
+        .fa
+          font-size: 24px
+  &.heart-list
+    li
+      a
+        .fa
+          font-size: 16px
+
+#find-rehab, #find-therapist
+  p
+    margin-bottom: 40px
+    line-height: 1.5
+  #facility-by-state, #therapist-by-state
+    padding: 0 0 75px
+  #facility-by-name
+    padding-bottom: 40px
+
+.find-by-name
+  font-style: italic
+  font-size: 13px
+  color: $apc-dkblue
+  padding: 3px 0
+  border-top: 1px solid $border-grey
+  border-bottom: 1px solid $border-grey
+  a
+    color: $apc-dkblue
+    padding: 5px
+  .find-by-name-list
+    padding: 6px 3px
+    span.find-by
+      text-transform: uppercase
+      display: inline-block
+      min-width: 162px
+      margin-right: 10px
+
+#featured
+  padding: 36px 15px
+  background-color: #eee
+  color: #474747
+  margin-bottom: 36px
+  .featured-listing
+    min-height: 120px
+    padding: 15px 36px
+    &:nth-child(3)
+      clear: left
+    h5.listing-title
+      margin-top: 2px
+      margin-bottom: 6px
+    p.address
+      font-size: 12.5px
+      margin-bottom: 6px
+    p.rating
+      color: $apc-orange
+      font-size: 12px
+      margin-bottom: 6px
+      .fa
+        font-size: 16px
+        vertical-align: middle
+        margin: 1px
+        &.fa-star-o
+          color: #474747
+    p.phone
+      color: $brand-primary
+      .fa
+        font-size: 23px
+        vertical-align: -3px
+        margin-right: 3px
+        margin-left: 2px
+    .featured-listing-image
+      min-width: 170px
+      margin-right: 10px
+      position: relative
+      .featured-tag
+        position: absolute
+        top: 0
+        left: 0
+        background-color: $brand-primary
+        color: white
+        text-shadow: 1px 1px 1px (0,0,0,0.3)
+        padding: 6px 12px
+        text-transform: uppercase
+        font-size: 11.5px
+        letter-spacing: 0.03em
+    &:nth-child(1), &:nth-child(2)
+      padding-top: 0
+    &:nth-child(3), &:nth-child(4)
+      padding-bottom: 0
+
+#search-interface
+  margin-bottom: 40px
+  margin-top: 20px
+
+.filter-column
+  padding-right: 14px
+
+.filter
+  background: #eee
+  position: relative
+  margin-bottom: 20px
+  h5
+    font-size: 13.5px
+  h4.filter-header
+    color: white
+    background-color: #4c92dd
+    padding: 14px
+    letter-spacing: 0.06em
+    position: relative
+    margin-bottom: 0
+    margin-top: 0
+    .filter-expand
+      display: block
+      font-size: 18px
+      text-shadow: none
+      border: none
+      padding: 7px
+      text-align: center
+      background-color: #225b8a
+      position: absolute
+      top: 7px
+      right: 7px
+      width: 32px
+      height: 32px
+  .text-searches
+    padding: 8px 10px
+    .form-group
+      background: #fff
+      border: 1px solid #c1c1c1
+      border-radius: 3px
+      margin: 4px 0
+      padding: 3px 4px
+      input
+        background: transparent
+        border: none
+        -webkit-box-shadow: none
+        -moz-box-shadow: none
+        box-shadow: none
+        padding: 0 0 0 7px
+        font-size: 13.5px
+        line-height: 35px
+        font-family: $sans
+        width: 200px
+      .btn
+        padding: 6px 18px
+        border-radius: 0 3px 3px 0
+        border: 0
+  .filter-group
+    padding: 6px 14px 4px
+    border-bottom: 1px solid #dcdcdc
+    h5
+      color: $apc-orange
+    input[type="checkbox"]
+      margin-left: 0
+    label
+      font-size: 13px
+      font-weight: bold
+      color: #939393
+    &:last-of-type
+      border-bottom: 0
+    .btn-reset
+      padding: 3px 15px
+      margin-top: 4px
+      background: $apc-orange
+      &:hover
+        background: darken($apc-orange, 10%)
+
+.results-column
+  padding-left: 22px
+  .table-striped > tbody > tr
+    &.featured
+      border: 2px solid $brand-primary
+      td
+        padding: 6px
+    &:nth-child(odd)
+      background: #eee
+  .table > tbody > tr > td
+    border: none
+    color: #868686
+  h5
+    font-size: 14px
+    margin-top: 10px
+    padding-bottom: 10px
+    border-bottom: 1px dotted #868686
+  p.address
+    font-size: 14px
+    .fa
+      color: $brand-primary
+      font-size: 20px
+      vertical-align: -2px
+      margin: 0 2px
+  .listing-image
+    margin: 10px 0 10px 10px
+  p.description
+    font-size: 12.5px
+  p.rating
+    color: $apc-orange
+    font-size: 12px
+    margin-bottom: 6px
+    .fa
+      font-size: 16px
+      vertical-align: middle
+      margin: 1px
+      &.fa-star-o
+        color: #474747
+
+#facility-by-city
+  margin-bottom: 30px
+  h2.main-title
+    padding-bottom: 10px
+    border-bottom: 1px solid #9f9f9f
+
+#facilities_show, #therapists_show
+  #map-header
+    height: 240px
+  p.rating
+    color: $apc-orange
+    font-size: 12px
+    margin-bottom: 6px
+    .fa
+      font-size: 16px
+      vertical-align: middle
+      margin: 1px
+      &.fa-star-o
+        color: #474747
+  .sidebar-column
+    padding-left: 18px
+
+.check_insurance
+  position: relative
+  .sponsored
+    position: absolute
+    bottom: -16px
+    right: 0
+    color: black
+    font-size: 10px
+    text-transform: uppercase
+    letter-spacing: 0.02em
+    width: 100%
+    text-align: center
+
+.popover
+  text-transform: none
+
+button.benefits-check
+  border: 0
+  padding: 0
+  background: transparent
+  color: $apc-orange
+  font-size: 16px
+  .fa
+    margin-left: 2px
+
+.listing-meta
+  padding: 5px 0
+  border-top: 1px dotted #4e4e4e
+  border-bottom: 1px dotted #4e4e4e
+  margin-bottom: 30px
+  display: table
+  width: 100%
+  .meta-left, .meta-right
+    display: table-cell
+  span
+    vertical-align: middle
+    display: inline-block
+  span.meta-item
+    margin-right: 16px
+    font-size: 15px
+  span.meta-item-social-link
+    margin-right: 0
+    font-size: 15px
+    span.meta-icon
+      margin-right: 0px
+      padding-top: 2px
+  span.meta-icon
+    margin-right: 5px
+    display: inline-block
+    width: 30px
+    height: 30px
+    text-align: center
+    border-radius: 15px
+    border: 2px solid $brand-primary
+    .fa
+      color: $brand-primary
+      &.fa-map-marker
+        font-size: 26px
+        margin-left: 1px
+      &.fa-mobile
+        font-size: 26px
+      &.fa-fax
+        font-size: 16px
+        margin-top: 5px
+      &.fa-external-link
+        font-size: 16px
+        margin-top: 7px
+        margin-left: 2px
+      &.fa-cog
+        font-size: 23px
+        margin-top: 2px
+
+.profile-image
+  padding: 10px
+  border: 1px solid #acacac
+  margin-bottom: 30px
+
+
+.flexslider
+  margin-bottom: 20px
+  border: 1px solid #d3d3d3
+  padding: 5px
+  -webkit-border-radius: 0
+  -moz-border-radius: 0
+  -o-border-radius: 0
+  border-radius: 0
+  -webkit-box-shadow: none
+  -moz-box-shadow: none
+  -o-box-shadow: none
+  box-shadow: none
+  .slides
+    img
+      margin: auto
+      width: auto
+
+#profile-thumb-slider
+  padding: 8px 30px
+  border-top: 0
+  .profile-thumb-slide
+    margin: 0 5px
+    -webkit-filter: brightness(33%)
+    filter: brightness(33%)
+    cursor: pointer
+    &.flex-active-slide
+      -webkit-filter: brightness(100%)
+      filter: brightness(100%)
+      cursor: default
+      &:hover
+        -webkit-filter: brightness(100%)
+        filter: brightness(100%)
+    &:hover
+      -webkit-filter: brightness(67%)
+      filter: brightness(67%)
+  .flex-direction-nav
+    a
+      text-shadow: none
+      -webkit-transition: none
+      -moz-transition: none
+      transition: none
+      opacity: 1
+      top: 0
+      margin-top: 0
+      height: 86px
+      width: 28px
+      font-size: 0
+      background-color: #f6f6f6
+      color: #d3d3d3
+      &:hover
+        color: darken(#d3d3d3, 20%)
+        background-color: darken(#f6f6f6, 5%)
+      &:before
+        width: 100%
+        line-height: 86px
+        font-size: 18px
+        text-align: center
+      &.flex-next
+        right: 0
+        border-left: 1px solid #d3d3d3
+      &.flex-prev
+        left: 0
+        border-right: 1px solid #d3d3d3
+      &.flex-disabled
+        opacity: 1!important
+        pointer-events: none
+        &:hover
+          background-color: #f6f6f6
+          color: #d3d3d3
+
+.alert
+  &.alert-notice
+    background-color: lighten($apc-green, 50%)
+    border-color: $apc-green
+    a
+      color: $apc-green
+      font-weight: bold
+
+#profile-slider
+  margin-bottom: 0
+  .slides
+    img
+      max-width: 100%
+      max-height: 451px
+
+#profile-info-box
+  font-size: 13.5px
+  .tab-pane
+    margin-bottom: 30px
+  .nav-tabs.nav-justified
+    margin-bottom: 10px
+    li
+      a
+        border: 0
+        border-radius: 0
+        background-color: $apc-dkblue
+        color: white
+        text-transform: uppercase
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.4)
+        position: relative
+        span
+          position: relative
+        .fa
+          font-size: 16px
+          vertical-align: middle
+          position: absolute
+          left: -25px
+          width: 25px
+          text-align: center
+          top: 1px
+        &:hover
+          background-color: lighten($apc-dkblue, 10%)
+    li.active
+      a
+        border: 0
+        border-radius: 0
+        background-color: lighten($apc-dkblue, 25%)
+  h4
+    font-size: 15px
+    font-weight: normal
+    color: lighten($apc-dkblue, 25%)
+  ul.target-list
+    margin-left: 1.6em
+    margin-bottom: 16px
+    li
+      margin: 0 0 6px
+      .fa
+        color: $brand-primary
+        position: static
+        margin-left: -2.1428571429em
+  a.location-map
+    padding: 12px
+    border: 1px solid #acacac
+    display: block
+    margin-top: 8px
+  .location-info
+    margin-top: 74px
+
+h3.listing-review-guidelines, h2.listing-more-info
+  font-weight: bold
+  font-size: 21px
+  text-transform: uppercase
+  color: #2c68a1
+  padding-bottom: 10px
+  margin: 20px 0 30px
+  border-bottom: 1px solid #9f9f9f
+
+div.more-info-content
+  margin-bottom: 30px
+
+.nearbys
+  margin-bottom: 30px
+  h3
+    margin-bottom: 20px
+    margin-top: 0
+
+.mini-listing
+  tbody tr td
+    padding: 0
+    border: 0
+  p.rating
+    margin-bottom: 0!important
+  h5
+    margin-top: 0
+    padding-bottom: 8px
+    border-bottom: 1px dotted #9f9f9f
+    overflow: hidden
+    a
+      color: $apc-dkblue
+      &:hover
+        color: lighten($apc-dkblue, 25%)
+  min-height: 70px
+  position: relative
+  margin: 15px 0
+  .mini-listing-image
+    margin-right: 8px
+  .btn-readmore
+    position: absolute
+    bottom: 5px
+    right: 0
+
+#featured-listings
+  h3
+    margin-bottom: 20px
+  .mini-listing
+    background-color: #eee
+    border: 1px solid $brand-primary
+    margin-bottom: 30px
+    .address
+      margin-bottom: 10px
+    tbody tr td
+      padding: 12px
+    .btn-readmore
+      bottom: 10px
+      right: 10px
+
+
+.scrollable
+  overflow: hidden
+
+.floating-backdrop
+  background: #000
+  bottom: 0
+  display: none
+  left: 0
+  opacity: 0
+  position: fixed
+  right: 0
+  top: 0
+  z-index: 999
+
+  &.show
+    display: block
+    opacity: 0.5
+
+.ad-module
+  margin-bottom: 30px
+  &.ad-module-two-mrec
+    .ad-container
+      padding: 14px 18px
+      margin: 0 5px
+  &.ad-module-four-squares
+    .ad-container
+      padding: 14px
+      &:nth-child(1), &:nth-child(2)
+        margin-bottom: 20px
+  &.ad-module-sidebar-mrec
+    .ad-container
+      padding: 14px 18px
+
+.sidebar-module
+  margin-bottom: 30px
+  h3
+    margin-top: 0
+    margin-bottom: 10px
+    border-bottom: 1px dotted
+  &.sidebar-search-module
+    .diag-container
+      display: block
+      background: #eee
+      .form-group
+        width: 49.5%
+    input[type="text"]
+      width: 158px
+      font-family: $sans
+      font-size: 12px
+      border: 1px solid #aaa
+    .chosen-container .chosen-single
+      -webkit-box-shadow: none
+      -moz-box-shadow: none
+      box-shadow: none
+      div
+        background-color: $brand-primary
+        &:hover
+          background-color: darken($brand-primary, 15%)
+    .btn-block
+      border-radius: 2px
+      margin-top: 5px
+
+#site-footer
+  background-color: $apc-dkblue
+  padding: 20px 0
+  .footer-left
+    padding: 20px 0
+  p.copyright
+    color: #afafaf
+    text-transform: uppercase
+    margin-bottom: 0
+  .footer-nav
+    text-align: center
+    max-width: 450px
+    margin: auto
+    > li
+      display: inline-block
+      > a
+        color: #fff
+        font-weight: bold
+        text-transform: uppercase
+        font-size: 12px
+        padding: 0 7px
+        &:hover
+          background: transparent
+          color: $apc-orange
+  .footer-login
+    padding: 10px 0
+    height: 48px
+    text-align: center
+    position: relative
+    .btn-login
+      padding: 4px 30px
+      margin: 0 3px
+
+.map-infocontent
+  line-height: 1.35
+  white-space: nowrap
+  overflow: hidden
+
+#main
+  background: white
+
+.rating-interface
+  cursor: pointer
+  .star-rater
+    font-family: FontAwesome
+
+#page-header
+  .listing-ratings
+    margin: 5px 0 12px
+  .star-ratings
+    .star
+      margin-right: 4px
+      font-size: 16px
+
+.mini-listing
+  .reviews-text
+    display: block
+    font-size: 11px
+  .star-ratings
+    .star
+      margin-right: 2px
+
+.reviews-text
+  color: #aaa
+  font-size: 12px
+  vertical-align: 1px
+  &.has-reviews
+    color: $apc-orange
+
+.star-ratings
+  cursor: default
+  .star
+    font-family: FontAwesome
+    display: inline-block
+    position: relative
+    &.full-star
+      color: $apc-orange
+    &.empty-star
+      color: #aaa
+    &.half-star
+      color: #aaa
+      span
+        color: $apc-orange
+        position: absolute
+        left: 0
+        top: 0
+
+#main
+  background: white
+
+.review
+  margin-bottom: 30px
+  overflow: hidden
+  .review-body
+    padding: 14px 20px
+    background-color: #f8f8f8
+    border: 1px solid #dedede
+    position: relative
+    margin-top: 25px
+    color: #858585
+    &:before, &:after
+      content: ''
+      width: 0
+      height: 0
+      position: absolute
+      border-width: 0 30px 20px 5px
+      border-style: solid
+    &:before
+      border-color: transparent transparent #dedede
+      top: -20px
+      left: 39px
+    &:after
+      border-color: transparent transparent #f8f8f8
+      top: -18px
+      left: 40px
+    .review-avatar
+      padding-left: 6px
+      padding-right: 0
+    textarea
+      resize: vertical
+      height: 132px
+    .review-timestamp
+      color: $apc-orange
+      font-weight: bold
+  .star-ratings
+    cursor: pointer
+    .star
+      font-size: 18px
+      margin-right: 4px
+  .review-rating-text
+    vertical-align: 1px
+    margin-right: 5px
+    color: $apc-orange
+  h4
+    font-weight: bold!important
+    text-transform: none!important
+    margin-top: 10px
+    margin-bottom: 8px
+
+a#add_review, a#edit_review
+  position: relative
+  top: -10px
+
+.admin-nav
+  margin-bottom: 20px
+
+.ad-slot
+  &.navbar-leaderboard
+    clear: both
+    width: 320px
+    margin: 0 auto 14px
+
+div#mobile-header-search-bar
+  margin: 14px 50px 50px
+
+ul.directory-tree
+  padding: 0
+  list-style: none
+  float: left
+  li
+    float: left
+    display: inline-block
+    padding: 5px 10px
+    &.active a
+      color: #47637f
+      
+#any-question-section
+  text-align: center
+  display: block
+  border: #ccc solid 1px
+  font-size: 16px
+  padding: 20px 10px 0px 10px
+  margin-bottom: 30px
+  .number
+    width: 100%
+    text-align: center
+    border-bottom: 1px solid RGB(232,0,0)
+    line-height: 0.1em
+    margin:  10px 0 20px
+    color: RGB(232,0,0)
+    font-weight: bold
+    span
+      background: #fff
+      padding: 0 10px
+  .btn-call
+    background: RGB(232,0,0)
+    border-color: RGB(232,0,0)
+  .btn-email
+    background: RGB(87,87,87)
+    border-color: RGB(87,87,87)
+  p#call-email-wrapper
+    margin-bottom: 20px
+    line-height: 1
+#call-now-section
+  width: 50%
+  text-align: center
+  display: block
+  border: #ccc solid 1px
+  font-size: 20px
+  #call-now-text
+    background: #565656
+    color: #fff
+    padding: 10px 0 10px 0
+    p
+      line-height: 1
+      margin-bottom: 0
+    a
+      color: #fff
+      font-weight: bold
+      &:hover
+        text-decoration: none
+  #call-now-triangle
+    width: 0
+    height: 0
+    border-left: 170px solid transparent
+    border-right: 170px solid transparent
+    border-top: 20px solid #565656
+  #call-now-number
+    margin: 10px 0 0 0
+    color: RGB(231,0,0)
+    font-weight: bold
+    font-size: 18px
+    a
+      color: RGB(231,0,0)
+      font-size: 22px
+      &:hover
+        text-decoration: none
+        color: RGB(231,0,0)
+
+#mobile-header-call
+  background: RGB(87,87,87)
+  text-align: center
+  padding: 10px 0 0 0
+  font-weight: bold
+  border-bottom: 5px solid RGB(231,0,0)
+  p, a
+    color: #fff
+  #ins-benefits-check-icon
+    clear: both
+    margin-right: 10px
+    margin-bottom: 10px
+
+#call_now_homepage_section
+  height: auto
+  overflow: hidden
+  
+@media (min-width: 768px)
+  .col-sm-15
+    width: 20%
+    float: left
+  .sort-links
+    text-align: right
+  .image-result
+    width: 194px
+  #content
+    padding: 30px
+  .ad-slot
+    &.navbar-leaderboard
+      width: 468px
+      margin: 0 auto 14px
+
+
+@media (min-width: 992px)
+  .col-md-15
+    width: 20%
+    float: left
+  #content
+    margin: -26px auto
+    border-radius: 2px
+    border: 1px solid #c9c9c9
+    min-height: 850px
+    padding: 30px
+  .usbg
+    background-image: url('https://rehab-reviews.s3.amazonaws.com/assets/us_map_bg.png')
+    background-repeat: no-repeat
+    background-position: 50% 25px
+  #main
+    background: transparent
+  div#header-search
+    border: 7px solid rgba(0,0,0,0.6)
+    #header-search-box
+      .select-group
+        width: 240px
+  #map-header
+    border-bottom: 7px solid black
+    margin-bottom: 60px
+  .filter
+    padding-bottom: 66px
+    &:after
+      content: ''
+      width: 0
+      height: 0
+      position: absolute
+      bottom: 0
+      left: 0
+      border-top: 0px solid transparent
+      border-right: 160px solid transparent
+      border-left: 160px solid transparent
+      border-bottom: 40px solid white
+    h4.filter-header
+      background-color: lighten($apc-dkblue, 10%)
+      margin-right: -14px
+      margin-top: 15px
+      &:after
+        content: ''
+        width: 0
+        height: 0
+        bottom: -14px
+        right: 0px
+        border: 7px solid #000
+        position: absolute
+        border-bottom-color: transparent
+        border-right-color: transparent
+    .text-searches
+      .form-group
+        input
+          width: 151px
+  .ad-slot
+    &.navbar-leaderboard
+      width: 728px
+      margin: -8px auto 14px
+  .breadcrumb
+    position: absolute
+    top: -32px
+    right: -1px
+    margin-bottom: 0
+    border-radius: 4px 4px 0 0
+  #site-footer
+    .footer-left
+      float: left
+      padding: 40px 0 20px
+    .footer-nav
+      text-align: left
+      > li
+        > a
+          &:first-child
+            padding-left: 0
+    .footer-login
+      margin-top: 40px
+      float: right
+  .featured-reviews
+    margin-bottom: 60px
+    .featured-review
+      display: inline-block
+      vertical-align: top
+      max-width: 33%
+      padding: 20px
+      &:first-child
+        padding-left: 0
+      &:last-child
+        padding-right: 0
+
+@media (min-width: 1200px)
+  .col-lg-15
+    width: 20%
+    float: left
+  #featured
+    .featured-listing
+      &:nth-child(2), &:nth-child(4)
+        border-left: 1px solid #ddd
+  #search-interface
+    .filter-column
+      width: 349px
+    .results-column
+      width: 759px
+  .profile-image
+    padding: 21px
+  .content-column
+    padding-right: 38px
+  .filter
+    .text-searches
+      .form-group
+        input
+          width: 200px
+  .ad-slot
+    &.navbar-leaderboard
+      margin: 14px 14px 14px 0
+      float: right
+      clear: none
+  #site-footer
+    .footer-nav
+      max-width: 100%
+
+@media (max-width: 991px)
+  #get-started-img
+    max-width: 100%
+    height: auto
+  #site-header.home-header
+    height: auto
+    padding-top: 30px
+    .search-here
+      left: 10px
+  div#header-search
+    #header-search-box
+      margin-bottom: 10px
+      li.active
+        border-top: 0
+      li
+        a
+          top: 0
+          font-size: 17px
+          text-shadow: none
+        a.text-left
+          text-align: center
+      .form-group
+        display: block
+        margin-right: 0
+        margin-bottom: 15px
+      .tab-pane
+        padding: 12px 15px 8px
+        #q
+          margin-bottom: 6px
+        input[type="text"]
+          width: 100%
+        .btn-orange
+          width: 100%
+        span.or
+          display: none
+  nav.navbar
+    button#mainMenu
+      margin-top: 20px
+    .navbar-header
+      .navbar-brand
+        height: auto
+        padding: 15px 15px
+        img
+          max-width: 246px
+          height: auto
+  .navbar-buttons
+    background-color: #031d25
+    text-align: center
+    .btn
+      margin: 15px
+      -webkit-box-shadow: none!important
+      -moz-box-shadow: none!important
+      box-shadow: none!important
+  .find-by-name
+    .find-by-name-list
+      text-align: center
+      span.find-by
+        display: block
+  #site-footer p.copyright
+    line-height: normal
+    text-align: center
+
+
+@media (max-width: 767px)
+  .container
+    > .navbar-header
+      float: left
+  .content-container
+    width: 100%
+  .navbar-form
+    margin-left: 0
+    margin-right: 0
+  div#header-search
+    #header-search-box
+      li a
+        float: left
+        width: 50%
+        font-size: 15px
+        line-height: 40px
+  .navbar-buttons
+    .btn
+      margin: 15px 4px
+      padding: 8px 15px!important
+  .search-here-container
+    padding: 0 25px
+  ul.icon-list
+    li
+      a
+        padding: 2px
+        line-height: normal
+        display: block
+        margin-bottom: 6px
+        min-height: 0
+    &.map-list li a .fa
+      font-size: 18px
+      width: 14px
+      margin-right: 2px
+    &.heart-list li a .fa
+      font-size: 12px
+      width: 12px
+      margin-right: 0
+  ul#home-find-tabs
+    li
+      a
+        font-size: 13px
+        padding: 10px 17px
+  #content h1.page-title, #content h2.main-title, h3
+    font-size: 16px
+  #find-rehab #facility-by-state, #find-rehab #therapist-by-state, #find-therapist #facility-by-state, #find-therapist #therapist-by-state
+    padding-bottom: 35px
+  .find-by-name
+    font-size: 12px
+  #content .ad-module.squares
+    .ad-container
+      &:nth-child(1)
+        margin: 8px 4px 8px 0
+      &:nth-child(2)
+        margin: 8px 0 8px 4px
+  #map-header
+    height: 370px
+  #featured .featured-listing
+    p.address
+      font-size: 11px
+      line-height: normal
+    .featured-listing-image
+      min-width: 100px
+      min-height: 130px
+      img
+        width: 98px
+        height: auto
+  .filter
+    .text-searches
+      background-color: #225b8a
+      .form-group
+        position: relative
+        input
+          width: 65%
+        .btn
+          position: absolute
+          top: 5px
+          right: 5px
+  .sort-links
+    margin-bottom: 10px
+  .results-column
+    h5
+      margin-top: 0
+      font-size: 12px
+    .image-result
+      width: 100px
+      img
+        width: 98px
+        height: auto
+        margin: 0
+    p.address
+      font-size: 11px
+    p.description
+      display: none
+    .btn
+      padding: 1px 5px
+    p.rating
+      .fa
+        font-size: 15px
+        margin: 1px 0 0 0
+    .nav-tabs.nav-justified
+      display: table
+      > li
+        display: table-cell
+        width: 33.333%
+        .fa
+          display: none
+        a
+          font-size: 11px
+          padding: 8px
+  #profile-info-box
+    a.location-map
+      margin: 8px auto
+      max-width: 426px
+    .location-info
+      margin: 15px auto
+      max-width: 426px
+  .listing-meta
+    span.meta-item
+      margin: 5px 0
+      display: block
+    span.address-span
+      max-width: 84%
+  .mini-listing
+    .btn-readmore
+      padding: 1px 5px
+  #facilities_show, #therapists_show
+    .mini-listing
+      p.rating
+        .fa
+          font-size: 15px
+          margin: 1px 0 0 0
+  h5
+    font-size: 12px
+
+
+@media (min-width: 768px) and (max-width: 991px)
+  body
+    font-size: 13px
+  .filter
+    .text-searches
+      background-color: #225b8a
+      .form-group
+        input
+          width: 215px
+  #map-header
+    height: 430px
+  .listing-meta
+    span.meta-item
+      margin-bottom: 5px
+      margin-top: 5px
+  #profile-info-box .location-info
+    margin-top: 54px
+  #call-now-section #call-now-triangle
+    border-right: 165px solid transparent
+    border-left: 165px solid transparent
+
+@media (min-width: 992px) and (max-width: 1199px)
+  .search-here-container
+    padding-left: 29px
+    padding-right: 29px
+  body
+    font-size: 13px
+  #search-interface
+    .filter-column
+      width: 32.88%
+    .results-column
+      width: 67.12%
+  #map-header
+    height: 440px
+  .profile-image
+    display: block
+    width: 640px
+    margin: 0 auto 30px
+  .breadcrumb
+    top: -30px
+  #call-now-section #call-now-triangle
+    border-right: 142px solid transparent
+    border-left: 142px solid transparent
+
+@media (max-width: 1199px)
+  #featured
+    padding: 15px 0 0
+    .featured-listing
+      min-height: 145px
+      padding: 5px 30px
+      
+.display-block-100p
+  display: block
+  width: 100%!important
+.call-now-btn
+  color: RGB(231,0,0)
+  line-height: 0.5
+  text-shadow: none
+  &:hover
+    color: RGB(231,0,0)
+    font-weight: bold
+
+@media (max-width: 320px)
+  #call-now-section
+    width: 100%
+  #call-now-section #call-now-triangle
+    border-right: 140px solid transparent
+    border-left: 140px solid transparent
+
+@media (min-width: 321px) and (max-width: 375px)
+  #call-now-section
+    width: 100%
+
+@media (min-width: 376px) and (max-width: 415px)
+  #call-now-section
+    width: 100%
+  #call-now-section #call-now-triangle
+    border-right: 190px solid transparent
+    border-left: 190px solid transparent
+    
+.padding-top-80p
+  padding-top: 80px
+.padding-top-100p
+  padding-top: 100px
+.padding-top-152p
+  padding-top: 152px
+.padding-top-252p
+  padding-top: 252px
+.padding-top-182p
+  padding-top: 182px
+.margin-bottom-10p
+  margin-bottom: 10px!important
+.margin-top-10p
+  margin-top: 10px!important
+.margin-bottom-0p
+  margin-bottom: 0px!important
+.flat_on_desktop
+  display: none
+#div-gpt-ad-1508181973991-0
+  height: 100px
+  width: 320px
+  text-align: center
+  margin: 0 auto
+@media (max-width: 320px)
+  #div-gpt-ad-1508181973991-0
+    height: 100px
+    width: 320px
+    text-align: left
+    margin: 0
+.top-ad-slot-with-sponsored-ad
+  margin: 5px 15px 0 0!important
+  position: relative
+.ad-slot-with-sponsored-ad
+  margin-top: 0
+  position: relative
+  margin-bottom: 5px
+.fixed-top-ad-slot-with-sponsored-ad
+  position: relative
+  height: 20px
+.sponsored-ad
+  text-align: center
+  color: #000000
+  display: block
+  font-size: 12px
+.sponsored-ad-fixed_nav_for_mobile
+  color: #000
+  display: block
+  text-align: center
+  font-size: 12px
+.m-t-15p
+  margin-top: 15px!important
