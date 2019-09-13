@@ -37,7 +37,8 @@
           <i class="fa fa-external-link"></i>
         </span>
         <span>
-          <%= link_to url_domain(@listing.website), @listing.website, :target => "_blank" %>
+          <%#= link_to url_domain(@listing.website), @listing.website, :target => "_blank" %>
+          <%= link_to "Visit Website", @listing.website, :target => "_blank" %>
         </span>
       </span>
     <% end %>
