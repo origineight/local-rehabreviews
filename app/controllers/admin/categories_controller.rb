@@ -4,7 +4,7 @@ class Admin::CategoriesController < ApplicationController
   before_filter :obtain_category, only: [:edit, :update, :destroy]
 
   def index
-    @categories = Category.page(params[:page]).per(100)
+    @categories = Category.order(created_at: :desc).page(params[:page]).per(100)
   end
 
   def new
