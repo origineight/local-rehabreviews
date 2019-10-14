@@ -12,9 +12,9 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
+/log
 /log/*.log
 /tmp
-
 # Ignore DB Dumps and .envs
 /db_dump
 /dump
@@ -27,7 +27,6 @@ all_therapists.json
 # Ignore this stuff too
 /ngrok
 coverage
-.ruby-version
 Guardfile
 *.pem
 public/assets
