@@ -26,12 +26,14 @@ Rails.application.routes.draw do
   get '/admin/members' => 'members#members'
   get '/admin/members/:id/profile' => 'members#profile', as: :member_profile
   get '/admin/cities/search' => 'admin/cities#search'
+  get '/admin/categories/search' => 'admin/categories#search'
 
   # Admins
   namespace :admin do
     resources :bloggers, except: :show
     resources :cities, except: :show
     resources :members, only: [:new, :create]
+    resources :categories
   end
 
   root to: 'pages#index'

@@ -7,5 +7,6 @@
       <a class="btn btn-primary<%= " active" if params[:action] == "members" %>" href="/admin/members">Members</a>
       <%= link_to 'Bloggers', :admin_bloggers, class: "btn btn-primary #{'active' if(params[:action] == 'index' && params[:controller] == 'admin/bloggers')}" %>
       <%= link_to 'Cities', :admin_cities, class: "btn btn-primary #{'active' if(params[:action] == 'index' && params[:controller] == 'admin/cities')}" %>
+      <%= link_to 'Categories', :admin_categories, class: "btn btn-primary #{'active' if(params[:action] == 'index' && params[:controller] == 'admin/categories')}" %>
     </div>
   </div>

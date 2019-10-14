@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title"><a id="category_info_expand" data-toggle="collapse" data-target="#category_info" href="#">Category Information</a></h4>
+    <script>
+      $('#category_info_expand').on('click', function(e) {
+        e.preventDefault();
+      });
+    </script>
+  </div>
+  <div id="city_info" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <div class="form-group required">
+        <%= f.label :name, class: 'control-label col-sm-2' %>
+        <div class="col-sm-10">
+          <%= f.text_field :name, :required => true, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group required">
+        <%= f.label :description, class: 'control-label col-sm-2' %>
+        <div class="col-sm-10">
+          <%= f.text_area :description, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group required">
+        <%= f.label :meta_name, class: 'control-label col-sm-2' %>
+        <div class="col-sm-10">
+          <%= f.text_field :meta_name, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group required">
+        <%= f.label :meta_description, class: 'control-label col-sm-2' %>
+        <div class="col-sm-10">
+          <%= f.text_area :meta_description, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group required">
+        <%= f.label :category_subhead, class: 'control-label col-sm-2' %>
+        <div class="col-sm-10">
+          <%= f.text_field :category_subhead, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group required">
+        <%= f.label :boostable, class: 'control-label col-sm-2' %>
+        <div class="col-sm-10">
+          <%= f.check_box :boostable %>
+        </div>
+      </div>
+      <p class="required-message strong text-right"><span class="red">*</span> Denotes a required field.</p>
+    </div>
+  </div>
+</div>

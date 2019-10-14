@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading" id="admin_listings_head">
+    <h2 class="panel-title"><a data-toggle="collapse" href="#admin_listings" aria-expanded="true" aria-controls="admin_listings">Categories</a></h2>
+  </div>
+  <div id="admin_listings" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="admin_listings_head">
+    <div class="panel-body">
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Boostable</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @categories.each do |cat| %>
+            <tr>
+              <td><%= cat.try(:name) %></td>
+              <td><%= cat.boostable? ? 'T' : 'F'%></td>
+              <td>
+                <%= link_to "Edit", edit_admin_category_path(cat), class: 'btn btn-orange btn-mini', id: "edit-city-#{cat.id}" %>
+                <%= link_to "Delete", admin_category_path(cat), method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: 'btn btn-danger btn-mini', id: "delete-city-#{cat.id}" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @categories %>
+    </div>
+  </div>
+</div>
