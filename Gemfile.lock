@@ -509,6 +509,7 @@ DEPENDENCIES
   recaptcha
   rollbar
   rspec-rails (~> 3.0)
+  rubyzip
   sanitize
   sass-rails!
   sdoc (~> 0.4.0)

@@ -98,3 +98,4 @@ gem 'oj', '~> 2.12.14'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'rails_amp'
 gem 'country_select'
+gem 'rubyzip'
