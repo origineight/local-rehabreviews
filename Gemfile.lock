@@ -1,5 +1,14 @@
 GIT
-  remote: git://github.com/rails/sass-rails.git
+  remote: https://github.com/chetan/simplecov-console.git
+  revision: c32de9d0bddd971e71472d0139e1dadd085f1a87
+  specs:
+    simplecov-console (0.2.0)
+      ansi
+      hirb
+      simplecov
+
+GIT
+  remote: https://github.com/rails/sass-rails.git
   revision: 8588b7b31d708a91516ae3bda0f57601a860ec28
   branch: 4-0-stable
   specs:
@@ -8,15 +17,6 @@ GIT
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-
-GIT
-  remote: https://github.com/chetan/simplecov-console.git
-  revision: c32de9d0bddd971e71472d0139e1dadd085f1a87
-  specs:
-    simplecov-console (0.2.0)
-      ansi
-      hirb
-      simplecov
 
 GEM
   remote: https://rubygems.org/
@@ -418,10 +418,10 @@ GEM
     summernote-rails (0.6.16.0)
       railties (>= 3.1)
     thor (0.19.1)
-    thread_safe (0.3.4)
+    thread_safe (0.3.6)
     tilt (1.4.1)
     timeliness (0.3.7)
-    tzinfo (1.2.2)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (2.7.0)
       execjs (>= 0.3.0)
