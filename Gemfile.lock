@@ -1,5 +1,14 @@
 GIT
-  remote: git://github.com/rails/sass-rails.git
+  remote: https://github.com/chetan/simplecov-console.git
+  revision: c32de9d0bddd971e71472d0139e1dadd085f1a87
+  specs:
+    simplecov-console (0.2.0)
+      ansi
+      hirb
+      simplecov
+
+GIT
+  remote: https://github.com/rails/sass-rails.git
   revision: 8588b7b31d708a91516ae3bda0f57601a860ec28
   branch: 4-0-stable
   specs:
@@ -8,15 +17,6 @@ GIT
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-
-GIT
-  remote: https://github.com/chetan/simplecov-console.git
-  revision: c32de9d0bddd971e71472d0139e1dadd085f1a87
-  specs:
-    simplecov-console (0.2.0)
-      ansi
-      hirb
-      simplecov
 
 GEM
   remote: https://rubygems.org/
@@ -47,7 +47,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    addressable (2.3.8)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     ae-validates_timeliness (4.0.0)
       rails (~> 4.0)
       timeliness (~> 0.3.7)
@@ -299,6 +300,7 @@ GEM
     pry-byebug (3.2.0)
       byebug (~> 5.0)
       pry (~> 0.10)
+    public_suffix (3.1.1)
     puma (3.6.2)
     puma_worker_killer (0.0.7)
       get_process_mem (~> 0.2)
